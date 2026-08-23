@@ -3,7 +3,8 @@ import Foundation
 extension KnownApps {
     public static let maccy = KnownAppDescriptor(
         bundleID: "org.p0deje.Maccy", name: "Maccy",
-        defaultFileURL: prefs.appendingPathComponent("org.p0deje.Maccy.plist")
+        // Maccy 2.x는 샌드박스 앱 — 컨테이너 경로가 우선 (2026-08-23 실측, brew cask 2.x)
+        candidateFileURLs: [containerPrefs("org.p0deje.Maccy"), prefs.appendingPathComponent("org.p0deje.Maccy.plist")]
     ) { root in
         root.compactMap { key, value in
             guard key.hasPrefix("KeyboardShortcuts_"), let s = value as? String,

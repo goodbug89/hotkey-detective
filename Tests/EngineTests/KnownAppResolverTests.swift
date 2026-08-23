@@ -51,6 +51,22 @@ final class KnownAppResolverTests: XCTestCase {
         XCTAssertTrue(r.resolve(KeyCombo(keyCode: 123, modifiers: [.control, .option]), probe: nil).isEmpty)
     }
 
+    func testCandidateFileURLsPickFirstExisting() {
+        let dir = FileManager.default.temporaryDirectory.appendingPathComponent("cand-\(UUID())")
+        try! FileManager.default.createDirectory(at: dir, withIntermediateDirectories: true)
+        let missing = dir.appendingPathComponent("missing.plist")
+        let present = dir.appendingPathComponent("present.plist")
+        try! FileManager.default.copyItem(at: fixture("maccy"), to: present)
+        let d = KnownAppDescriptor(bundleID: "org.p0deje.Maccy", name: "Maccy", candidateFileURLs: [missing, present], parse: KnownApps.maccy.parse)
+        XCTAssertEqual(d.resolvedFileURL, present)
+        let e = KnownAppResolver(descriptor: d, running: Running(ids: [])).resolve(KeyCombo(keyCode: 9, modifiers: [.command, .shift]), probe: nil)
+        XCTAssertEqual(e.first?.owner, .app(bundleID: "org.p0deje.Maccy", name: "Maccy", action: "popup"))
+    }
+
+    func testMaccyDescriptorPrefersSandboxContainer() {
+        XCTAssertTrue(KnownApps.maccy.candidateFileURLs[0].path.contains("Library/Containers/org.p0deje.Maccy/"))
+    }
+
     func testMaccyCarbonFormat() {
         let r = KnownAppResolver(descriptor: KnownApps.maccy, fileURL: fixture("maccy"), running: Running(ids: ["org.p0deje.Maccy"]))
         let e = r.resolve(KeyCombo(keyCode: 9, modifiers: [.command, .shift]), probe: nil)
