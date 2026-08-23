@@ -29,25 +29,44 @@ final class ProbeSession: ObservableObject {
     }
 
     func refreshPermission() {
-        if AccessibilityGate.isTrusted(prompt: false) || limitedMode {
-            permissionPoll?.invalidate(); permissionPoll = nil
+        if AccessibilityGate.isTrusted(prompt: false) {
+            // 권한이 실제로 생겼으면 제한 모드를 벗어난다.
+            limitedMode = false
+            stopPermissionPoll()
+            if case .needsPermission = state { state = .idle }
+        } else if limitedMode {
+            stopPermissionPoll()
             if case .needsPermission = state { state = .idle }
         } else {
             switch state {
             case .idle, .needsPermission: state = .needsPermission
             default: break
             }
-            if permissionPoll == nil {
-                permissionPoll = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [weak self] _ in
-                    Task { @MainActor in self?.refreshPermission() }
-                }
-            }
+            startPermissionPoll()
         }
+    }
+
+    /// 사용자가 시스템 설정에서 권한을 켜는 순간을 감지하기 위한 폴링
+    private func startPermissionPoll() {
+        guard permissionPoll == nil else { return }
+        permissionPoll = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [weak self] _ in
+            Task { @MainActor in self?.refreshPermission() }
+        }
+    }
+
+    private func stopPermissionPoll() {
+        permissionPoll?.invalidate(); permissionPoll = nil
     }
 
     func requestPermission() {
         _ = AccessibilityGate.isTrusted(prompt: true)
         AccessibilityGate.openSettings()
+        refreshPermission()
+    }
+
+    func openInputMonitoringSettings() {
+        AccessibilityGate.openInputMonitoringSettings()
+        refreshPermission()
     }
 
     func useLimitedMode() { limitedMode = true; refreshPermission() }
@@ -63,7 +82,11 @@ final class ProbeSession: ObservableObject {
                 switch outcome {
                 case .combo(let c): self.resolve(c, withProbe: true)
                 case .cancelled, .timedOut: self.state = .idle
-                case .tapFailed: self.limitedMode = false; self.state = .needsPermission
+                case .tapFailed:
+                    // 탭 생성 실패 = 손쉬운 사용/입력 모니터링 중 하나가 빠진 상태.
+                    self.limitedMode = false
+                    self.state = .needsPermission
+                    self.startPermissionPoll()
                 }
             }
         }
