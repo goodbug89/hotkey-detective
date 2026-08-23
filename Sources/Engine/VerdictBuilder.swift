@@ -28,12 +28,19 @@ public enum VerdictBuilder {
         return .free(sorted)
     }
 
-    /// 신뢰도 내림차순을 유지하며 owner 중복 제거 (nil 제외)
+    /// 신뢰도 내림차순을 유지하며 owner 중복 제거 (nil 제외).
+    /// 앱은 bundleID, 시스템은 기능명으로 동일성을 판단한다 — 같은 앱을 가리키는 증거가
+    /// 액션 유무만 달라도(설정 파서 vs 반응 감지) 한 소유자로 합치고, 액션이 있는 쪽을 남긴다.
     private static func uniqueOwners(_ evidence: [Evidence]) -> [Owner] {
-        var seen = Set<Owner>(), out: [Owner] = []
+        var index: [String: Int] = [:], out: [Owner] = []
         for e in evidence {
-            guard let o = e.owner, !seen.contains(o) else { continue }
-            seen.insert(o); out.append(o)
+            guard let o = e.owner else { continue }
+            if let i = index[o.identity] {
+                if case .app(_, _, nil) = out[i], case .app(_, _, .some) = o { out[i] = o }
+            } else {
+                index[o.identity] = out.count
+                out.append(o)
+            }
         }
         return out
     }

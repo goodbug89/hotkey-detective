@@ -56,6 +56,20 @@ final class VerdictBuilderTests: XCTestCase {
         XCTAssertEqual(e.count, 1)
     }
 
+    func testSameAppWithAndWithoutActionIsOneOwnerKeepingAction() {
+        let maccyNoAction = Owner.app(bundleID: "org.p0deje.Maccy", name: "Maccy", action: nil)
+        let maccyPopup = Owner.app(bundleID: "org.p0deje.Maccy", name: "Maccy", action: "popup")
+        // 반응 감지(high, 액션 없음)가 정렬상 먼저 와도 액션 있는 쪽을 남겨야 한다
+        guard case .likely(let o, let e) = VerdictBuilder.build([ev(maccyNoAction, .high, src: "반응 감지"), ev(maccyPopup, .high, src: "Maccy 설정")]) else { return XCTFail() }
+        XCTAssertEqual(o, maccyPopup)
+        XCTAssertEqual(e.count, 2)
+    }
+
+    func testDifferentAppsStillContested() {
+        guard case .contested(let owners, _) = VerdictBuilder.build([ev(ray, .high), ev(rect, .high)]) else { return XCTFail() }
+        XCTAssertEqual(owners.count, 2)
+    }
+
     func testOwnerDisplayName() {
         XCTAssertEqual(sys.displayName, "영역 스크린샷 (시스템)")
         XCTAssertEqual(rect.displayName, "Rectangle · 왼쪽 절반")

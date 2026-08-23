@@ -9,6 +9,14 @@ public enum Owner: Hashable, Codable {
     case system(feature: String)
     case app(bundleID: String, name: String, action: String?)
 
+    /// 소유자 동일성 키: 앱은 bundleID, 시스템은 기능명. 액션은 무시한다.
+    public var identity: String {
+        switch self {
+        case .system(let f): return "system:\(f)"
+        case .app(let bid, _, _): return "app:\(bid)"
+        }
+    }
+
     public var displayName: String {
         switch self {
         case .system(let f): return "\(f) (시스템)"
