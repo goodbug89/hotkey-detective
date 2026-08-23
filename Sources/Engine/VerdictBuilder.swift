@@ -11,10 +11,16 @@ public enum VerdictBuilder {
             return $0.rationale < $1.rationale
         }
 
-        // 규칙 1: certain
+        // 규칙 1: certain. 단, certain 소유자가 하나여도 다른 소유자가 high 이상 증거를
+        // 가지면 contested — "시스템 단축키인데 앱도 등록한" 실제 충돌이 바로 이 모양이다.
         let certainOwners = uniqueOwners(sorted.filter { $0.confidence == .certain })
-        if certainOwners.count == 1 { return .confirmed(certainOwners[0], sorted) }
         if certainOwners.count > 1 { return .contested(certainOwners, sorted) }
+        if let certain = certainOwners.first {
+            let rivals = uniqueOwners(sorted.filter { $0.confidence >= .high })
+                .filter { $0.identity != certain.identity }
+            if rivals.isEmpty { return .confirmed(certain, sorted) }
+            return .contested([certain] + rivals, sorted)
+        }
 
         // 규칙 2~3: medium 이상 non-nil owner
         let candidates = uniqueOwners(sorted.filter { $0.confidence >= .medium })

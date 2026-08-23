@@ -70,6 +70,18 @@ final class VerdictBuilderTests: XCTestCase {
         XCTAssertEqual(owners.count, 2)
     }
 
+    func testCertainPlusDifferentHighOwnerIsContested() {
+        // 시스템 단축키(certain) + 다른 앱의 설정 증거(high) = 실제 충돌
+        guard case .contested(let owners, _) = VerdictBuilder.build([ev(sys, .certain), ev(ray, .high)]) else { return XCTFail() }
+        XCTAssertEqual(owners, [sys, ray], "certain이 먼저")
+    }
+
+    func testCertainPlusDifferentMediumOwnerStaysConfirmed() {
+        // medium(2개 앱 반응 등)은 contested를 일으킬 만큼 강하지 않다
+        guard case .confirmed(let o, _) = VerdictBuilder.build([ev(sys, .certain), ev(ray, .medium)]) else { return XCTFail() }
+        XCTAssertEqual(o, sys)
+    }
+
     func testOwnerDisplayName() {
         XCTAssertEqual(sys.displayName, "영역 스크린샷 (시스템)")
         XCTAssertEqual(rect.displayName, "Rectangle · 왼쪽 절반")

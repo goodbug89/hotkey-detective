@@ -159,7 +159,7 @@ protocol HotKeyRegistrar {
 
 ## 7. VerdictBuilder 규칙 (순서대로 첫 매칭)
 
-1. `certain` 증거의 owner 집합이 1개 → `confirmed`. 2개 이상 → `contested`.
+1. `certain` 증거의 owner 집합이 2개 이상 → `contested`. 1개면: 다른 owner가 `high` 이상 증거를 가지면 `contested`(certain 우선 정렬), 아니면 `confirmed`. *(2026-08-23 개정: ⌃Space에서 시스템 certain + Maccy high가 confirmed로 나와 11절 체크리스트의 contested 기대와 어긋남을 실기로 확인, 규칙을 의도에 맞게 수정)*
 2. `certain` 없음. `high` 이상 증거의 non-nil owner 집합이 정확히 1개 → `likely`.
 3. non-nil owner 후보가 2개 이상 → `contested` (최고 신뢰도순 정렬).
 4. owner가 전부 nil이지만 증거 존재 → `occupiedUnknown`.
