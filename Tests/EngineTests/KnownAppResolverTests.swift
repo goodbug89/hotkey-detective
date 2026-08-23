@@ -23,6 +23,34 @@ final class KnownAppResolverTests: XCTestCase {
         XCTAssertTrue(e.first!.rationale.contains("실행 중 아님"))
     }
 
+    func testRectangleDefaultTableUsedWhenPlistLacksAction() {
+        // 실제 Rectangle plist에는 기본 단축키가 없다 — leftHalf는 Recommended 기본 테이블에서 와야 한다
+        let r = KnownAppResolver(descriptor: KnownApps.rectangle, fileURL: fixture("rectangle"), running: Running(ids: ["com.knollsoft.Rectangle"]))
+        let e = r.resolve(KeyCombo(keyCode: 45, modifiers: [.control, .option]), probe: nil)   // reflowTodo (plist)
+        XCTAssertEqual(e.first?.owner, .app(bundleID: "com.knollsoft.Rectangle", name: "Rectangle", action: "reflowTodo"))
+    }
+
+    func testRectanglePlistOverridesDefault() {
+        let r = KnownAppResolver(descriptor: KnownApps.rectangle, fileURL: fixture("rectangle"), running: Running(ids: []))
+        XCTAssertTrue(r.resolve(KeyCombo(keyCode: 124, modifiers: [.control, .option]), probe: nil).isEmpty, "기본 ⌃⌥→는 덮어써져야 함")
+        XCTAssertEqual(r.resolve(KeyCombo(keyCode: 124, modifiers: [.option, .command]), probe: nil).first?.owner,
+                       .app(bundleID: "com.knollsoft.Rectangle", name: "Rectangle", action: "rightHalf"))
+    }
+
+    func testRectangleEmptyEntryDisablesDefault() {
+        let r = KnownAppResolver(descriptor: KnownApps.rectangle, fileURL: fixture("rectangle"), running: Running(ids: []))
+        XCTAssertTrue(r.resolve(KeyCombo(keyCode: 126, modifiers: [.control, .option]), probe: nil).isEmpty, "topHalf 빈 dict = 해제")
+    }
+
+    func testRectangleSpectacleSetWhenFlagAbsent() {
+        let tmp = FileManager.default.temporaryDirectory.appendingPathComponent("rect-\(UUID()).plist")
+        try! PropertyListSerialization.data(fromPropertyList: ["SUHasLaunchedBefore": true], format: .xml, options: 0).write(to: tmp)
+        let r = KnownAppResolver(descriptor: KnownApps.rectangle, fileURL: tmp, running: Running(ids: []))
+        XCTAssertEqual(r.resolve(KeyCombo(keyCode: 123, modifiers: [.option, .command]), probe: nil).first?.owner,
+                       .app(bundleID: "com.knollsoft.Rectangle", name: "Rectangle", action: "leftHalf"))
+        XCTAssertTrue(r.resolve(KeyCombo(keyCode: 123, modifiers: [.control, .option]), probe: nil).isEmpty)
+    }
+
     func testMaccyCarbonFormat() {
         let r = KnownAppResolver(descriptor: KnownApps.maccy, fileURL: fixture("maccy"), running: Running(ids: ["org.p0deje.Maccy"]))
         let e = r.resolve(KeyCombo(keyCode: 9, modifiers: [.command, .shift]), probe: nil)
