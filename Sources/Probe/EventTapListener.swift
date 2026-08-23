@@ -13,6 +13,9 @@ public final class EventTapListener {
 
     public init(timeout: TimeInterval = 15) { self.timeout = timeout }
 
+    deinit { stop() }
+
+    /// Caller must keep a strong reference to this instance until the handler is called with an outcome.
     public func start(_ handler: @escaping (Outcome) -> Void) {
         stop()
         self.handler = handler
