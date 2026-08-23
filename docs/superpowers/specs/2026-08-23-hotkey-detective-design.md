@@ -131,6 +131,8 @@ protocol HotKeyRegistrar {
 - `probe` 불필요 (제한 모드에서도 동작).
 
 ### 6.2 CarbonOccupancyResolver
+> **[실측 한계 2026-08-23]** `eventHotKeyExistsErr(-9878)`는 같은 프로세스 내 중복 등록에서만 발생한다. Rectangle(Carbon 핫키 사용)이 잡은 ⌃⌥→에도 `registeredAndReleased`가 반환됨. 따라서 이 Resolver는 실전에서 증거를 내지 못하며, "점유 여부 100%"라는 설계 가정은 틀렸다. 해롭지 않아 유지하되 신호로 기대하지 않는다. 대안(CGSGetGlobalHotKeys 등 비공개 API)은 v2 검토.
+
 - `HotKeyRegistrar.tryRegister(combo)` 호출. `.occupied`(`eventHotKeyExistsErr`, -9878) → `Evidence(owner: nil, confidence: .high, rationale: "다른 프로세스가 Carbon 핫키로 등록함")`.
 - 성공 시 즉시 해제, 증거 없음. `.error`는 로그만.
 - `probe` 불필요.
@@ -257,6 +259,7 @@ Engine 모듈 XCTest. 실제 권한 불필요.
 
 - 각 KnownApp의 실제 설정 경로와 키 이름.
 - `REACTION_DELAY` 300ms가 Raycast/Alfred 창 표시에 충분한지 실측.
+  - **[검증됨 2026-08-23]** Rectangle 0.99 설치 후 ⌃⌥→ → `likely(Rectangle · rightHalf)` (기본 테이블 경로). Rectangle은 기본 단축키를 plist에 쓰지 않음 → 파서에 Recommended/Spectacle 기본 테이블 추가.
   - **[검증됨 2026-08-23]** ⌘Space → `confirmed(Spotlight 검색)`, 근거 2건: 시스템 단축키 64 + 반응 감지 "334ms 후 Spotlight 새 창 1개". 300ms 유지. ⌃⌥⌘F12 → `free`, 근거 0건 (fn 비트 제거 동작 확인). Rectangle/Maccy/Raycast·contested 케이스는 해당 앱 미설치로 미검증.
 - `.cgSessionEventTap`에서 Carbon 핫키로 소비되는 이벤트가 listenOnly 탭에 도달하는지 확인 (예상: 도달함). 아니면 `.cgHIDEventTap`으로 전환.
   - **[검증됨 2026-08-23, 번들 앱 + 손쉬운 사용/입력 모니터링 허용]** ⇧⌘4 입력이 `.cgSessionEventTap` listenOnly 탭에 도달, 판정 `confirmed(system("영역 스크린샷"))`, 근거 1건(시스템 단축키 항목 30). 반응 감지·Carbon 점유 증거 없음은 예상대로.

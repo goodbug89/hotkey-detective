@@ -46,8 +46,8 @@ public struct KnownAppResolver: Resolver {
                      owner: .app(bundleID: descriptor.bundleID, name: descriptor.name, action: hit.action),
                      confidence: isRunning ? .high : .low,
                      rationale: isRunning
-                        ? "\(descriptor.name) 설정 파일에 '\(hit.action)' = \(combo.display)"
-                        : "\(descriptor.name) 설정에 '\(hit.action)' = \(combo.display) — 현재 실행 중 아님, 실행 시 충돌 예상")
+                        ? "\(descriptor.name) 단축키 '\(hit.action)' = \(combo.display)"
+                        : "\(descriptor.name) 단축키 '\(hit.action)' = \(combo.display) — 현재 실행 중 아님, 실행 시 충돌 예상")
         }
     }
 }
