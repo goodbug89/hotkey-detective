@@ -8,5 +8,14 @@ rm -rf "$APP"
 mkdir -p "$APP/Contents/MacOS" "$APP/Contents/Resources"
 cp ".build/$CONF/HotkeyDetective" "$APP/Contents/MacOS/"
 cp Resources/Info.plist "$APP/Contents/"
-codesign --force --sign - "$APP"      # ad-hoc. 배포 시 Developer ID로 교체
+# 서명: CODESIGN_IDENTITY 환경변수 > Developer ID Application > ad-hoc.
+# 고정된 인증서로 서명해야 재빌드 후에도 손쉬운 사용/입력 모니터링 권한이 유지된다.
+IDENTITY="${CODESIGN_IDENTITY:-$(security find-identity -v -p codesigning 2>/dev/null | grep -o '"Developer ID Application: [^"]*"' | head -1 | tr -d '"')}"
+if [ -n "$IDENTITY" ]; then
+  codesign --force --options runtime --timestamp=none --sign "$IDENTITY" "$APP"
+  echo "signed with: $IDENTITY"
+else
+  codesign --force --sign - "$APP"
+  echo "signed ad-hoc (no Developer ID found) — 재빌드마다 권한 재허용 필요"
+fi
 echo "built $APP"
