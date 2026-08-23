@@ -1,0 +1,18 @@
+import Foundation
+
+extension KnownApps {
+    public static let maccy = KnownAppDescriptor(
+        bundleID: "org.p0deje.Maccy", name: "Maccy",
+        defaultFileURL: prefs.appendingPathComponent("org.p0deje.Maccy.plist")
+    ) { root in
+        root.compactMap { key, value in
+            guard key.hasPrefix("KeyboardShortcuts_"), let s = value as? String,
+                  let data = s.data(using: .utf8),
+                  let j = (try? JSONSerialization.jsonObject(with: data)) as? [String: Any],
+                  let k = (j["carbonKeyCode"] as? NSNumber)?.uint16Value,
+                  let m = (j["carbonModifiers"] as? NSNumber)?.uint32Value else { return nil }
+            return (action: String(key.dropFirst("KeyboardShortcuts_".count)),
+                    combo: KeyCombo(keyCode: k, modifiers: Modifiers(carbon: m)))
+        }
+    }
+}
