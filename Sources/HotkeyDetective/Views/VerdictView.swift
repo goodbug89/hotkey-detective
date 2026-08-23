@@ -49,6 +49,7 @@ struct VerdictView: View {
 
     private func styled(_ s: String, _ c: Color) -> some View {
         Text(s).font(.headline).foregroundStyle(c)
+            .fixedSize(horizontal: false, vertical: true)
     }
 
     private func dots(_ c: Confidence) -> some View {
