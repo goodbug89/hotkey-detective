@@ -15,6 +15,15 @@ struct HotkeyDetectiveApp: App {
 struct RootView: View {
     @EnvironmentObject var session: ProbeSession
     var body: some View {
-        Text("상태: \(String(describing: session.state))").padding()
+        Group {
+            switch session.state {
+            case .needsPermission: PermissionView()
+            case .idle: ProbeView()
+            case .listening: ListeningView()
+            case .resolving(let c): VStack { Text(c.display).font(.largeTitle); ProgressView() }.padding()
+            case .result(let c, let v): VerdictView(combo: c, verdict: v)
+            }
+        }
+        .frame(width: 360)
     }
 }
