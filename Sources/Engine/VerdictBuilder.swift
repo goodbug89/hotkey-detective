@@ -4,7 +4,12 @@ public enum VerdictBuilder {
     public static func build(_ evidence: [Evidence]) -> Verdict {
         if evidence.isEmpty { return .free([]) }
 
-        let sorted = evidence.sorted { $0.confidence > $1.confidence }
+        // 신뢰도 내림차순, 동률은 source → rationale 순으로 안정적인 표시 순서를 만든다.
+        let sorted = evidence.sorted {
+            if $0.confidence != $1.confidence { return $0.confidence > $1.confidence }
+            if $0.source != $1.source { return $0.source < $1.source }
+            return $0.rationale < $1.rationale
+        }
 
         // 규칙 1: certain
         let certainOwners = uniqueOwners(sorted.filter { $0.confidence == .certain })

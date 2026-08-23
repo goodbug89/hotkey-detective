@@ -11,5 +11,6 @@ extension KnownApps {
                   let m = (d["modifierFlags"] as? NSNumber)?.uint64Value else { return nil }
             return (action: key, combo: KeyCombo(keyCode: k, modifiers: Modifiers(cgFlags: m)))
         }
+        .sorted { $0.action < $1.action }   // plist 딕셔너리 순서는 비결정적
     }
 }

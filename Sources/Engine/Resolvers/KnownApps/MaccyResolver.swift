@@ -14,5 +14,6 @@ extension KnownApps {
             return (action: String(key.dropFirst("KeyboardShortcuts_".count)),
                     combo: KeyCombo(keyCode: k, modifiers: Modifiers(carbon: m)))
         }
+        .sorted { $0.action < $1.action }   // plist 딕셔너리 순서는 비결정적
     }
 }

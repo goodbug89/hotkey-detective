@@ -24,7 +24,7 @@ public struct SystemHotkeyResolver: Resolver {
     func effectiveEntries() -> [Entry] {
         var map: [Int: Entry] = [:]
         for (id, d) in SymbolicHotKeyDefaults.entries {
-            map[id] = Entry(id: id, enabled: d.combo != nil, combo: d.combo)
+            map[id] = Entry(id: id, enabled: d.defaultEnabled, combo: d.combo)
         }
         for (id, raw) in loadPlist() {
             let enabled = raw["enabled"] as? Bool ?? true
@@ -37,7 +37,7 @@ public struct SystemHotkeyResolver: Resolver {
             }
             map[id] = Entry(id: id, enabled: enabled, combo: combo)
         }
-        return Array(map.values)
+        return map.values.sorted { $0.id < $1.id }   // 증거 순서를 결정적으로 유지
     }
 
     private func loadPlist() -> [Int: [String: Any]] {

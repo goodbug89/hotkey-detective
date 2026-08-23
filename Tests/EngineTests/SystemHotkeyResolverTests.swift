@@ -55,6 +55,46 @@ final class SystemHotkeyResolverTests: XCTestCase {
         XCTAssertEqual(e.first?.owner, .system(feature: "Mission Control"))
     }
 
+    // MARK: 기본 비활성 항목 (F2/F3)
+
+    func testDefaultDisabledZoomToggleGivesNothing() {
+        // ⌥⌘8 (id 15): 접근성 확대/축소 전환은 조합이 예약돼 있으나 기본 비활성
+        let r = SystemHotkeyResolver(plistURL: fixture("symbolichotkeys-default"))
+        XCTAssertTrue(r.resolve(KeyCombo(keyCode: 28, modifiers: [.command, .option]), probe: nil).isEmpty)
+    }
+
+    func testDefaultDisabledDesktopSwitchGivesNothing() {
+        // ⌃1 (id 118): 데스크탑 직접 전환은 기본 비활성
+        let r = SystemHotkeyResolver(plistURL: fixture("symbolichotkeys-default"))
+        XCTAssertTrue(r.resolve(KeyCombo(keyCode: 18, modifiers: [.control]), probe: nil).isEmpty)
+    }
+
+    func testDockAutoHideIsSingleEvidence() {
+        // ⌥⌘D (id 52): 삭제된 id 7과 중복되지 않고 정확히 하나만 나와야 한다
+        let r = SystemHotkeyResolver(plistURL: fixture("symbolichotkeys-default"))
+        let e = r.resolve(KeyCombo(keyCode: 2, modifiers: [.command, .option]), probe: nil)
+        XCTAssertEqual(e.count, 1)
+        XCTAssertEqual(e[0].owner, .system(feature: "Dock 자동 숨기기 전환"))
+    }
+
+    func testFullScreenshotFeatureName() {
+        let r = SystemHotkeyResolver(plistURL: fixture("symbolichotkeys-default"))
+        let e = r.resolve(KeyCombo(keyCode: 20, modifiers: [.command, .shift]), probe: nil)
+        XCTAssertEqual(e.count, 1)
+        XCTAssertEqual(e[0].owner, .system(feature: "전체 화면 스크린샷 저장"))
+    }
+
+    func testNoTwoDefaultEnabledEntriesShareACombo() {
+        var seen: [KeyCombo: String] = [:]
+        for (id, d) in SymbolicHotKeyDefaults.entries {
+            guard d.defaultEnabled, let combo = d.combo else { continue }
+            if let other = seen[combo] {
+                XCTFail("\(combo.display)이(가) '\(other)'와(과) id \(id) '\(d.feature)'에 중복 배정됨")
+            }
+            seen[combo] = d.feature
+        }
+    }
+
     private func tempPlist(_ hotkeys: [String: Any]) -> URL {
         let tmp = FileManager.default.temporaryDirectory.appendingPathComponent("shk-\(UUID()).plist")
         let dict: [String: Any] = ["AppleSymbolicHotKeys": hotkeys]
