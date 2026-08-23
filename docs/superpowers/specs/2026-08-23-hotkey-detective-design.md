@@ -259,3 +259,4 @@ Engine 모듈 XCTest. 실제 권한 불필요.
 - `REACTION_DELAY` 300ms가 Raycast/Alfred 창 표시에 충분한지 실측.
 - `.cgSessionEventTap`에서 Carbon 핫키로 소비되는 이벤트가 listenOnly 탭에 도달하는지 확인 (예상: 도달함). 아니면 `.cgHIDEventTap`으로 전환.
 - `symbolichotkeys` ID ↔ 기능명 매핑 테이블의 완전성.
+- **[Task 7 Step 5 실측, 2026-08-23]** `CarbonHotKeyRegistrar.tryRegister` 실기 검증(임시 `main.swift`, macOS 관리자 계정, Screenshot 단축키 ⌘⇧4 관찰 당시 비어있지 않은 기본 상태): `⌘⇧4` → `registeredAndReleased`, `⌃⌥⌘F12` → `registeredAndReleased`. 두 호출 모두 `registeredAndReleased`로 관찰됨 — 브리프에 명시된 대로 시스템 단축키(⌘⇧4)가 Carbon 핫키 테이블을 거치지 않을 수 있다는 것과 일치하는 유효한 관찰이며 "고치지" 않음. 둘째 줄(임의 미사용 조합)은 기대대로 `registeredAndReleased`.
