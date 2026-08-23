@@ -259,6 +259,7 @@ Engine 모듈 XCTest. 실제 권한 불필요.
 
 - 각 KnownApp의 실제 설정 경로와 키 이름.
 - `REACTION_DELAY` 300ms가 Raycast/Alfred 창 표시에 충분한지 실측.
+  - **[검증됨 2026-08-23]** Maccy 2.x(샌드박스, 컨테이너 plist) 설치 후 ⇧⌘C → `likely(Maccy · popup)`, 근거 2건(설정 파서 + 반응 감지 330ms). 같은 앱의 파서/반응 증거가 액션 유무로 갈려 contested가 나던 버그를 Owner.identity 병합으로 수정. 컨테이너 읽기에는 macOS "다른 앱의 데이터 접근" 허용 필요.
   - **[검증됨 2026-08-23]** Rectangle 0.99 설치 후 ⌃⌥→ → `likely(Rectangle · rightHalf)` (기본 테이블 경로). Rectangle은 기본 단축키를 plist에 쓰지 않음 → 파서에 Recommended/Spectacle 기본 테이블 추가.
   - **[검증됨 2026-08-23]** ⌘Space → `confirmed(Spotlight 검색)`, 근거 2건: 시스템 단축키 64 + 반응 감지 "334ms 후 Spotlight 새 창 1개". 300ms 유지. ⌃⌥⌘F12 → `free`, 근거 0건 (fn 비트 제거 동작 확인). Rectangle/Maccy/Raycast·contested 케이스는 해당 앱 미설치로 미검증.
 - `.cgSessionEventTap`에서 Carbon 핫키로 소비되는 이벤트가 listenOnly 탭에 도달하는지 확인 (예상: 도달함). 아니면 `.cgHIDEventTap`으로 전환.
