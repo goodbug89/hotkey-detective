@@ -39,13 +39,26 @@ final class SystemHotkeyResolverTests: XCTestCase {
     }
 
     func testUnknownIDUsesGenericName() {
-        // custom28 픽스처에 없는 ID 999를 enabled로 넣은 임시 plist
-        let tmp = FileManager.default.temporaryDirectory.appendingPathComponent("shk-\(UUID()).plist")
-        let dict: [String: Any] = ["AppleSymbolicHotKeys": ["999": ["enabled": true,
-            "value": ["parameters": [65535, 111, 8388608], "type": "standard"]]]]
-        try! PropertyListSerialization.data(fromPropertyList: dict, format: .xml, options: 0).write(to: tmp)
-        let r = SystemHotkeyResolver(plistURL: tmp)
-        let e = r.resolve(KeyCombo(keyCode: 111, modifiers: [.function]), probe: nil)
+        // custom28 픽스처에 없는 ID 999를 enabled로 넣은 임시 plist (mask 1048576 = ⌘)
+        let r = SystemHotkeyResolver(plistURL: tempPlist(["999": ["enabled": true,
+            "value": ["parameters": [65535, 111, 1048576], "type": "standard"]]]))
+        let e = r.resolve(KeyCombo(keyCode: 111, modifiers: [.command]), probe: nil)
         XCTAssertEqual(e.first?.owner, .system(feature: "시스템 기능 #999"))
+    }
+
+    /// plist 마스크에 fn 비트(8388608)가 섞여 있어도 fn 없는 조합으로 매칭돼야 한다.
+    func testPlistMaskIgnoresFunctionBit() {
+        let r = SystemHotkeyResolver(plistURL: tempPlist(["32": ["enabled": true,
+            "value": ["parameters": [65535, 126, 8650752], "type": "standard"]]]))
+        let e = r.resolve(KeyCombo(keyCode: 126, modifiers: [.control]), probe: nil)
+        XCTAssertEqual(e.count, 1)
+        XCTAssertEqual(e.first?.owner, .system(feature: "Mission Control"))
+    }
+
+    private func tempPlist(_ hotkeys: [String: Any]) -> URL {
+        let tmp = FileManager.default.temporaryDirectory.appendingPathComponent("shk-\(UUID()).plist")
+        let dict: [String: Any] = ["AppleSymbolicHotKeys": hotkeys]
+        try! PropertyListSerialization.data(fromPropertyList: dict, format: .xml, options: 0).write(to: tmp)
+        return tmp
     }
 }

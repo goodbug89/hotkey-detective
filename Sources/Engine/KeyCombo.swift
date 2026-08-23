@@ -17,13 +17,17 @@ public struct Modifiers: OptionSet, Hashable, Codable {
     // Carbon: cmdKey 256, shiftKey 512, optionKey 2048, controlKey 4096
     static let cbCommand: UInt32 = 256, cbShift: UInt32 = 512, cbOption: UInt32 = 2048, cbControl: UInt32 = 4096
 
+    /// CGEventFlags에서 수정자를 읽는다.
+    /// 주의: macOS는 화살표/F키 keyDown마다 fn 비트(1<<23)를 함께 세운다. 반면 symbolichotkeys
+    /// 기본값 테이블과 Rectangle/Maccy 설정 파일은 fn 없이 조합을 저장하므로, 여기서 fn을
+    /// 넣으면 `⌃←` 같은 조합이 영원히 매칭되지 않는다. 따라서 fn 비트는 무시한다.
+    /// (`.function`은 표시용으로 남아 있으며 CG 플래그에서는 만들어지지 않는다.)
     public init(cgFlags: UInt64) {
         var m: Modifiers = []
         if cgFlags & Self.cgControl != 0 { m.insert(.control) }
         if cgFlags & Self.cgOption != 0 { m.insert(.option) }
         if cgFlags & Self.cgShift != 0 { m.insert(.shift) }
         if cgFlags & Self.cgCommand != 0 { m.insert(.command) }
-        if cgFlags & Self.cgFunction != 0 { m.insert(.function) }
         self = m
     }
 

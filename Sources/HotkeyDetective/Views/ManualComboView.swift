@@ -12,7 +12,7 @@ struct ManualComboView: View {
         VStack(alignment: .leading, spacing: 8) {
             HStack {
                 Toggle("⌃", isOn: binding(.control)); Toggle("⌥", isOn: binding(.option))
-                Toggle("⇧", isOn: binding(.shift)); Toggle("⌘", isOn: binding(.command)); Toggle("fn", isOn: binding(.function))
+                Toggle("⇧", isOn: binding(.shift)); Toggle("⌘", isOn: binding(.command))
             }
             .toggleStyle(.button)
             Picker("키", selection: $keyCode) {

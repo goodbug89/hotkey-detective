@@ -54,10 +54,10 @@ public final class EventTapListener {
         case .keyDown:
             let keyCode = UInt16(event.getIntegerValueField(.keyboardEventKeycode))
             if keyCode == 53 { finish(.cancelled); return }
-            let mods = Modifiers(cgFlags: event.flags.rawValue).subtracting(.function)
+            // Modifiers(cgFlags:)는 fn 비트를 무시한다 (KeyCombo.swift 참고).
+            let mods = Modifiers(cgFlags: event.flags.rawValue)
             guard !mods.isEmpty else { return }
-            let full = Modifiers(cgFlags: event.flags.rawValue)
-            finish(.combo(KeyCombo(keyCode: keyCode, modifiers: full)))
+            finish(.combo(KeyCombo(keyCode: keyCode, modifiers: mods)))
         default: break
         }
     }

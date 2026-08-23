@@ -9,6 +9,12 @@ final class KeyComboTests: XCTestCase {
         XCTAssertEqual(m.cgFlags, (1 << 20) | (1 << 17))
     }
 
+    func testModifiersIgnoresFunctionBit() {
+        // macOS는 화살표/F키 keyDown에 fn(1<<23)을 함께 세운다 — 무시해야 ⌃← 등이 매칭된다.
+        XCTAssertEqual(Modifiers(cgFlags: (1 << 23) | (1 << 18)), [.control])
+        XCTAssertEqual(Modifiers(cgFlags: 1 << 23), [])
+    }
+
     func testModifiersCarbonRoundTrip() {
         let m: Modifiers = [.command, .option, .control, .shift]
         // cmdKey 256, shiftKey 512, optionKey 2048, controlKey 4096
