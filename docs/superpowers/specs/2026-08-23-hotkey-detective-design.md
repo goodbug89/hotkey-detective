@@ -257,6 +257,7 @@ Engine 모듈 XCTest. 실제 권한 불필요.
 
 - 각 KnownApp의 실제 설정 경로와 키 이름.
 - `REACTION_DELAY` 300ms가 Raycast/Alfred 창 표시에 충분한지 실측.
+  - **[검증됨 2026-08-23]** ⌘Space → `confirmed(Spotlight 검색)`, 근거 2건: 시스템 단축키 64 + 반응 감지 "334ms 후 Spotlight 새 창 1개". 300ms 유지. ⌃⌥⌘F12 → `free`, 근거 0건 (fn 비트 제거 동작 확인). Rectangle/Maccy/Raycast·contested 케이스는 해당 앱 미설치로 미검증.
 - `.cgSessionEventTap`에서 Carbon 핫키로 소비되는 이벤트가 listenOnly 탭에 도달하는지 확인 (예상: 도달함). 아니면 `.cgHIDEventTap`으로 전환.
   - **[검증됨 2026-08-23, 번들 앱 + 손쉬운 사용/입력 모니터링 허용]** ⇧⌘4 입력이 `.cgSessionEventTap` listenOnly 탭에 도달, 판정 `confirmed(system("영역 스크린샷"))`, 근거 1건(시스템 단축키 항목 30). 반응 감지·Carbon 점유 증거 없음은 예상대로.
 - `symbolichotkeys` ID ↔ 기능명 매핑 테이블의 완전성.
