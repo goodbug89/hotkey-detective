@@ -49,6 +49,15 @@ final class ReactionResolverTests: XCTestCase {
         XCTAssertTrue(e.allSatisfy { $0.confidence == .medium })
     }
 
+    func testUnidentifiablePIDDoesNotDowngradeConfidence() {
+        // apps에 없는 pid(WindowServer 등)는 증거가 될 수 없으므로 반응 앱 수에서도 빠져야 한다.
+        let ghost: pid_t = 900
+        let e = r.resolve(combo, probe: snap(before: [:], after: [ray: [1], ghost: [7]]))
+        XCTAssertEqual(e.count, 1)
+        XCTAssertEqual(e[0].owner, .app(bundleID: "com.raycast.macos", name: "Raycast", action: nil))
+        XCTAssertEqual(e[0].confidence, .high)
+    }
+
     func testSameAppNewWindowAndFrontmostIsOneEvidence() {
         let e = r.resolve(combo, probe: snap(before: [:], after: [ray: [1]], frontBefore: me, frontAfter: ray))
         XCTAssertEqual(e.count, 1)
