@@ -1,6 +1,6 @@
 import Foundation
 
-public struct SystemHotkeyResolver: Resolver {
+public struct SystemHotkeyResolver: Resolver, Enumerable {
     public let name = "시스템 단축키"
     let plistURL: URL
 
@@ -12,11 +12,16 @@ public struct SystemHotkeyResolver: Resolver {
     struct Entry { let id: Int; let enabled: Bool; let combo: KeyCombo? }
 
     public func resolve(_ combo: KeyCombo, probe: ProbeSnapshot?) -> [Evidence] {
+        allPairs().filter { $0.0 == combo }.map { $0.1 }
+    }
+
+    public func allPairs() -> [(KeyCombo, Evidence)] {
         effectiveEntries().compactMap { e in
-            guard e.enabled, e.combo == combo else { return nil }
-            return Evidence(source: name, owner: .system(feature: SymbolicHotKeyDefaults.feature(for: e.id)),
-                            confidence: .certain,
-                            rationale: "symbolichotkeys 항목 \(e.id)이(가) \(combo.display)으로 활성화됨")
+            guard e.enabled, let combo = e.combo else { return nil }
+            return (combo, Evidence(source: name,
+                                    owner: .system(feature: SymbolicHotKeyDefaults.feature(for: e.id)),
+                                    confidence: .certain,
+                                    rationale: "symbolichotkeys 항목 \(e.id)이(가) \(combo.display)으로 활성화됨"))
         }
     }
 
