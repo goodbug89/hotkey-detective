@@ -1,15 +1,21 @@
 import Foundation
 import os
 
+/// 스캔 대상 앱. 경로를 두 종류로 나눠 담는다 — 일반 Preferences 경로는 그냥 읽히지만,
+/// 샌드박스 컨테이너 경로는 읽는 순간 macOS가 "다른 앱의 데이터에 접근" 권한을 묻는다.
+/// 그래서 컨테이너 경로는 별도 필드에 두고, 명시적으로 허용한 스캔에서만 본다.
 public struct ScannableApp: Hashable {
     public let bundleID: String
     public let name: String
     public let plistURLs: [URL]
-    public init(bundleID: String, name: String, plistURLs: [URL]) {
-        self.bundleID = bundleID; self.name = name; self.plistURLs = plistURLs
+    public let containerPlistURLs: [URL]
+    public init(bundleID: String, name: String, plistURLs: [URL], containerPlistURLs: [URL]) {
+        self.bundleID = bundleID; self.name = name
+        self.plistURLs = plistURLs; self.containerPlistURLs = containerPlistURLs
     }
-    /// 존재하는 첫 plist
-    var firstExisting: URL? { plistURLs.first { FileManager.default.fileExists(atPath: $0.path) } }
+    public init(bundleID: String, name: String, plistURLs: [URL]) {
+        self.init(bundleID: bundleID, name: name, plistURLs: plistURLs, containerPlistURLs: [])
+    }
 }
 
 /// 실행 중 앱의 plist를 훑어 알려진 두 직렬화 패턴으로 단축키를 추정한다.
@@ -17,10 +23,19 @@ public struct HeuristicScanResolver: Resolver, Enumerable {
     public let name = "설정 스캔"
     let apps: [ScannableApp]
     let excludedBundleIDs: Set<String>
+    /// 샌드박스 컨테이너 plist까지 읽을지. 켜면 앱마다 macOS TCC 권한 창이 뜰 수 있으므로
+    /// 사용자가 명시적으로 요청한 "심층 스캔"에서만 true.
+    let includeContainers: Bool
     private static let log = Logger(subsystem: "HotkeyDetective", category: "scan")
 
-    public init(apps: [ScannableApp], excludedBundleIDs: Set<String>) {
+    public init(apps: [ScannableApp], excludedBundleIDs: Set<String>, includeContainers: Bool = false) {
         self.apps = apps; self.excludedBundleIDs = excludedBundleIDs
+        self.includeContainers = includeContainers
+    }
+
+    /// 존재하는 첫 plist
+    private func firstExisting(_ urls: [URL]) -> URL? {
+        urls.first { FileManager.default.fileExists(atPath: $0.path) }
     }
 
     public func resolve(_ combo: KeyCombo, probe: ProbeSnapshot?) -> [Evidence] {
@@ -43,7 +58,8 @@ public struct HeuristicScanResolver: Resolver, Enumerable {
     private func scanPairs(_ include: (KeyCombo) -> Bool) -> [(KeyCombo, Evidence)] {
         var items: [ScannedItem] = []
         for (appIndex, app) in apps.enumerated() where !excludedBundleIDs.contains(app.bundleID) {
-            guard let url = app.firstExisting,
+            let urls = includeContainers ? app.plistURLs + app.containerPlistURLs : app.plistURLs
+            guard let url = firstExisting(urls),
                   let data = try? Data(contentsOf: url),
                   let root = (try? PropertyListSerialization.propertyList(from: data, format: nil)) as? [String: Any] else {
                 Self.log.debug("scan: 건너뜀 \(app.bundleID)")

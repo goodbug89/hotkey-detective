@@ -26,8 +26,10 @@ final class ProbeSession: ObservableObject {
         [SystemHotkeyResolver(),
          CarbonOccupancyResolver(registrar: CarbonHotKeyRegistrar()),
          ReactionResolver(),
+         // 탐침 경로는 절대 권한 창을 띄우지 않는다 — 컨테이너 plist는 읽지 않는다.
          HeuristicScanResolver(apps: RunningAppsProvider.scannableApps(),
-                               excludedBundleIDs: KnownApps.parserBundleIDs)]
+                               excludedBundleIDs: KnownApps.parserBundleIDs,
+                               includeContainers: false)]
         + KnownApps.all(running: WorkspaceRunningApps())
     }
 

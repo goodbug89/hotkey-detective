@@ -58,6 +58,17 @@ final class HeuristicScanResolverTests: XCTestCase {
         XCTAssertEqual(r.allEvidence().count, 2)   // popup + pin
     }
 
+    /// 샌드박스 컨테이너 plist는 읽는 순간 macOS가 권한을 묻는다. 기본 스캔은 컨테이너 경로를
+    /// 아예 보지 않고, includeContainers를 켠 심층 스캔에서만 본다.
+    func testContainerPlistOnlyReadWhenIncludeContainers() {
+        let app = ScannableApp(bundleID: "com.example.Sandboxed", name: "Sandboxed",
+                               plistURLs: [URL(fileURLWithPath: "/nope.plist")],
+                               containerPlistURLs: [fx("scan-keyboardshortcuts")])
+        XCTAssertTrue(HeuristicScanResolver(apps: [app], excludedBundleIDs: []).allEvidence().isEmpty)
+        let deep = HeuristicScanResolver(apps: [app], excludedBundleIDs: [], includeContainers: true)
+        XCTAssertEqual(deep.allEvidence().count, 2)   // popup + pin
+    }
+
     func testAllPairsCountsEveryShortcut() {
         let r = HeuristicScanResolver(apps: [app("com.example.Clip", "Clip", ["scan-keyboardshortcuts"])], excludedBundleIDs: [])
         let pairs = r.allPairs()

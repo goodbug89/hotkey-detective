@@ -13,9 +13,22 @@ struct InventoryWindow: View {
                 Spacer()
                 TextField("조합·앱 검색", text: $model.query).textFieldStyle(.roundedBorder).frame(width: 160)
                 Toggle("충돌만", isOn: $model.conflictsOnly).toggleStyle(.button)
-                Button { model.reload() } label: { Image(systemName: "arrow.clockwise") }
+                if model.isLoading {
+                    ProgressView().controlSize(.small)
+                } else {
+                    Button { model.reload() } label: { Image(systemName: "arrow.clockwise") }
+                }
             }
-            .padding(12)
+            .padding(.horizontal, 12).padding(.top, 12)
+            HStack(spacing: 8) {
+                Toggle("심층 스캔", isOn: $model.deepScan)
+                    .toggleStyle(.checkbox).font(.caption)
+                    .onChange(of: model.deepScan) { _, _ in model.reload() }
+                Text("샌드박스 앱의 설정까지 읽습니다 — macOS가 앱마다 접근 권한을 물어봅니다.")
+                    .font(.caption2).foregroundStyle(.secondary)
+                Spacer()
+            }
+            .padding(.horizontal, 12).padding(.top, 6).padding(.bottom, 10)
             Divider()
             List(model.filtered, id: \.combo) { e in
                 HStack(alignment: .top, spacing: 12) {
