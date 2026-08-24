@@ -113,6 +113,19 @@ public protocol Enumerable {
 - `VerdictView`를 이 톤으로 손봄: 헤드라인·근거 목록에 소스 뱃지 도입, 글리프 강조.
 - 색·간격은 다크모드 대응(기존 SwiftUI 시스템 색 유지).
 
+### 6.1 애니메이션 (탐정극 서사)
+전부 SwiftUI 기본 애니메이션 범위, `@Environment(\.accessibilityReduceMotion)`를 존중해 켜져 있으면 즉시 상태 전환(애니메이션 생략). 세 단계가 겹치지 않게 배치된다.
+
+- **A. 레이더 스윕 (대기 → 입력).** `ListeningView`의 단순 펄스를 원형 레이더 스캔으로 교체. 회전하는 부채꼴(conic 그라디언트 or 회전 라인)이 계속 돌다가, 유효 조합 keyDown 시 스윕이 한 바퀴 완료된 뒤 `resolving`으로 전환. "탐지 중"의 은유. 상수 `RADAR_PERIOD`(기본 1.4s/회전).
+- **B. 증거 카드 캐스케이드 (공개).** `resolving → result` 전환에서 `VerdictView`의 근거 목록이 위에서부터 순차 등장 — 각 `Evidence` 행에 `.transition(.move(edge: .top).combined(with: .opacity))`, index × 0.05s stagger(`CASCADE_STAGGER`). 헤드라인이 먼저, 근거가 하나씩. "증거를 차례로 제시".
+- **C. 판정별 반응 (성격).** 헤드라인 등장에 판정별 트랜지션:
+  - `confirmed`: 도장처럼 scale 1.15 → 1.0 스프링 바운스.
+  - `contested`: 짧은 좌우 흔들림(offset ±6pt, 0.3s, 2회) — 두 소유자가 다투는 느낌.
+  - `free`: 부드러운 opacity + 초록 페이드인.
+  - `likely`/`occupiedUnknown`: 기본 페이드(과하지 않게).
+
+미채택(YAGNI): 조합 글리프 카운트업, 메뉴바 아이콘 애니메이션 — 중복 자극이라 초기 제외.
+
 ## 7. 데이터 흐름
 
 **탐침(변경):** 기존 4 Resolver + `HeuristicScanResolver` → 증거 합집합 → `VerdictBuilder`(v1 그대로). 미지 앱이 스캔에 걸리면 `likely`로 승격.
@@ -134,7 +147,8 @@ HotkeyDetective/
   Views/InventoryWindow.swift             [신규]
   InventoryModel.swift                    [신규]
   ProbeSession.swift                      [+HeuristicScanResolver 편입]
-  Views/VerdictView.swift                 [리디자인]
+  Views/VerdictView.swift                 [리디자인 + 캐스케이드/판정별 트랜지션]
+  Views/RadarView.swift                   [신규 — 레이더 스윕]
   HotkeyDetectiveApp.swift                [+Window 씬, "전체 단축키 보기"]
 ```
 
@@ -144,6 +158,7 @@ HotkeyDetective/
 - `InventoryBuilderTests`: 단일 소유자/충돌 분류, 소스별 증거 병합, 정렬(충돌 우선), `Owner.identity` 병합 일관성.
 - `Enumerable` 각 구현: 전량 열거가 `resolve` 결과와 모순 없는지(같은 조합 조회 시 부분집합).
 - 수동: Maccy/Rectangle 실행 상태에서 인벤토리 창에 두 앱 항목이 뜨는지, ⌃Space가 충돌 행으로 상단에 오는지.
+- 수동: 레이더 스윕 → 캐스케이드 → 판정별 반응이 순서대로 보이는지; 시스템 "동작 줄이기" 켠 상태에서 애니메이션이 생략되고 즉시 전환되는지.
 
 ## 10. 범위 밖 (v2)
 
