@@ -7,20 +7,28 @@ struct VerdictView: View {
     let combo: KeyCombo
     let verdict: Verdict
 
+    static let cascadeStagger: Double = 0.05
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @State private var shown = 0     // 몇 개의 근거를 표시했는지
+    @State private var pop = false
+    @State private var shake: CGFloat = 0
+
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
-            Text(combo.display).font(.system(size: 34, weight: .semibold, design: .rounded))
+            Text(combo.display).font(.system(size: 34, weight: .semibold, design: .monospaced))
             headline
             DisclosureGroup("근거 \(verdict.evidence.count)건", isExpanded: .constant(true)) {
-                ForEach(Array(verdict.evidence.enumerated()), id: \.offset) { _, e in
+                ForEach(Array(verdict.evidence.prefix(shown).enumerated()), id: \.offset) { _, e in
                     HStack(alignment: .top, spacing: 8) {
                         dots(e.confidence)
+                        SourceBadge(source: e.source)
                         VStack(alignment: .leading) {
                             Text(e.source).font(.caption.bold())
                             Text(e.rationale).font(.caption).foregroundStyle(.secondary)
                         }
                     }
                     .padding(.vertical, 2)
+                    .transition(.move(edge: .top).combined(with: .opacity))
                 }
             }
             if case .occupiedUnknown(_) = verdict {
@@ -35,15 +43,55 @@ struct VerdictView: View {
             }
         }
         .padding()
+        .id(combo)
+        .onAppear { animateAppearance() }
+    }
+
+    private func animateAppearance() {
+        let count = verdict.evidence.count
+        if reduceMotion {
+            shown = count
+        } else {
+            shown = 0
+            for i in 0..<count {
+                DispatchQueue.main.asyncAfter(deadline: .now() + Double(i) * Self.cascadeStagger) {
+                    withAnimation(.easeOut(duration: 0.2)) { shown = i + 1 }
+                }
+            }
+        }
+
+        switch verdict {
+        case .confirmed:
+            if reduceMotion {
+                pop = true
+            } else {
+                withAnimation(.spring(response: 0.3, dampingFraction: 0.5)) { pop = true }
+            }
+        case .contested:
+            if !reduceMotion {
+                withAnimation(.default) { shake = -6 }
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { withAnimation { shake = 6 } }
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) { withAnimation { shake = 0 } }
+            }
+        default:
+            break
+        }
     }
 
     @ViewBuilder private var headline: some View {
         switch verdict {
-        case .confirmed(let o, _): styled("\(o.displayName)이(가) 사용 중", .blue)
-        case .likely(let o, _): styled("\(o.displayName)이(가) 사용 중인 것으로 보임", .blue)
-        case .contested(let os, _): styled(os.map(\.displayName).joined(separator: "와 ") + "이(가) 모두 등록함", .orange)
-        case .occupiedUnknown(_): styled("어떤 앱이 점유 중이지만 누구인지 찾지 못함", .gray)
-        case .free(_): styled("아무도 사용하지 않음", .green)
+        case .confirmed(let o, _):
+            styled("\(o.displayName)이(가) 사용 중", .blue)
+                .scaleEffect(pop ? 1.0 : 1.15)
+        case .likely(let o, _):
+            styled("\(o.displayName)이(가) 사용 중인 것으로 보임", .blue)
+        case .contested(let os, _):
+            styled(os.map(\.displayName).joined(separator: "와 ") + "이(가) 모두 등록함", .orange)
+                .offset(x: shake)
+        case .occupiedUnknown(_):
+            styled("어떤 앱이 점유 중이지만 누구인지 찾지 못함", .gray)
+        case .free(_):
+            styled("아무도 사용하지 않음", .green)
         }
     }
 
