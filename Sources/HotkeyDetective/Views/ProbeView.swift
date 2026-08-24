@@ -24,13 +24,9 @@ struct ProbeView: View {
 
 struct ListeningView: View {
     @EnvironmentObject var session: ProbeSession
-    @State private var pulse = false
     var body: some View {
         VStack(spacing: 12) {
-            Circle().fill(.blue).frame(width: 14, height: 14)
-                .scaleEffect(pulse ? 1.4 : 0.8)
-                .animation(.easeInOut(duration: 0.8).repeatForever(), value: pulse)
-                .onAppear { pulse = true }
+            RadarView()
             Text("지금 조합을 눌러보세요").font(.headline)
             Text("Esc로 취소 · 15초 후 자동 종료").font(.caption).foregroundStyle(.secondary)
             Button("취소") { session.cancelListening() }.buttonStyle(.link)
