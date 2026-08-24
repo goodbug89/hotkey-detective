@@ -31,9 +31,18 @@ public struct HeuristicScanResolver: Resolver, Enumerable {
         scanPairs { _ in true }
     }
 
+    /// 정렬 키: (앱 인덱스, 액션, keyCode, modifiers). rationale 문자열이 아닌 이 4중 키로 정렬해야
+    /// Dictionary 순회 순서(프로세스마다 해시 시드가 달라짐)에 기대지 않는 결정적 출력이 된다.
+    private struct ScannedItem {
+        let appIndex: Int
+        let action: String
+        let combo: KeyCombo
+        let evidence: Evidence
+    }
+
     private func scanPairs(_ include: (KeyCombo) -> Bool) -> [(KeyCombo, Evidence)] {
-        var out: [(KeyCombo, Evidence)] = []
-        for app in apps where !excludedBundleIDs.contains(app.bundleID) {
+        var items: [ScannedItem] = []
+        for (appIndex, app) in apps.enumerated() where !excludedBundleIDs.contains(app.bundleID) {
             guard let url = app.firstExisting,
                   let data = try? Data(contentsOf: url),
                   let root = (try? PropertyListSerialization.propertyList(from: data, format: nil)) as? [String: Any] else {
@@ -41,13 +50,20 @@ public struct HeuristicScanResolver: Resolver, Enumerable {
                 continue
             }
             for (action, combo) in extract(root) where include(combo) {
-                out.append((combo, Evidence(source: name,
-                    owner: .app(bundleID: app.bundleID, name: app.name, action: action),
-                    confidence: .medium,
-                    rationale: "\(app.name) 설정에서 '\(action)' = \(combo.display) 패턴 발견")))
+                items.append(ScannedItem(appIndex: appIndex, action: action, combo: combo,
+                    evidence: Evidence(source: name,
+                        owner: .app(bundleID: app.bundleID, name: app.name, action: action),
+                        confidence: .medium,
+                        rationale: "\(app.name) 설정에서 '\(action)' = \(combo.display) 패턴 발견")))
             }
         }
-        return out.sorted { $0.1.rationale < $1.1.rationale }
+        items.sort { a, b in
+            if a.appIndex != b.appIndex { return a.appIndex < b.appIndex }
+            if a.action != b.action { return a.action < b.action }
+            if a.combo.keyCode != b.combo.keyCode { return a.combo.keyCode < b.combo.keyCode }
+            return a.combo.modifiers.rawValue < b.combo.modifiers.rawValue
+        }
+        return items.map { ($0.combo, $0.evidence) }
     }
 
     /// plist 재귀 순회 → (액션, 조합) 목록. 두 패턴만 인식.

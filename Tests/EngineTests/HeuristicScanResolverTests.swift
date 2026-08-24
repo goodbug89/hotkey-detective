@@ -64,4 +64,34 @@ final class HeuristicScanResolverTests: XCTestCase {
         XCTAssertEqual(pairs.count, 2)  // popup, pin (showFooter는 무시)
         XCTAssertTrue(pairs.contains { $0.0 == KeyCombo(keyCode: 8, modifiers: [.command, .shift]) })
     }
+
+    /// scan-tie.plist: 액션 "capture"가 MAS 패턴(keyCode 20)과 KeyboardShortcuts_ 패턴(keyCode 5)
+    /// 양쪽에서 나오고, "zebra"(keyCode 30)가 하나 더 있다. Dictionary 순회 순서는 프로세스마다
+    /// 무작위이므로, rationale 문자열만으로 정렬하면 출력 순서가 불안정할 수 있었다.
+    /// (앱 인덱스, 액션, keyCode, modifiers) 4중 키 정렬은 이 순서를 항상
+    /// action 오름차순("capture" < "zebra") → keyCode 오름차순(5 < 20)으로 고정한다.
+    func testDeterministicOrderAcrossRepeatedCalls() {
+        let r = HeuristicScanResolver(apps: [app("com.example.Tie", "Tie", ["scan-tie"])], excludedBundleIDs: [])
+        let expectedActions = ["capture", "capture", "zebra"]
+        let expectedKeyCodes: [UInt16] = [5, 20, 30]
+        for _ in 0..<5 {
+            let pairs = r.allPairs()
+            let actions: [String?] = pairs.map {
+                if case .app(_, _, let action) = $0.1.owner { return action }
+                return nil
+            }
+            XCTAssertEqual(actions, expectedActions)
+            XCTAssertEqual(pairs.map { $0.0.keyCode }, expectedKeyCodes)
+        }
+    }
+
+    /// scan-array.plist: "bindings"라는 배열 값 안에 KeyboardShortcuts_ 패턴을 담은 딕셔너리가
+    /// 중첩되어 있다. extract()의 배열 분기(else if let arr = any as? [Any])가 실제로 배열 원소까지
+    /// 재귀하는지 검증한다.
+    func testArrayRecursionFindsNestedShortcut() {
+        let r = HeuristicScanResolver(apps: [app("com.example.Arr", "Arr", ["scan-array"])], excludedBundleIDs: [])
+        // launch keyCode 12 carbon 2048 = ⌥
+        let e = r.resolve(KeyCombo(keyCode: 12, modifiers: [.option]), probe: nil)
+        XCTAssertEqual(e.first?.owner, .app(bundleID: "com.example.Arr", name: "Arr", action: "launch"))
+    }
 }
