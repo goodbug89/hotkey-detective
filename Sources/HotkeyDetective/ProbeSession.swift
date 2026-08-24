@@ -25,7 +25,10 @@ final class ProbeSession: ObservableObject {
     var resolvers: [Resolver] {
         [SystemHotkeyResolver(),
          CarbonOccupancyResolver(registrar: CarbonHotKeyRegistrar()),
-         ReactionResolver()] + KnownApps.all(running: WorkspaceRunningApps())
+         ReactionResolver(),
+         HeuristicScanResolver(apps: RunningAppsProvider.scannableApps(),
+                               excludedBundleIDs: KnownApps.parserBundleIDs)]
+        + KnownApps.all(running: WorkspaceRunningApps())
     }
 
     func refreshPermission() {
