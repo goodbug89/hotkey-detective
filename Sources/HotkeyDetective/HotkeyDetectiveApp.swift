@@ -1,3 +1,4 @@
+import AppKit
 import SwiftUI
 import ServiceManagement
 import os
@@ -63,7 +64,11 @@ struct FooterMenu: View {
                     }
                 }
             Spacer()
-            Button("전체 단축키 보기") { openWindow(id: "inventory") }
+            // LSUIElement 앱은 스스로 활성화되지 않아 창이 뒤에서 열린다 — 명시적으로 앞으로 가져온다.
+            Button("전체 단축키 보기") {
+                openWindow(id: "inventory")
+                NSApp.activate(ignoringOtherApps: true)
+            }
                 .buttonStyle(.link).font(.caption)
             Button("종료") { NSApplication.shared.terminate(nil) }.buttonStyle(.link).font(.caption)
         }

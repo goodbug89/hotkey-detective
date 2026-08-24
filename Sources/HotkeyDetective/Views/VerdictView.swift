@@ -22,10 +22,8 @@ struct VerdictView: View {
                     HStack(alignment: .top, spacing: 8) {
                         dots(e.confidence)
                         SourceBadge(source: e.source)
-                        VStack(alignment: .leading) {
-                            Text(e.source).font(.caption.bold())
-                            Text(e.rationale).font(.caption).foregroundStyle(.secondary)
-                        }
+                        // 소스는 뱃지가 이미 보여준다 — 같은 줄에 두 번 쓰지 않는다.
+                        Text(e.rationale).font(.caption).foregroundStyle(.secondary)
                     }
                     .padding(.vertical, 2)
                     .transition(.move(edge: .top).combined(with: .opacity))

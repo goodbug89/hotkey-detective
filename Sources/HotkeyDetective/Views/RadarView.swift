@@ -13,7 +13,8 @@ struct RadarView: View {
                 Rectangle()
                     .fill(LinearGradient(colors: [.accentColor.opacity(0.6), .clear],
                                          startPoint: .top, endPoint: .bottom))
-                    .frame(width: 2)
+                    // 높이를 고정하지 않으면 제안된 전체 높이를 먹어 원 밖으로 삐져나온다.
+                    .frame(width: 2, height: 28)
                     .offset(y: -14)
                     .rotationEffect(.degrees(angle))
             }
