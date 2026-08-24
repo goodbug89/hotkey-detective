@@ -33,11 +33,13 @@ final class InventoryModel: ObservableObject {
     }
 
     var filtered: [InventoryEntry] {
-        entries.filter { e in
+        // 공백만 입력한 상태는 "검색 없음"으로 본다 — 트림하지 않으면 모든 항목이 사라진다.
+        let q = query.trimmingCharacters(in: .whitespacesAndNewlines)
+        return entries.filter { e in
             (!conflictsOnly || e.isConflict) &&
-            (query.isEmpty
-             || e.combo.display.localizedCaseInsensitiveContains(query)
-             || e.owners.contains { $0.displayName.localizedCaseInsensitiveContains(query) })
+            (q.isEmpty
+             || e.combo.display.localizedCaseInsensitiveContains(q)
+             || e.owners.contains { $0.displayName.localizedCaseInsensitiveContains(q) })
         }
     }
 

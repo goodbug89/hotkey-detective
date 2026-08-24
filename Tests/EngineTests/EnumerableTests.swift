@@ -5,9 +5,28 @@ final class EnumerableTests: XCTestCase {
     struct Running: RunningAppChecker { let ids: Set<String>; func isRunning(bundleID: String) -> Bool { ids.contains(bundleID) } }
     func fixture(_ n: String) -> URL { Bundle.module.url(forResource: n, withExtension: "plist", subdirectory: "Fixtures")! }
 
-    func testParserBundleIDsCoversThreeApps() {
+    /// 제외 목록은 실제 파서 서술자에서 파생돼야 한다 — 문자열을 손으로 적어두면
+    /// 파서를 추가하고 목록을 갱신하지 않아도 테스트가 통과해버린다.
+    func testParserBundleIDsCoversEveryKnownAppDescriptor() {
         XCTAssertEqual(KnownApps.parserBundleIDs,
-                       ["com.knollsoft.Rectangle", "org.p0deje.Maccy", "com.raycast.macos"])
+                       Set([KnownApps.rectangle, KnownApps.maccy, KnownApps.raycast].map(\.bundleID)))
+    }
+
+    /// 같은 앱을 전용 파서와 휴리스틱 스캐너 양쪽에 먹여도 인벤토리에는 소유자가 하나만
+    /// 남아야 한다(배타 할당 불변식). parserBundleIDs 제외가 실제로 이중 보고를 막는지
+    /// resolver 두 개 → InventoryBuilder 끝단까지 통과시켜 확인한다.
+    func testKnownParserAndScannerDoNotDoubleReportSameApp() {
+        let plist = fixture("maccy")   // KeyboardShortcuts_ 패턴 — 스캐너도 인식하는 모양
+        let parser = KnownAppResolver(descriptor: KnownApps.maccy, fileURL: plist,
+                                      running: Running(ids: ["org.p0deje.Maccy"]))
+        let scanner = HeuristicScanResolver(
+            apps: [ScannableApp(bundleID: "org.p0deje.Maccy", name: "Maccy", plistURLs: [plist])],
+            excludedBundleIDs: KnownApps.parserBundleIDs)
+        let entries = InventoryBuilder.build(parser.allPairs() + scanner.allPairs())
+        XCTAssertEqual(entries.count, 1)
+        XCTAssertEqual(entries[0].owners.count, 1)
+        XCTAssertFalse(entries[0].isConflict)
+        XCTAssertEqual(entries[0].owners[0], .app(bundleID: "org.p0deje.Maccy", name: "Maccy", action: "popup"))
     }
 
     func testKnownAppResolverAllPairsListEveryShortcutWithCombo() {
