@@ -11,6 +11,7 @@ struct HotkeyDetectiveApp: App {
             RootView().environmentObject(session).frame(width: 360)
         }
         .menuBarExtraStyle(.window)
+        Window("전체 단축키", id: "inventory") { InventoryWindow() }
     }
 }
 
@@ -35,6 +36,7 @@ struct RootView: View {
 }
 
 struct FooterMenu: View {
+    @Environment(\.openWindow) private var openWindow
     private static let log = Logger(subsystem: "HotkeyDetective", category: "launchAtLogin")
     /// `.requiresApproval`도 사용자 의도상 "켜짐"으로 본다 — 승인만 남은 상태다.
     private static var isOn: Bool {
@@ -61,6 +63,8 @@ struct FooterMenu: View {
                     }
                 }
             Spacer()
+            Button("전체 단축키 보기") { openWindow(id: "inventory") }
+                .buttonStyle(.link).font(.caption)
             Button("종료") { NSApplication.shared.terminate(nil) }.buttonStyle(.link).font(.caption)
         }
         .padding(.horizontal).padding(.bottom, 8)
