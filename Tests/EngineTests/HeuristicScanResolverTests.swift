@@ -31,6 +31,17 @@ final class HeuristicScanResolverTests: XCTestCase {
         XCTAssertEqual(e.first?.owner, .app(bundleID: "com.example.Win", name: "Win", action: "somethingElse"))
     }
 
+    /// scan-mas-root.plist: keyCode/modifierFlags가 plist 루트에 바로 놓여 있어 액션 이름을
+    /// 붙일 키가 없다. 예전에는 빈 문자열이 액션으로 들어가 "'' = ⌘T" 같은 문구가 나왔다.
+    func testRootLevelMASPatternHasNilAction() {
+        let r = HeuristicScanResolver(apps: [app("com.example.Root", "Root", ["scan-mas-root"])], excludedBundleIDs: [])
+        let e = r.allEvidence()
+        XCTAssertEqual(e.count, 1)
+        XCTAssertEqual(e[0].owner, .app(bundleID: "com.example.Root", name: "Root", action: nil))
+        XCTAssertFalse(e[0].rationale.contains("''"), "빈 따옴표가 남으면 안 된다")
+        XCTAssertEqual(e[0].rationale, "Root 설정에서 \(KeyCombo(keyCode: 17, modifiers: [.command]).display) 패턴 발견")
+    }
+
     func testNestedDictRecursion() {
         let r = HeuristicScanResolver(apps: [app("com.example.N", "N", ["scan-nested"])], excludedBundleIDs: [])
         // open keyCode 31 carbon 768
