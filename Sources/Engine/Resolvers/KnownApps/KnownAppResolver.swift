@@ -32,7 +32,7 @@ public struct KnownAppDescriptor {
     }
 }
 
-public struct KnownAppResolver: Resolver {
+public struct KnownAppResolver: Resolver, Enumerable {
     public var name: String { "\(descriptor.name) 설정" }
     let descriptor: KnownAppDescriptor
     let fileURL: URL
@@ -46,19 +46,23 @@ public struct KnownAppResolver: Resolver {
     }
 
     public func resolve(_ combo: KeyCombo, probe: ProbeSnapshot?) -> [Evidence] {
+        allPairs().filter { $0.0 == combo }.map { $0.1 }
+    }
+
+    public func allPairs() -> [(KeyCombo, Evidence)] {
         guard let data = try? Data(contentsOf: fileURL),
               let root = (try? PropertyListSerialization.propertyList(from: data, format: nil)) as? [String: Any] else {
             Self.log.debug("\(descriptor.name): 설정 파일 없음/파싱 실패 \(fileURL.path)")
             return []
         }
         let isRunning = running.isRunning(bundleID: descriptor.bundleID)
-        return descriptor.parse(root).filter { $0.combo == combo }.map { hit in
-            Evidence(source: name,
-                     owner: .app(bundleID: descriptor.bundleID, name: descriptor.name, action: hit.action),
-                     confidence: isRunning ? .high : .low,
-                     rationale: isRunning
-                        ? "\(descriptor.name) 단축키 '\(hit.action)' = \(combo.display)"
-                        : "\(descriptor.name) 단축키 '\(hit.action)' = \(combo.display) — 현재 실행 중 아님, 실행 시 충돌 예상")
+        return descriptor.parse(root).map { hit in
+            (hit.combo, Evidence(source: name,
+                owner: .app(bundleID: descriptor.bundleID, name: descriptor.name, action: hit.action),
+                confidence: isRunning ? .high : .low,
+                rationale: isRunning
+                    ? "\(descriptor.name) 단축키 '\(hit.action)' = \(hit.combo.display)"
+                    : "\(descriptor.name) 단축키 '\(hit.action)' = \(hit.combo.display) — 현재 실행 중 아님, 실행 시 충돌 예상"))
         }
     }
 }
@@ -70,6 +74,8 @@ public enum KnownApps {
     static func containerPrefs(_ bundleID: String) -> URL {
         home.appendingPathComponent("Library/Containers/\(bundleID)/Data/Library/Preferences/\(bundleID).plist")
     }
+
+    public static let parserBundleIDs: Set<String> = ["com.knollsoft.Rectangle", "org.p0deje.Maccy", "com.raycast.macos"]
 
     public static func all(running: RunningAppChecker) -> [Resolver] {
         [rectangle, maccy, raycast].map { KnownAppResolver(descriptor: $0, running: running) }

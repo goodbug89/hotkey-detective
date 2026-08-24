@@ -30,3 +30,12 @@ public protocol Resolver {
     /// probe == nil 이면 제한 모드(권한 없음). 스냅샷이 필요한 Resolver는 빈 배열을 반환한다.
     func resolve(_ combo: KeyCombo, probe: ProbeSnapshot?) -> [Evidence]
 }
+
+/// 탐침(특정 조합) 대신 이 Resolver가 아는 모든 단축키를 (조합, 증거) 페어로 낸다. 인벤토리용.
+/// 조합을 함께 내는 이유: Evidence에는 조합이 없어 인벤토리가 조합별로 그룹핑할 수 없기 때문.
+public protocol Enumerable {
+    func allPairs() -> [(KeyCombo, Evidence)]
+}
+public extension Enumerable {
+    func allEvidence() -> [Evidence] { allPairs().map(\.1) }
+}
