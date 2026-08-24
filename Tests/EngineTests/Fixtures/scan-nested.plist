@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0"><dict>
+  <key>preferences</key><dict>
+    <key>KeyboardShortcuts_open</key><string>{"carbonKeyCode":31,"carbonModifiers":768}</string>
+  </dict>
+</dict></plist>

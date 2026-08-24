@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0"><dict>
+  <key>toggleTodo</key><dict><key>keyCode</key><integer>11</integer><key>modifierFlags</key><integer>786432</integer></dict>
+  <key>somethingElse</key><dict><key>keyCode</key><integer>45</integer><key>modifierMask</key><integer>1572864</integer></dict>
+  <key>notAShortcut</key><dict><key>foo</key><integer>1</integer></dict>
+</dict></plist>
