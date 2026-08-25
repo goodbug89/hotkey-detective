@@ -27,6 +27,11 @@ final class EnumerableTests: XCTestCase {
         XCTAssertEqual(entries[0].owners.count, 1)
         XCTAssertFalse(entries[0].isConflict)
         XCTAssertEqual(entries[0].owners[0], .app(bundleID: "org.p0deje.Maccy", name: "Maccy", action: "popup"))
+        // 이 단언이 실제 회귀 핀이다. 위의 소유자 단언들은 제외 규칙을 없애도 통과한다 —
+        // 스캐너가 내는 소유자가 파서와 동일해 Owner.identity 병합이 둘을 합쳐버리기 때문이다.
+        // 이중 보고가 관측되는 유일한 지점은 증거 개수뿐이다.
+        XCTAssertEqual(entries[0].evidence.count, 1,
+                       "파서 담당 앱이 스캐너에도 잡히면 증거가 2건이 된다 — 배타 할당이 깨진 것")
     }
 
     func testKnownAppResolverAllPairsListEveryShortcutWithCombo() {

@@ -164,6 +164,10 @@ HotkeyDetective/
 
 SkyLight private API, 배포/공증 DMG, Sparkle 자동 업데이트, 실시간 단축키 변경 감지, Alfred/1Password 정밀 파서(스캐너가 부분 커버).
 
+## 10.1 의도된 발산 (2026-08-24 확정)
+
+인벤토리와 판정은 신뢰도 하한이 다르다. 인벤토리는 "등록된 전부"라 `.low` 증거(미실행 알려진 앱)도 소유자로 싣고, 판정은 "지금 유효한 것"이라 `.low` 단독이면 `free`를 낸다. 실측 확인함(인벤토리 owner 있음 / 판정 free). 두 병합기의 패리티 테스트는 `medium` 이상에서만 성립하며, 발산 자체는 `testLowConfidenceOwnerIsInventoryOnly`가 고정한다.
+
 ## 11. 미해결/검증 항목
 
 - 샌드박스 앱 컨테이너 plist 최초 읽기 시 macOS "다른 앱 데이터 접근" 프롬프트 — 스캔 대상이 많으면 프롬프트가 반복될 수 있음. 실측 후 UX 결정(일괄 안내 or 스캔을 사용자 명시 동작으로).
