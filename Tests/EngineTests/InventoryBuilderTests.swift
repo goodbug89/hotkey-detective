@@ -80,6 +80,19 @@ final class InventoryBuilderTests: XCTestCase {
         }
     }
 
+    /// 미실행 앱만 주장하는 항목은 dormant — UI가 실행 중인 항목과 구분해야 한다.
+    func testDormantWhenEveryEvidenceIsLow() {
+        let entries = InventoryBuilder.build([(space, ev(maccy, .low))])
+        XCTAssertTrue(entries[0].isDormant)
+    }
+
+    /// 하나라도 medium 이상이면 dormant가 아니다.
+    func testNotDormantWhenAnyEvidenceIsAboveLow() {
+        let entries = InventoryBuilder.build([(space, ev(maccy, .low, src: "a")),
+                                              (space, ev(maccy, .high, src: "b"))])
+        XCTAssertFalse(entries[0].isDormant)
+    }
+
     func testConflictsSortedFirst() {
         let entries = InventoryBuilder.build([(a4, ev(scr, .certain)),
                                               (space, ev(sys, .certain)), (space, ev(maccy, .medium))])

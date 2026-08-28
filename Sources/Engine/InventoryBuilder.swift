@@ -5,6 +5,14 @@ public struct InventoryEntry: Hashable {
     public let owners: [Owner]
     public let evidence: [Evidence]
     public var isConflict: Bool { Set(owners.map(\.identity)).count > 1 }
+
+    /// 등록돼 있지만 지금은 활성이 아닌 항목 — 근거가 전부 `.low`인 경우.
+    /// 실무적으로는 "설정 파일에 단축키가 있으나 그 앱이 실행 중이 아님"이다.
+    /// 인벤토리는 등록부라 이런 항목도 싣지만(판정은 free를 낸다 — 스펙 10.1),
+    /// 실행 중인 앱과 똑같이 보이면 지금 충돌하는 것으로 오해된다.
+    public var isDormant: Bool {
+        !evidence.isEmpty && evidence.allSatisfy { $0.confidence == .low }
+    }
     public init(combo: KeyCombo, owners: [Owner], evidence: [Evidence]) {
         self.combo = combo; self.owners = owners; self.evidence = evidence
     }

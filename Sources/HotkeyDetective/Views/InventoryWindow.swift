@@ -43,11 +43,22 @@ struct InventoryWindow: View {
                         } else {
                             Text(e.owners.first?.displayName ?? "—").font(.callout)
                         }
+                        // 근거가 전부 low면 "등록돼 있으나 지금 실행 중이 아님" — 실행 중인
+                        // 항목과 구분되지 않으면 지금 충돌하는 것으로 오해된다.
+                        if e.isDormant {
+                            Text("실행 중 아님 — 실행 시 충돌 예상")
+                                .font(.caption2).foregroundStyle(.secondary)
+                        }
                     }
                     Spacer()
-                    if let src = e.evidence.first?.source { SourceBadge(source: src) }
+                    // 충돌 행은 관련된 소스를 모두 보여준다. 하나만 보이면 상대가 확실한
+                    // 파서인지 약한 스캔 추정인지 알 수 없다.
+                    ForEach(SourceBadge.distinctSources(of: e.evidence.map(\.source)), id: \.self) { src in
+                        SourceBadge(source: src)
+                    }
                 }
                 .padding(.vertical, 3)
+                .opacity(e.isDormant ? 0.55 : 1)
                 .listRowBackground(e.isConflict ? Color.orange.opacity(0.08) : Color.clear)
             }
         }
