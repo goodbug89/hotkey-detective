@@ -57,12 +57,12 @@ final class EnumerableTests: XCTestCase {
         XCTAssertTrue(pairs.allSatisfy { if case .system = $0.1.owner { return true } else { return false } })
         // ⇧⌘4 (영역 스크린샷)이 조합과 함께 목록에 있어야
         XCTAssertTrue(pairs.contains { $0.0 == KeyCombo(keyCode: 21, modifiers: [.command, .shift])
-                                       && $0.1.owner == .system(feature: "영역 스크린샷") })
+                                       && $0.1.owner == .system(feature: "영역 스크린샷 저장") })
     }
 
     func testSystemResolverAllPairsExcludeDisabled() {
         let r = SystemHotkeyResolver(plistURL: fixture("symbolichotkeys-disabled28"))
         // disabled28 픽스처는 항목 30(영역 스크린샷)을 비활성화 → 목록에 없어야
-        XCTAssertFalse(r.allPairs().contains { $0.1.owner == .system(feature: "영역 스크린샷") })
+        XCTAssertFalse(r.allPairs().contains { $0.1.owner == .system(feature: "영역 스크린샷 저장") })
     }
 }

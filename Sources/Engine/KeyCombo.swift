@@ -31,6 +31,16 @@ public struct Modifiers: OptionSet, Hashable, Codable {
         self = m
     }
 
+    /// 시스템 단축키 표(DefaultShortcutsTable.xml)의 마스크를 읽을 때 쓴다.
+    /// `init(cgFlags:)`와 달리 fn 비트를 **보존**한다 — 표에서 fn은 실제 의미를 갖는다
+    /// (⌃fn← 타일링 vs ⌃← Space 이동). 이벤트 탭 쪽 fn은 화살표/F키에 자동으로 붙어
+    /// 신뢰할 수 없으므로 거기서는 계속 버린다.
+    public init(tableMask: UInt64) {
+        var m = Modifiers(cgFlags: tableMask)
+        if tableMask & Self.cgFunction != 0 { m.insert(.function) }
+        self = m
+    }
+
     public var cgFlags: UInt64 {
         var f: UInt64 = 0
         if contains(.control) { f |= Self.cgControl }
