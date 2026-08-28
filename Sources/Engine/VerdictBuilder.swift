@@ -16,7 +16,10 @@ public enum VerdictBuilder {
         let certainOwners = uniqueOwners(sorted.filter { $0.confidence == .certain })
         if certainOwners.count > 1 { return .contested(certainOwners, sorted) }
         if let certain = certainOwners.first {
-            let rivals = uniqueOwners(sorted.filter { $0.confidence >= .high })
+            // 라이벌은 등록을 주장하는 증거(claim)에서만 나온다. 반응 감지 같은 관찰은
+            // 키를 가져간 쪽에서 나오므로 승자를 뒷받침할 뿐 경쟁 등록의 근거가 아니다.
+            // (⌘Space: 시스템이 소유하고 Spotlight이 반응 → confirmed, contested 아님)
+            let rivals = uniqueOwners(sorted.filter { $0.confidence >= .high && $0.kind == .claim })
                 .filter { $0.identity != certain.identity }
             if rivals.isEmpty { return .confirmed(certain, sorted) }
             return .contested([certain] + rivals, sorted)

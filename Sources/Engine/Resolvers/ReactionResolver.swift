@@ -30,7 +30,8 @@ public struct ReactionResolver: Resolver {
             return Evidence(source: name,
                             owner: .app(bundleID: app.bundleID ?? "pid:\(pid)", name: app.name, action: nil),
                             confidence: confidence,
-                            rationale: "\(combo.display) 입력 \(Int(p.elapsed * 1000))ms 후 \(app.name)이(가) " + reasons[pid]!.joined(separator: ", "))
+                            rationale: "\(combo.display) 입력 \(Int(p.elapsed * 1000))ms 후 \(app.name)이(가) " + reasons[pid]!.joined(separator: ", "),
+                            kind: .observation)
         }
     }
 

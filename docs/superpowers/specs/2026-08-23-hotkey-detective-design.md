@@ -160,6 +160,7 @@ protocol HotKeyRegistrar {
 ## 7. VerdictBuilder 규칙 (순서대로 첫 매칭)
 
 1. `certain` 증거의 owner 집합이 2개 이상 → `contested`. 1개면: 다른 owner가 `high` 이상 증거를 가지면 `contested`(certain 우선 정렬), 아니면 `confirmed`. *(2026-08-23 개정: ⌃Space에서 시스템 certain + Maccy high가 confirmed로 나와 11절 체크리스트의 contested 기대와 어긋남을 실기로 확인, 규칙을 의도에 맞게 수정)*
+   - **[2026-08-24 개정]** 라이벌은 `kind == .claim`(시스템 plist·앱 파서·설정 스캔) 증거에서만 뽑는다. 반응 감지/Carbon 점유 같은 `observation`은 키를 가져간 쪽에서 나오므로 승자를 뒷받침할 뿐 경쟁 등록의 근거가 아니다. 이 구분이 없어 ⌘Space(시스템 소유 + Spotlight 반응)가 contested로 오판되던 회귀를 수정. 실기 검증 4조합은 `VerdictBuilderTests`가 고정한다.
 2. `certain` 없음. `high` 이상 증거의 non-nil owner 집합이 정확히 1개 → `likely`.
 3. non-nil owner 후보가 2개 이상 → `contested` (최고 신뢰도순 정렬).
 4. owner가 전부 nil이지만 증거 존재 → `occupiedUnknown`.

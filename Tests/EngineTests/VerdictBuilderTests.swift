@@ -82,6 +82,53 @@ final class VerdictBuilderTests: XCTestCase {
         XCTAssertEqual(o, sys)
     }
 
+    // MARK: - 실기 검증된 네 조합을 고정한다 (v1에서 규칙을 고친 뒤 ⌘Space를 다시
+    // 확인하지 않아 confirmed → contested 회귀가 생겼었다. 그 재발을 막는 테스트들.)
+
+    /// ⌘Space: 시스템이 소유하고 시스템 UI(Spotlight)가 반응. 반응은 관찰이므로 라이벌이 아니다.
+    func testCertainPlusReactionObservationStaysConfirmed() {
+        let spotlightSystem = Owner.system(feature: "Spotlight 검색")
+        let spotlightApp = Owner.app(bundleID: "com.apple.Spotlight", name: "Spotlight", action: nil)
+        let evidence = [
+            Evidence(source: "시스템 단축키", owner: spotlightSystem, confidence: .certain,
+                     rationale: "r", kind: .claim),
+            Evidence(source: "반응 감지", owner: spotlightApp, confidence: .high,
+                     rationale: "r", kind: .observation),
+        ]
+        guard case .confirmed(let o, let e) = VerdictBuilder.build(evidence) else {
+            return XCTFail("반응 증거는 시스템 소유를 뒤집지 못한다")
+        }
+        XCTAssertEqual(o, spotlightSystem)
+        XCTAssertEqual(e.count, 2, "근거 목록에는 반응도 그대로 남는다")
+    }
+
+    /// ⌃Space: 시스템 소유 + Maccy의 **설정** 주장 → 진짜 충돌이므로 contested 유지.
+    func testCertainPlusParserClaimIsStillContested() {
+        let inputSource = Owner.system(feature: "이전 입력 소스 선택")
+        let maccyPreview = Owner.app(bundleID: "org.p0deje.Maccy", name: "Maccy", action: "togglePreview")
+        let evidence = [
+            Evidence(source: "시스템 단축키", owner: inputSource, confidence: .certain,
+                     rationale: "r", kind: .claim),
+            Evidence(source: "Maccy 설정", owner: maccyPreview, confidence: .high,
+                     rationale: "r", kind: .claim),
+        ]
+        guard case .contested(let owners, _) = VerdictBuilder.build(evidence) else {
+            return XCTFail("설정 주장은 시스템과 충돌한다")
+        }
+        XCTAssertEqual(owners, [inputSource, maccyPreview])
+    }
+
+    /// 관찰만 있고 주장이 없으면 여전히 소유자를 추정한다(미지 앱 탐지 경로).
+    func testObservationAloneStillYieldsLikely() {
+        let unknown = Owner.app(bundleID: "com.example.Unknown", name: "Unknown", action: nil)
+        let evidence = [Evidence(source: "반응 감지", owner: unknown, confidence: .high,
+                                 rationale: "r", kind: .observation)]
+        guard case .likely(let o, _) = VerdictBuilder.build(evidence) else {
+            return XCTFail("관찰만 있어도 반응한 앱을 소유자로 추정해야 한다")
+        }
+        XCTAssertEqual(o, unknown)
+    }
+
     func testOwnerDisplayName() {
         XCTAssertEqual(sys.displayName, "영역 스크린샷 (시스템)")
         XCTAssertEqual(rect.displayName, "Rectangle · 왼쪽 절반")

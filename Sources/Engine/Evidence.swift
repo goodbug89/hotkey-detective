@@ -27,14 +27,31 @@ public enum Owner: Hashable, Codable {
     }
 }
 
+/// 증거가 무엇을 말하는지 구분한다.
+///
+/// `claim`은 "이 조합을 등록해뒀다"는 주장(시스템 plist, 앱 설정 파서, 설정 스캔)이고,
+/// `observation`은 "이런 일이 일어났다"는 관찰(반응 감지, Carbon 점유 시도)이다.
+///
+/// 충돌 판정에서 둘은 대칭이 아니다. 반응은 키를 **가져간** 쪽에서 나오므로 승자를
+/// 뒷받침할 뿐, 경쟁 등록의 근거가 될 수 없다 — 경쟁자는 오히려 반응하지 못한 쪽이다.
+/// 이 구분이 없으면 ⌘Space처럼 시스템이 소유하고 시스템 UI가 반응하는 조합이
+/// "시스템과 앱이 모두 등록함"으로 잘못 표시된다.
+public enum EvidenceKind: Hashable, Codable {
+    case claim
+    case observation
+}
+
 public struct Evidence: Hashable, Codable {
     public let source: String
     public let owner: Owner?
     public let confidence: Confidence
     public let rationale: String
+    public let kind: EvidenceKind
 
-    public init(source: String, owner: Owner?, confidence: Confidence, rationale: String) {
-        self.source = source; self.owner = owner; self.confidence = confidence; self.rationale = rationale
+    public init(source: String, owner: Owner?, confidence: Confidence, rationale: String,
+                kind: EvidenceKind = .claim) {
+        self.source = source; self.owner = owner; self.confidence = confidence
+        self.rationale = rationale; self.kind = kind
     }
 }
 

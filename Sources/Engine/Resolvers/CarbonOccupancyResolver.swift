@@ -12,7 +12,8 @@ public struct CarbonOccupancyResolver: Resolver {
         switch registrar.tryRegister(combo) {
         case .occupied:
             return [Evidence(source: name, owner: nil, confidence: .high,
-                             rationale: "다른 프로세스가 \(combo.display)을(를) Carbon 핫키로 등록함")]
+                             rationale: "다른 프로세스가 \(combo.display)을(를) Carbon 핫키로 등록함",
+                             kind: .observation)]
         case .registeredAndReleased:
             return []
         case .error(let code):
