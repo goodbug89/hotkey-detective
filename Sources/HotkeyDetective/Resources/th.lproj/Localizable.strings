@@ -61,3 +61,4 @@
 "footer.launchAtLogin" = "เปิดเมื่อเข้าสู่ระบบ";
 "footer.showInventory" = "ทางลัดทั้งหมด";
 "footer.quit" = "ออก";
+"footer.madeBy" = "สร้างโดยทีม Unifyl";

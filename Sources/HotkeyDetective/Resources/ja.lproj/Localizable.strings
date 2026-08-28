@@ -61,3 +61,4 @@
 "footer.launchAtLogin" = "ログイン時に起動";
 "footer.showInventory" = "すべてのショートカット";
 "footer.quit" = "終了";
+"footer.madeBy" = "Unifyl チームが開発しています";

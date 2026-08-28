@@ -70,3 +70,4 @@
 "footer.launchAtLogin" = "로그인 시 실행";
 "footer.showInventory" = "전체 단축키 보기";
 "footer.quit" = "종료";
+"footer.madeBy" = "Unifyl 팀이 만듭니다";

@@ -61,3 +61,4 @@
 "footer.launchAtLogin" = "登录时启动";
 "footer.showInventory" = "所有快捷键";
 "footer.quit" = "退出";
+"footer.madeBy" = "由 Unifyl 团队打造";

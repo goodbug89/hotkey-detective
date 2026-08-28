@@ -62,6 +62,17 @@ struct InventoryWindow: View {
                 .listRowBackground(e.isConflict ? Color.orange.opacity(0.08) : Color.clear)
             }
         }
+        .safeAreaInset(edge: .bottom) {
+            // 탐침 팝오버(자주 쓰는 경로)에는 넣지 않는다 — 사용자가 일부러 연 창에서만,
+            // 한 줄로.
+            HStack {
+                Spacer()
+                Link(L.t("footer.madeBy"), destination: URL(string: "https://unifyl.app")!)
+                    .font(.caption2)
+                    .foregroundStyle(.secondary)
+            }
+            .padding(.horizontal, 12).padding(.bottom, 6)
+        }
         .frame(minWidth: 520, minHeight: 400)
         .onAppear { model.reload() }
     }
