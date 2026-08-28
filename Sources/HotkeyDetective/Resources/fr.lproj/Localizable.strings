@@ -1,0 +1,63 @@
+"badge.system" = "Système";
+"badge.parser" = "Config";
+"badge.scan" = "Scan";
+"badge.reaction" = "Réaction";
+"badge.probe" = "Sonde";
+
+"reason.systemHotkey" = "Le raccourci système n°%1$@ est activé sur %2$@";
+"reason.knownApp" = "%1$@ associe « %2$@ » à %3$@";
+"reason.knownApp.notRunning" = "%1$@ associe « %2$@ » à %3$@ — pas en cours d'exécution, entrera en conflit au lancement";
+"reason.scanPattern" = "« %2$@ » = %3$@ trouvé dans les réglages de %1$@";
+"reason.scanPattern.noAction" = "%2$@ trouvé dans les réglages de %1$@";
+"reason.reaction" = "%2$@ a réagi %1$@ ms après la frappe : %3$@";
+"reason.carbonOccupied" = "Un autre processus a enregistré %1$@ comme raccourci Carbon";
+"reason.signalSeparator" = ", ";
+"signal.newWindows" = "%1$@ nouvelle(s) fenêtre(s) ouverte(s)";
+"signal.becameFrontmost" = "passée au premier plan";
+
+"verdict.confirmed" = "%1$@ l'utilise";
+"verdict.likely" = "%1$@ semble l'utiliser";
+"verdict.contested" = "%1$@ l'ont tous les deux enregistré";
+"verdict.occupiedUnknown" = "Quelque chose l'occupe, sans pouvoir être identifié";
+"verdict.free" = "Personne ne l'utilise";
+"verdict.ownerSeparator" = " et ";
+
+"owner.system" = "%1$@ (système)";
+"owner.appAction" = "%1$@ · %2$@";
+"owner.unknownFeature" = "Fonction système n°%1$@";
+
+"probe.start" = "Lancer la sonde";
+"probe.listening.title" = "Appuyez maintenant sur le raccourci";
+"probe.listening.hint" = "Échap pour annuler · s'arrête après 15 secondes";
+"probe.cancel" = "Annuler";
+"probe.manual.toggle" = "Saisir une combinaison manuellement";
+"probe.manual.close" = "Fermer la saisie manuelle";
+"probe.manual.key" = "Touche";
+"probe.manual.lookUp" = "Rechercher : %1$@";
+"probe.limitedMode" = "Mode limité — verdicts basés uniquement sur les fichiers de réglages";
+
+"verdict.evidenceCount" = "%1$@ élément(s) de preuve";
+"verdict.openKeyboardSettings" = "Ouvrir les raccourcis clavier";
+"verdict.openApp" = "Ouvrir %1$@";
+"verdict.copy" = "Copier le résultat";
+"verdict.again" = "Sonder à nouveau";
+"verdict.unknownHint" = "Il s'agit peut-être d'une app que nous ne connaissons pas encore. Quittez un candidat probable et réessayez.";
+
+"permission.title" = "Accessibilité et surveillance de la saisie requises";
+"permission.body" = "Pour voir quelle app répond à un raccourci, HotkeyDetective doit observer les frappes. macOS exige pour cela **Accessibilité** et **Surveillance de la saisie**. Activez HotkeyDetective dans les deux listes. Les frappes ne sont jamais interceptées ni stockées.";
+"permission.openAccessibility" = "Ouvrir Accessibilité";
+"permission.openInputMonitoring" = "Ouvrir Surveillance de la saisie";
+"permission.limitedMode" = "Continuer sans autorisations (mode limité)";
+
+"inventory.title" = "Tous les raccourcis";
+"inventory.summary" = "%1$@ enregistrés · %2$@ en conflit";
+"inventory.search" = "Rechercher un raccourci ou une app";
+"inventory.conflictsOnly" = "Conflits seulement";
+"inventory.deepScan" = "Analyse approfondie";
+"inventory.deepScan.hint" = "Lit aussi les réglages des apps en bac à sable — macOS demandera l'autorisation pour chacune.";
+"inventory.dormant" = "Pas en cours d'exécution — conflit au lancement";
+"inventory.refresh" = "Actualiser";
+
+"footer.launchAtLogin" = "Ouvrir à la session";
+"footer.showInventory" = "Tous les raccourcis";
+"footer.quit" = "Quitter";

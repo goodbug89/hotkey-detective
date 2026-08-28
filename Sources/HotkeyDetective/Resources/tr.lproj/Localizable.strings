@@ -1,0 +1,63 @@
+"badge.system" = "Sistem";
+"badge.parser" = "Ayar";
+"badge.scan" = "Tarama";
+"badge.reaction" = "Tepki";
+"badge.probe" = "Sonda";
+
+"reason.systemHotkey" = "%1$@ numaralı sistem kısayolu %2$@ olarak etkin";
+"reason.knownApp" = "%1$@, “%2$@” işlemini %3$@ tuşuna atamış";
+"reason.knownApp.notRunning" = "%1$@, “%2$@” işlemini %3$@ tuşuna atamış — şu an çalışmıyor, açılınca çakışacak";
+"reason.scanPattern" = "%1$@ ayarlarında “%2$@” = %3$@ bulundu";
+"reason.scanPattern.noAction" = "%1$@ ayarlarında %2$@ bulundu";
+"reason.reaction" = "%2$@, tuşa basıldıktan %1$@ ms sonra tepki verdi: %3$@";
+"reason.carbonOccupied" = "Başka bir işlem %1$@ kısayolunu Carbon kısayolu olarak kaydetmiş";
+"reason.signalSeparator" = ", ";
+"signal.newWindows" = "%1$@ yeni pencere açtı";
+"signal.becameFrontmost" = "öne geldi";
+
+"verdict.confirmed" = "%1$@ kullanıyor";
+"verdict.likely" = "%1$@ kullanıyor görünüyor";
+"verdict.contested" = "%1$@ ikisi de kaydetmiş";
+"verdict.occupiedUnknown" = "Bir şey kullanıyor ama tespit edilemedi";
+"verdict.free" = "Kimse kullanmıyor";
+"verdict.ownerSeparator" = " ve ";
+
+"owner.system" = "%1$@ (sistem)";
+"owner.appAction" = "%1$@ · %2$@";
+"owner.unknownFeature" = "Sistem işlevi #%1$@";
+
+"probe.start" = "Sondayı başlat";
+"probe.listening.title" = "Şimdi kısayola basın";
+"probe.listening.hint" = "İptal için Esc · 15 saniye sonra durur";
+"probe.cancel" = "İptal";
+"probe.manual.toggle" = "Kombinasyonu elle gir";
+"probe.manual.close" = "Elle girişi kapat";
+"probe.manual.key" = "Tuş";
+"probe.manual.lookUp" = "Ara: %1$@";
+"probe.limitedMode" = "Sınırlı mod — yalnızca ayar dosyalarına göre";
+
+"verdict.evidenceCount" = "%1$@ kanıt";
+"verdict.openKeyboardSettings" = "Klavye Kısayolları'nı aç";
+"verdict.openApp" = "%1$@ uygulamasını aç";
+"verdict.copy" = "Sonucu kopyala";
+"verdict.again" = "Yeniden sonda";
+"verdict.unknownHint" = "Henüz tanımadığımız bir uygulama olabilir. Şüphelendiğinizi kapatıp yeniden deneyin.";
+
+"permission.title" = "Erişilebilirlik ve Girdi İzleme gerekli";
+"permission.body" = "Bir kısayola hangi uygulamanın yanıt verdiğini görmek için HotkeyDetective tuş basışlarını gözlemlemelidir. macOS bunun için hem **Erişilebilirlik** hem **Girdi İzleme** ister. HotkeyDetective'i her iki listede de açın. Tuş basışları asla yakalanmaz veya saklanmaz.";
+"permission.openAccessibility" = "Erişilebilirlik'i aç";
+"permission.openInputMonitoring" = "Girdi İzleme'yi aç";
+"permission.limitedMode" = "İzinsiz devam et (sınırlı mod)";
+
+"inventory.title" = "Tüm kısayollar";
+"inventory.summary" = "%1$@ kayıtlı · %2$@ çakışma";
+"inventory.search" = "Kısayol veya uygulama ara";
+"inventory.conflictsOnly" = "Yalnızca çakışmalar";
+"inventory.deepScan" = "Derin tarama";
+"inventory.deepScan.hint" = "Sanal alan uygulamalarının ayarlarını da okur — macOS her biri için izin ister.";
+"inventory.dormant" = "Çalışmıyor — açılınca çakışacak";
+"inventory.refresh" = "Yenile";
+
+"footer.launchAtLogin" = "Girişte başlat";
+"footer.showInventory" = "Tüm kısayollar";
+"footer.quit" = "Çık";

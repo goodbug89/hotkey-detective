@@ -20,7 +20,7 @@ public struct ScannableApp: Hashable {
 
 /// 실행 중 앱의 plist를 훑어 알려진 두 직렬화 패턴으로 단축키를 추정한다.
 public struct HeuristicScanResolver: Resolver, Enumerable {
-    public let name = "설정 스캔"
+    
     let apps: [ScannableApp]
     let excludedBundleIDs: Set<String>
     /// 샌드박스 컨테이너 plist까지 읽을지. 켜면 앱마다 macOS TCC 권한 창이 뜰 수 있으므로
@@ -67,13 +67,12 @@ public struct HeuristicScanResolver: Resolver, Enumerable {
             }
             for (action, combo) in extract(root) where include(combo) {
                 // 액션 이름이 없는(plist 루트에 놓인) 패턴은 따옴표만 남은 문구가 되지 않게 문장을 바꾼다.
-                let rationale = action.map { "\(app.name) 설정에서 '\($0)' = \(combo.display) 패턴 발견" }
-                    ?? "\(app.name) 설정에서 \(combo.display) 패턴 발견"
+
                 items.append(ScannedItem(appIndex: appIndex, action: action, combo: combo,
-                    evidence: Evidence(source: name,
+                    evidence: Evidence(source: .heuristicScan,
                         owner: .app(bundleID: app.bundleID, name: app.name, action: action),
                         confidence: .medium,
-                        rationale: rationale)))
+                        reason: .scanPattern(app: app.name, action: action, combo: combo.display))))
             }
         }
         items.sort { a, b in

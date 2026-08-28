@@ -1,0 +1,63 @@
+"badge.system" = "システム";
+"badge.parser" = "設定";
+"badge.scan" = "スキャン";
+"badge.reaction" = "反応";
+"badge.probe" = "プローブ";
+
+"reason.systemHotkey" = "システムショートカット #%1$@ が %2$@ で有効になっています";
+"reason.knownApp" = "%1$@ が「%2$@」を %3$@ に割り当てています";
+"reason.knownApp.notRunning" = "%1$@ が「%2$@」を %3$@ に割り当てています — 現在は未起動、起動すると競合します";
+"reason.scanPattern" = "%1$@ の設定に「%2$@」= %3$@ を発見";
+"reason.scanPattern.noAction" = "%1$@ の設定に %2$@ を発見";
+"reason.reaction" = "入力から %1$@ms 後に %2$@ が反応: %3$@";
+"reason.carbonOccupied" = "別のプロセスが %1$@ を Carbon ホットキーとして登録しています";
+"reason.signalSeparator" = "、";
+"signal.newWindows" = "新しいウインドウを %1$@ 個表示";
+"signal.becameFrontmost" = "最前面に移動";
+
+"verdict.confirmed" = "%1$@ が使用中";
+"verdict.likely" = "%1$@ が使用しているようです";
+"verdict.contested" = "%1$@ が両方とも登録しています";
+"verdict.occupiedUnknown" = "何かが占有していますが、特定できませんでした";
+"verdict.free" = "誰も使用していません";
+"verdict.ownerSeparator" = " と ";
+
+"owner.system" = "%1$@（システム）";
+"owner.appAction" = "%1$@ · %2$@";
+"owner.unknownFeature" = "システム機能 #%1$@";
+
+"probe.start" = "プローブ開始";
+"probe.listening.title" = "今、ショートカットを押してください";
+"probe.listening.hint" = "Esc でキャンセル · 15秒で自動終了";
+"probe.cancel" = "キャンセル";
+"probe.manual.toggle" = "組み合わせを手動で入力";
+"probe.manual.close" = "手動入力を閉じる";
+"probe.manual.key" = "キー";
+"probe.manual.lookUp" = "検索: %1$@";
+"probe.limitedMode" = "制限モード — 設定ファイルのみで判定します";
+
+"verdict.evidenceCount" = "根拠 %1$@ 件";
+"verdict.openKeyboardSettings" = "キーボードショートカット設定を開く";
+"verdict.openApp" = "%1$@ を開く";
+"verdict.copy" = "結果をコピー";
+"verdict.again" = "再プローブ";
+"verdict.unknownHint" = "まだ認識できないアプリかもしれません。心当たりのあるアプリを終了して再試行してください。";
+
+"permission.title" = "アクセシビリティと入力監視の権限が必要です";
+"permission.body" = "どのアプリがショートカットに反応するかを調べるには、キー入力を観察する必要があります。macOS はそのために**アクセシビリティ**と**入力監視**の両方を要求します。両方のリストで HotkeyDetective を有効にしてください。キー入力を横取りしたり保存したりすることはありません。";
+"permission.openAccessibility" = "アクセシビリティ設定を開く";
+"permission.openInputMonitoring" = "入力監視設定を開く";
+"permission.limitedMode" = "権限なしで制限モードを使う";
+
+"inventory.title" = "すべてのショートカット";
+"inventory.summary" = "登録 %1$@ · 競合 %2$@";
+"inventory.search" = "ショートカット・アプリを検索";
+"inventory.conflictsOnly" = "競合のみ";
+"inventory.deepScan" = "詳細スキャン";
+"inventory.deepScan.hint" = "サンドボックスアプリの設定も読み取ります — macOS がアプリごとに許可を求めます。";
+"inventory.dormant" = "未起動 — 起動すると競合します";
+"inventory.refresh" = "更新";
+
+"footer.launchAtLogin" = "ログイン時に起動";
+"footer.showInventory" = "すべてのショートカット";
+"footer.quit" = "終了";

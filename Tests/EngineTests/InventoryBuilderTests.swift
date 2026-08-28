@@ -5,7 +5,8 @@ final class InventoryBuilderTests: XCTestCase {
     let a4 = KeyCombo(keyCode: 21, modifiers: [.command, .shift])
     let space = KeyCombo(keyCode: 49, modifiers: [.control])
     func ev(_ owner: Owner, _ c: Confidence = .high, src: String = "t") -> Evidence {
-        Evidence(source: src, owner: owner, confidence: c, rationale: "r")
+        Evidence(source: .knownAppParser(appName: src), owner: owner, confidence: c,
+                 reason: .systemHotkey(id: 0, combo: "-"))
     }
     let sys = Owner.system(feature: "이전 입력 소스 선택")
     let maccy = Owner.app(bundleID: "org.p0deje.Maccy", name: "Maccy", action: "togglePreview")
@@ -50,7 +51,8 @@ final class InventoryBuilderTests: XCTestCase {
     /// 의도적으로 갈린다 — testLowConfidenceOwnerIsInventoryOnly 참고.
     func testInventoryAndVerdictAgreeOnOwnerSetAboveLow() {
         let noAction = Owner.app(bundleID: "org.p0deje.Maccy", name: "Maccy", action: nil)
-        let unowned = Evidence(source: "t", owner: nil, confidence: .high, rationale: "r")
+        let unowned = Evidence(source: .knownAppParser(appName: "t"), owner: nil, confidence: .high,
+                 reason: .systemHotkey(id: 0, combo: "-"))
         let cases: [[Evidence]] = [
             [ev(sys, .certain)],
             [ev(sys, .certain), ev(maccy, .high)],

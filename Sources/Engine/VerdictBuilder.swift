@@ -4,11 +4,13 @@ public enum VerdictBuilder {
     public static func build(_ evidence: [Evidence]) -> Verdict {
         if evidence.isEmpty { return .free([]) }
 
-        // 신뢰도 내림차순, 동률은 source → rationale 순으로 안정적인 표시 순서를 만든다.
+        // 신뢰도 내림차순, 동률은 소스 순서로 안정적인 표시 순서를 만든다.
+        // 소스 문자열이 아니라 sortKey를 쓰므로 언어가 바뀌어도 순서가 흔들리지 않는다.
         let sorted = evidence.sorted {
             if $0.confidence != $1.confidence { return $0.confidence > $1.confidence }
-            if $0.source != $1.source { return $0.source < $1.source }
-            return $0.rationale < $1.rationale
+            let (a, b) = ($0.source.sortKey, $1.source.sortKey)
+            if a.0 != b.0 { return a.0 < b.0 }
+            return a.1 < b.1
         }
 
         // 규칙 1: certain. 단, certain 소유자가 하나여도 다른 소유자가 high 이상 증거를

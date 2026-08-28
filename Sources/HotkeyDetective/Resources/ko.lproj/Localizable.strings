@@ -1,0 +1,72 @@
+/* Source badges */
+"badge.system" = "시스템";
+"badge.parser" = "설정";
+"badge.scan" = "스캔";
+"badge.reaction" = "반응";
+"badge.probe" = "탐침";
+
+/* Evidence reasons */
+"reason.systemHotkey" = "시스템 단축키 %1$@번이 %2$@으로 활성화됨";
+"reason.knownApp" = "%1$@이(가) '%2$@'을(를) %3$@에 지정함";
+"reason.knownApp.notRunning" = "%1$@이(가) '%2$@'을(를) %3$@에 지정함 — 현재 실행 중 아님, 실행 시 충돌 예상";
+"reason.scanPattern" = "%1$@ 설정에서 '%2$@' = %3$@ 발견";
+"reason.scanPattern.noAction" = "%1$@ 설정에서 %2$@ 발견";
+"reason.reaction" = "입력 %1$@ms 후 %2$@이(가) 반응: %3$@";
+"reason.carbonOccupied" = "다른 프로세스가 %1$@을(를) Carbon 핫키로 등록함";
+"reason.signalSeparator" = ", ";
+"signal.newWindows" = "새 창 %1$@개 표시";
+"signal.becameFrontmost" = "활성 앱으로 전환";
+
+/* Verdict headlines */
+"verdict.confirmed" = "%1$@이(가) 사용 중";
+"verdict.likely" = "%1$@이(가) 사용 중인 것으로 보임";
+"verdict.contested" = "%1$@이(가) 모두 등록함";
+"verdict.occupiedUnknown" = "무언가 점유하고 있지만 누구인지 찾지 못함";
+"verdict.free" = "아무도 사용하지 않음";
+"verdict.ownerSeparator" = "와 ";
+
+/* Owner display */
+"owner.system" = "%1$@ (시스템)";
+"owner.appAction" = "%1$@ · %2$@";
+"owner.unknownFeature" = "시스템 기능 #%1$@";
+
+/* Probe screen */
+"probe.start" = "탐침 시작";
+"probe.listening.title" = "지금 조합을 눌러보세요";
+"probe.listening.hint" = "Esc로 취소 · 15초 후 자동 종료";
+"probe.cancel" = "취소";
+"probe.manual.toggle" = "조합을 직접 지정";
+"probe.manual.close" = "조합 직접 지정 닫기";
+"probe.manual.key" = "키";
+"probe.manual.lookUp" = "조회: %1$@";
+"probe.limitedMode" = "제한 모드 — 설정 파일 기반으로만 판정합니다";
+
+/* Verdict screen */
+"verdict.evidenceCount" = "근거 %1$@건";
+"verdict.openKeyboardSettings" = "키보드 단축키 설정 열기";
+"verdict.openApp" = "%1$@ 열기";
+"verdict.copy" = "결과 복사";
+"verdict.again" = "다시 탐침";
+"verdict.unknownHint" = "아직 모르는 앱일 수 있어요. 짐작 가는 앱을 종료하고 다시 시도해보세요.";
+
+/* Permission screen */
+"permission.title" = "손쉬운 사용 · 입력 모니터링 권한이 필요합니다";
+"permission.body" = "어떤 앱이 단축키에 반응하는지 보려면 키 입력을 관찰해야 합니다. macOS는 이를 위해 **손쉬운 사용**과 **입력 모니터링** 권한을 모두 요구합니다. 두 목록 모두에서 HotkeyDetective를 켜주세요. 입력은 가로채거나 저장하지 않습니다.";
+"permission.openAccessibility" = "손쉬운 사용 설정 열기";
+"permission.openInputMonitoring" = "입력 모니터링 설정 열기";
+"permission.limitedMode" = "권한 없이 제한 모드 사용";
+
+/* Inventory window */
+"inventory.title" = "전체 단축키";
+"inventory.summary" = "등록 %1$@ · 충돌 %2$@";
+"inventory.search" = "조합·앱 검색";
+"inventory.conflictsOnly" = "충돌만";
+"inventory.deepScan" = "심층 스캔";
+"inventory.deepScan.hint" = "샌드박스 앱의 설정까지 읽습니다 — macOS가 앱마다 접근 권한을 물어봅니다.";
+"inventory.dormant" = "실행 중 아님 — 실행 시 충돌 예상";
+"inventory.refresh" = "새로고침";
+
+/* Footer */
+"footer.launchAtLogin" = "로그인 시 실행";
+"footer.showInventory" = "전체 단축키 보기";
+"footer.quit" = "종료";

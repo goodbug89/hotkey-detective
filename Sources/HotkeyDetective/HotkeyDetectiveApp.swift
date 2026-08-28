@@ -12,7 +12,7 @@ struct HotkeyDetectiveApp: App {
             RootView().environmentObject(session).frame(width: 360)
         }
         .menuBarExtraStyle(.window)
-        Window("전체 단축키", id: "inventory") { InventoryWindow() }
+        Window(L.t("inventory.title"), id: "inventory") { InventoryWindow() }
     }
 }
 
@@ -51,7 +51,7 @@ struct FooterMenu: View {
 
     var body: some View {
         HStack {
-            Toggle("로그인 시 실행", isOn: $launchAtLogin)
+            Toggle(L.t("footer.launchAtLogin"), isOn: $launchAtLogin)
                 .toggleStyle(.checkbox).font(.caption)
                 .onChange(of: launchAtLogin) { _, on in
                     if suppressChange { suppressChange = false; return }
@@ -65,12 +65,12 @@ struct FooterMenu: View {
                 }
             Spacer()
             // LSUIElement 앱은 스스로 활성화되지 않아 창이 뒤에서 열린다 — 명시적으로 앞으로 가져온다.
-            Button("전체 단축키 보기") {
+            Button(L.t("footer.showInventory")) {
                 openWindow(id: "inventory")
                 NSApp.activate(ignoringOtherApps: true)
             }
                 .buttonStyle(.link).font(.caption)
-            Button("종료") { NSApplication.shared.terminate(nil) }.buttonStyle(.link).font(.caption)
+            Button(L.t("footer.quit")) { NSApplication.shared.terminate(nil) }.buttonStyle(.link).font(.caption)
         }
         .padding(.horizontal).padding(.bottom, 8)
     }

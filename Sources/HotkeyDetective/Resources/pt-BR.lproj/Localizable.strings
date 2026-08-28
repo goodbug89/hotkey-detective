@@ -1,0 +1,63 @@
+"badge.system" = "Sistema";
+"badge.parser" = "Config";
+"badge.scan" = "Varredura";
+"badge.reaction" = "Reação";
+"badge.probe" = "Sonda";
+
+"reason.systemHotkey" = "O atalho do sistema nº %1$@ está ativado como %2$@";
+"reason.knownApp" = "%1$@ atribui “%2$@” a %3$@";
+"reason.knownApp.notRunning" = "%1$@ atribui “%2$@” a %3$@ — não está em execução, vai conflitar quando abrir";
+"reason.scanPattern" = "Encontrado “%2$@” = %3$@ nos ajustes de %1$@";
+"reason.scanPattern.noAction" = "Encontrado %2$@ nos ajustes de %1$@";
+"reason.reaction" = "%2$@ reagiu %1$@ ms após a tecla: %3$@";
+"reason.carbonOccupied" = "Outro processo registrou %1$@ como atalho Carbon";
+"reason.signalSeparator" = ", ";
+"signal.newWindows" = "abriu %1$@ nova(s) janela(s)";
+"signal.becameFrontmost" = "veio para a frente";
+
+"verdict.confirmed" = "%1$@ está usando";
+"verdict.likely" = "%1$@ parece estar usando";
+"verdict.contested" = "%1$@ registraram os dois";
+"verdict.occupiedUnknown" = "Algo está ocupando, mas não foi possível identificar";
+"verdict.free" = "Ninguém está usando";
+"verdict.ownerSeparator" = " e ";
+
+"owner.system" = "%1$@ (sistema)";
+"owner.appAction" = "%1$@ · %2$@";
+"owner.unknownFeature" = "Função do sistema nº %1$@";
+
+"probe.start" = "Iniciar sonda";
+"probe.listening.title" = "Pressione o atalho agora";
+"probe.listening.hint" = "Esc para cancelar · encerra em 15 segundos";
+"probe.cancel" = "Cancelar";
+"probe.manual.toggle" = "Inserir combinação manualmente";
+"probe.manual.close" = "Fechar entrada manual";
+"probe.manual.key" = "Tecla";
+"probe.manual.lookUp" = "Consultar: %1$@";
+"probe.limitedMode" = "Modo limitado — veredictos apenas por arquivos de ajustes";
+
+"verdict.evidenceCount" = "%1$@ evidência(s)";
+"verdict.openKeyboardSettings" = "Abrir Atalhos de Teclado";
+"verdict.openApp" = "Abrir %1$@";
+"verdict.copy" = "Copiar resultado";
+"verdict.again" = "Sondar novamente";
+"verdict.unknownHint" = "Pode ser um app que ainda não reconhecemos. Encerre um suspeito e tente de novo.";
+
+"permission.title" = "Acessibilidade e Monitoramento de Entrada necessários";
+"permission.body" = "Para ver qual app responde a um atalho, o HotkeyDetective precisa observar as teclas. O macOS exige **Acessibilidade** e **Monitoramento de Entrada**. Ative o HotkeyDetective nas duas listas. As teclas nunca são interceptadas nem armazenadas.";
+"permission.openAccessibility" = "Abrir Acessibilidade";
+"permission.openInputMonitoring" = "Abrir Monitoramento de Entrada";
+"permission.limitedMode" = "Continuar sem permissões (modo limitado)";
+
+"inventory.title" = "Todos os atalhos";
+"inventory.summary" = "%1$@ registrados · %2$@ em conflito";
+"inventory.search" = "Buscar atalho ou app";
+"inventory.conflictsOnly" = "Somente conflitos";
+"inventory.deepScan" = "Varredura profunda";
+"inventory.deepScan.hint" = "Também lê ajustes de apps em sandbox — o macOS pedirá permissão para cada um.";
+"inventory.dormant" = "Não está em execução — vai conflitar quando abrir";
+"inventory.refresh" = "Atualizar";
+
+"footer.launchAtLogin" = "Abrir ao iniciar sessão";
+"footer.showInventory" = "Todos os atalhos";
+"footer.quit" = "Sair";

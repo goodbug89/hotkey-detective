@@ -1,0 +1,63 @@
+"badge.system" = "System";
+"badge.parser" = "Konfig";
+"badge.scan" = "Scan";
+"badge.reaction" = "Reaktion";
+"badge.probe" = "Test";
+
+"reason.systemHotkey" = "Systemkurzbefehl #%1$@ ist als %2$@ aktiviert";
+"reason.knownApp" = "%1$@ belegt „%2$@“ mit %3$@";
+"reason.knownApp.notRunning" = "%1$@ belegt „%2$@“ mit %3$@ — läuft gerade nicht, wird beim Start kollidieren";
+"reason.scanPattern" = "„%2$@“ = %3$@ in den Einstellungen von %1$@ gefunden";
+"reason.scanPattern.noAction" = "%2$@ in den Einstellungen von %1$@ gefunden";
+"reason.reaction" = "%2$@ reagierte %1$@ ms nach dem Tastendruck: %3$@";
+"reason.carbonOccupied" = "Ein anderer Prozess hat %1$@ als Carbon-Hotkey registriert";
+"reason.signalSeparator" = ", ";
+"signal.newWindows" = "%1$@ neue(s) Fenster geöffnet";
+"signal.becameFrontmost" = "in den Vordergrund gewechselt";
+
+"verdict.confirmed" = "%1$@ verwendet diesen Kurzbefehl";
+"verdict.likely" = "%1$@ verwendet diesen Kurzbefehl offenbar";
+"verdict.contested" = "%1$@ haben beide diesen Kurzbefehl registriert";
+"verdict.occupiedUnknown" = "Etwas belegt ihn, konnte aber nicht identifiziert werden";
+"verdict.free" = "Niemand verwendet diesen Kurzbefehl";
+"verdict.ownerSeparator" = " und ";
+
+"owner.system" = "%1$@ (System)";
+"owner.appAction" = "%1$@ · %2$@";
+"owner.unknownFeature" = "Systemfunktion #%1$@";
+
+"probe.start" = "Test starten";
+"probe.listening.title" = "Drücke jetzt den Kurzbefehl";
+"probe.listening.hint" = "Esc zum Abbrechen · endet nach 15 Sekunden";
+"probe.cancel" = "Abbrechen";
+"probe.manual.toggle" = "Kombination manuell eingeben";
+"probe.manual.close" = "Manuelle Eingabe schließen";
+"probe.manual.key" = "Taste";
+"probe.manual.lookUp" = "Nachschlagen: %1$@";
+"probe.limitedMode" = "Eingeschränkter Modus — Bewertung nur anhand von Konfigurationsdateien";
+
+"verdict.evidenceCount" = "%1$@ Beleg(e)";
+"verdict.openKeyboardSettings" = "Tastaturkurzbefehle öffnen";
+"verdict.openApp" = "%1$@ öffnen";
+"verdict.copy" = "Ergebnis kopieren";
+"verdict.again" = "Erneut testen";
+"verdict.unknownHint" = "Vielleicht eine App, die wir noch nicht kennen. Beende einen Verdächtigen und teste erneut.";
+
+"permission.title" = "Bedienungshilfen und Eingabeüberwachung erforderlich";
+"permission.body" = "Um zu sehen, welche App auf einen Kurzbefehl reagiert, muss HotkeyDetective Tastendrücke beobachten. macOS verlangt dafür sowohl **Bedienungshilfen** als auch **Eingabeüberwachung**. Aktiviere HotkeyDetective in beiden Listen. Tastendrücke werden nie abgefangen oder gespeichert.";
+"permission.openAccessibility" = "Bedienungshilfen öffnen";
+"permission.openInputMonitoring" = "Eingabeüberwachung öffnen";
+"permission.limitedMode" = "Ohne Berechtigungen fortfahren (eingeschränkt)";
+
+"inventory.title" = "Alle Kurzbefehle";
+"inventory.summary" = "%1$@ registriert · %2$@ Konflikte";
+"inventory.search" = "Kurzbefehl oder App suchen";
+"inventory.conflictsOnly" = "Nur Konflikte";
+"inventory.deepScan" = "Tiefer Scan";
+"inventory.deepScan.hint" = "Liest auch Einstellungen von Sandbox-Apps — macOS fragt für jede App nach.";
+"inventory.dormant" = "Läuft nicht — wird beim Start kollidieren";
+"inventory.refresh" = "Aktualisieren";
+
+"footer.launchAtLogin" = "Bei der Anmeldung öffnen";
+"footer.showInventory" = "Alle Kurzbefehle";
+"footer.quit" = "Beenden";

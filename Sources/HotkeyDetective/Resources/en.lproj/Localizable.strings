@@ -1,0 +1,72 @@
+/* Source badges */
+"badge.system" = "System";
+"badge.parser" = "Config";
+"badge.scan" = "Scan";
+"badge.reaction" = "Reaction";
+"badge.probe" = "Probe";
+
+/* Evidence reasons */
+"reason.systemHotkey" = "System shortcut #%1$@ is enabled as %2$@";
+"reason.knownApp" = "%1$@ binds '%2$@' to %3$@";
+"reason.knownApp.notRunning" = "%1$@ binds '%2$@' to %3$@ — not running now, will conflict once started";
+"reason.scanPattern" = "Found '%2$@' = %3$@ in %1$@'s settings";
+"reason.scanPattern.noAction" = "Found %2$@ in %1$@'s settings";
+"reason.reaction" = "%2$@ responded %1$@ms after the keypress: %3$@";
+"reason.carbonOccupied" = "Another process registered %1$@ as a Carbon hotkey";
+"reason.signalSeparator" = ", ";
+"signal.newWindows" = "opened %1$@ new window(s)";
+"signal.becameFrontmost" = "came to the front";
+
+/* Verdict headlines */
+"verdict.confirmed" = "%1$@ is using this";
+"verdict.likely" = "%1$@ appears to be using this";
+"verdict.contested" = "%1$@ have both registered this";
+"verdict.occupiedUnknown" = "Something has this, but we could not identify it";
+"verdict.free" = "Nothing is using this";
+"verdict.ownerSeparator" = " and ";
+
+/* Owner display */
+"owner.system" = "%1$@ (system)";
+"owner.appAction" = "%1$@ · %2$@";
+"owner.unknownFeature" = "System function #%1$@";
+
+/* Probe screen */
+"probe.start" = "Start probe";
+"probe.listening.title" = "Press the shortcut now";
+"probe.listening.hint" = "Esc to cancel · stops after 15 seconds";
+"probe.cancel" = "Cancel";
+"probe.manual.toggle" = "Enter a combination manually";
+"probe.manual.close" = "Close manual entry";
+"probe.manual.key" = "Key";
+"probe.manual.lookUp" = "Look up %1$@";
+"probe.limitedMode" = "Limited mode — verdicts come from settings files only";
+
+/* Verdict screen */
+"verdict.evidenceCount" = "%1$@ piece(s) of evidence";
+"verdict.openKeyboardSettings" = "Open Keyboard Shortcuts";
+"verdict.openApp" = "Open %1$@";
+"verdict.copy" = "Copy result";
+"verdict.again" = "Probe again";
+"verdict.unknownHint" = "This may be an app we don't recognize yet. Try quitting a likely candidate and probing again.";
+
+/* Permission screen */
+"permission.title" = "Accessibility and Input Monitoring required";
+"permission.body" = "To see which app responds to a shortcut, HotkeyDetective has to observe key presses. macOS requires both **Accessibility** and **Input Monitoring** for this. Turn HotkeyDetective on in both lists. Key presses are never intercepted or stored.";
+"permission.openAccessibility" = "Open Accessibility settings";
+"permission.openInputMonitoring" = "Open Input Monitoring settings";
+"permission.limitedMode" = "Continue without permissions (limited mode)";
+
+/* Inventory window */
+"inventory.title" = "All shortcuts";
+"inventory.summary" = "%1$@ registered · %2$@ conflicting";
+"inventory.search" = "Search shortcut or app";
+"inventory.conflictsOnly" = "Conflicts only";
+"inventory.deepScan" = "Deep scan";
+"inventory.deepScan.hint" = "Also reads sandboxed apps' settings — macOS will ask permission for each one.";
+"inventory.dormant" = "Not running — will conflict once started";
+"inventory.refresh" = "Refresh";
+
+/* Footer */
+"footer.launchAtLogin" = "Launch at login";
+"footer.showInventory" = "All shortcuts";
+"footer.quit" = "Quit";

@@ -1,0 +1,63 @@
+"badge.system" = "Hệ thống";
+"badge.parser" = "Cấu hình";
+"badge.scan" = "Quét";
+"badge.reaction" = "Phản hồi";
+"badge.probe" = "Dò";
+
+"reason.systemHotkey" = "Phím tắt hệ thống #%1$@ đang bật là %2$@";
+"reason.knownApp" = "%1$@ gán “%2$@” cho %3$@";
+"reason.knownApp.notRunning" = "%1$@ gán “%2$@” cho %3$@ — hiện chưa chạy, sẽ xung đột khi mở";
+"reason.scanPattern" = "Tìm thấy “%2$@” = %3$@ trong cài đặt của %1$@";
+"reason.scanPattern.noAction" = "Tìm thấy %2$@ trong cài đặt của %1$@";
+"reason.reaction" = "%2$@ phản hồi %1$@ ms sau khi nhấn phím: %3$@";
+"reason.carbonOccupied" = "Một tiến trình khác đã đăng ký %1$@ làm phím nóng Carbon";
+"reason.signalSeparator" = ", ";
+"signal.newWindows" = "mở %1$@ cửa sổ mới";
+"signal.becameFrontmost" = "chuyển lên trước";
+
+"verdict.confirmed" = "%1$@ đang dùng";
+"verdict.likely" = "Có vẻ %1$@ đang dùng";
+"verdict.contested" = "%1$@ đều đã đăng ký";
+"verdict.occupiedUnknown" = "Có thứ gì đó đang chiếm nhưng không xác định được";
+"verdict.free" = "Không ai đang dùng";
+"verdict.ownerSeparator" = " và ";
+
+"owner.system" = "%1$@ (hệ thống)";
+"owner.appAction" = "%1$@ · %2$@";
+"owner.unknownFeature" = "Chức năng hệ thống #%1$@";
+
+"probe.start" = "Bắt đầu dò";
+"probe.listening.title" = "Hãy nhấn phím tắt ngay bây giờ";
+"probe.listening.hint" = "Esc để hủy · tự dừng sau 15 giây";
+"probe.cancel" = "Hủy";
+"probe.manual.toggle" = "Nhập tổ hợp thủ công";
+"probe.manual.close" = "Đóng nhập thủ công";
+"probe.manual.key" = "Phím";
+"probe.manual.lookUp" = "Tra: %1$@";
+"probe.limitedMode" = "Chế độ giới hạn — chỉ dựa trên tệp cài đặt";
+
+"verdict.evidenceCount" = "%1$@ bằng chứng";
+"verdict.openKeyboardSettings" = "Mở Phím tắt bàn phím";
+"verdict.openApp" = "Mở %1$@";
+"verdict.copy" = "Sao chép kết quả";
+"verdict.again" = "Dò lại";
+"verdict.unknownHint" = "Có thể là ứng dụng chúng tôi chưa nhận diện. Hãy thoát ứng dụng nghi ngờ rồi thử lại.";
+
+"permission.title" = "Cần quyền Trợ năng và Giám sát nhập liệu";
+"permission.body" = "Để biết ứng dụng nào phản hồi phím tắt, HotkeyDetective phải quan sát thao tác bàn phím. macOS yêu cầu cả **Trợ năng** lẫn **Giám sát nhập liệu**. Hãy bật HotkeyDetective trong cả hai danh sách. Thao tác phím không bao giờ bị chặn hay lưu lại.";
+"permission.openAccessibility" = "Mở Trợ năng";
+"permission.openInputMonitoring" = "Mở Giám sát nhập liệu";
+"permission.limitedMode" = "Tiếp tục không cần quyền (giới hạn)";
+
+"inventory.title" = "Tất cả phím tắt";
+"inventory.summary" = "%1$@ đã đăng ký · %2$@ xung đột";
+"inventory.search" = "Tìm phím tắt hoặc ứng dụng";
+"inventory.conflictsOnly" = "Chỉ xung đột";
+"inventory.deepScan" = "Quét sâu";
+"inventory.deepScan.hint" = "Đọc cả cài đặt của ứng dụng sandbox — macOS sẽ hỏi quyền cho từng ứng dụng.";
+"inventory.dormant" = "Chưa chạy — sẽ xung đột khi mở";
+"inventory.refresh" = "Làm mới";
+
+"footer.launchAtLogin" = "Mở khi đăng nhập";
+"footer.showInventory" = "Tất cả phím tắt";
+"footer.quit" = "Thoát";

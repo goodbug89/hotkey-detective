@@ -7,12 +7,12 @@ struct InventoryWindow: View {
         VStack(spacing: 0) {
             HStack(spacing: 10) {
                 Image(systemName: "keyboard")
-                Text("전체 단축키").font(.headline)
-                Text("등록 \(model.entries.count) · 충돌 \(model.conflictCount)")
+                Text(L.t("inventory.title")).font(.headline)
+                Text(L.t("inventory.summary", String(model.entries.count), String(model.conflictCount)))
                     .font(.caption).foregroundStyle(.secondary)
                 Spacer()
-                TextField("조합·앱 검색", text: $model.query).textFieldStyle(.roundedBorder).frame(width: 160)
-                Toggle("충돌만", isOn: $model.conflictsOnly).toggleStyle(.button)
+                TextField(L.t("inventory.search"), text: $model.query).textFieldStyle(.roundedBorder).frame(width: 160)
+                Toggle(L.t("inventory.conflictsOnly"), isOn: $model.conflictsOnly).toggleStyle(.button)
                 if model.isLoading {
                     ProgressView().controlSize(.small)
                 } else {
@@ -21,10 +21,10 @@ struct InventoryWindow: View {
             }
             .padding(.horizontal, 12).padding(.top, 12)
             HStack(spacing: 8) {
-                Toggle("심층 스캔", isOn: $model.deepScan)
+                Toggle(L.t("inventory.deepScan"), isOn: $model.deepScan)
                     .toggleStyle(.checkbox).font(.caption)
                     .onChange(of: model.deepScan) { _, _ in model.reload() }
-                Text("샌드박스 앱의 설정까지 읽습니다 — macOS가 앱마다 접근 권한을 물어봅니다.")
+                Text(L.t("inventory.deepScan.hint"))
                     .font(.caption2).foregroundStyle(.secondary)
                 Spacer()
             }
@@ -46,7 +46,7 @@ struct InventoryWindow: View {
                         // 근거가 전부 low면 "등록돼 있으나 지금 실행 중이 아님" — 실행 중인
                         // 항목과 구분되지 않으면 지금 충돌하는 것으로 오해된다.
                         if e.isDormant {
-                            Text("실행 중 아님 — 실행 시 충돌 예상")
+                            Text(L.t("inventory.dormant"))
                                 .font(.caption2).foregroundStyle(.secondary)
                         }
                     }

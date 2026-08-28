@@ -1,0 +1,63 @@
+"badge.system" = "Sistema";
+"badge.parser" = "Config";
+"badge.scan" = "Scansione";
+"badge.reaction" = "Reazione";
+"badge.probe" = "Sonda";
+
+"reason.systemHotkey" = "La scorciatoia di sistema n. %1$@ è attiva come %2$@";
+"reason.knownApp" = "%1$@ assegna «%2$@» a %3$@";
+"reason.knownApp.notRunning" = "%1$@ assegna «%2$@» a %3$@ — non è in esecuzione, andrà in conflitto all'avvio";
+"reason.scanPattern" = "Trovato «%2$@» = %3$@ nelle impostazioni di %1$@";
+"reason.scanPattern.noAction" = "Trovato %2$@ nelle impostazioni di %1$@";
+"reason.reaction" = "%2$@ ha reagito %1$@ ms dopo la pressione: %3$@";
+"reason.carbonOccupied" = "Un altro processo ha registrato %1$@ come tasto di scelta rapida Carbon";
+"reason.signalSeparator" = ", ";
+"signal.newWindows" = "ha aperto %1$@ nuova/e finestra/e";
+"signal.becameFrontmost" = "è passata in primo piano";
+
+"verdict.confirmed" = "%1$@ la sta usando";
+"verdict.likely" = "%1$@ sembra usarla";
+"verdict.contested" = "%1$@ l'hanno registrata entrambi";
+"verdict.occupiedUnknown" = "Qualcosa la occupa, ma non è stato possibile identificarlo";
+"verdict.free" = "Nessuno la sta usando";
+"verdict.ownerSeparator" = " e ";
+
+"owner.system" = "%1$@ (sistema)";
+"owner.appAction" = "%1$@ · %2$@";
+"owner.unknownFeature" = "Funzione di sistema n. %1$@";
+
+"probe.start" = "Avvia sonda";
+"probe.listening.title" = "Premi ora la scorciatoia";
+"probe.listening.hint" = "Esc per annullare · termina dopo 15 secondi";
+"probe.cancel" = "Annulla";
+"probe.manual.toggle" = "Inserisci la combinazione manualmente";
+"probe.manual.close" = "Chiudi inserimento manuale";
+"probe.manual.key" = "Tasto";
+"probe.manual.lookUp" = "Cerca: %1$@";
+"probe.limitedMode" = "Modalità limitata — verdetti basati solo sui file di impostazioni";
+
+"verdict.evidenceCount" = "%1$@ prova/e";
+"verdict.openKeyboardSettings" = "Apri Abbreviazioni da tastiera";
+"verdict.openApp" = "Apri %1$@";
+"verdict.copy" = "Copia risultato";
+"verdict.again" = "Sonda di nuovo";
+"verdict.unknownHint" = "Potrebbe essere un'app che non riconosciamo ancora. Chiudi un possibile candidato e riprova.";
+
+"permission.title" = "Richiesti Accessibilità e Monitoraggio input";
+"permission.body" = "Per vedere quale app risponde a una scorciatoia, HotkeyDetective deve osservare la pressione dei tasti. macOS richiede sia **Accessibilità** sia **Monitoraggio input**. Attiva HotkeyDetective in entrambi gli elenchi. I tasti non vengono mai intercettati né memorizzati.";
+"permission.openAccessibility" = "Apri Accessibilità";
+"permission.openInputMonitoring" = "Apri Monitoraggio input";
+"permission.limitedMode" = "Continua senza permessi (modalità limitata)";
+
+"inventory.title" = "Tutte le scorciatoie";
+"inventory.summary" = "%1$@ registrate · %2$@ in conflitto";
+"inventory.search" = "Cerca scorciatoia o app";
+"inventory.conflictsOnly" = "Solo conflitti";
+"inventory.deepScan" = "Scansione approfondita";
+"inventory.deepScan.hint" = "Legge anche le impostazioni delle app in sandbox — macOS chiederà il permesso per ciascuna.";
+"inventory.dormant" = "Non in esecuzione — andrà in conflitto all'avvio";
+"inventory.refresh" = "Aggiorna";
+
+"footer.launchAtLogin" = "Apri all'accesso";
+"footer.showInventory" = "Tutte le scorciatoie";
+"footer.quit" = "Esci";

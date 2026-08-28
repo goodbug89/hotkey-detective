@@ -15,10 +15,10 @@ struct ManualComboView: View {
                 Toggle("⇧", isOn: binding(.shift)); Toggle("⌘", isOn: binding(.command))
             }
             .toggleStyle(.button)
-            Picker("키", selection: $keyCode) {
+            Picker(L.t("probe.manual.key"), selection: $keyCode) {
                 ForEach(keys, id: \.key) { Text($0.value).tag($0.key) }
             }
-            Button("조회: \(KeyCombo(keyCode: keyCode, modifiers: mods).display)") {
+            Button(L.t("probe.manual.lookUp", KeyCombo(keyCode: keyCode, modifiers: mods).display)) {
                 onProbe(KeyCombo(keyCode: keyCode, modifiers: mods))
             }
             .disabled(mods.isEmpty)

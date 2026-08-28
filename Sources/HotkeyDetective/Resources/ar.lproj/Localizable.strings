@@ -1,0 +1,63 @@
+"badge.system" = "النظام";
+"badge.parser" = "الإعدادات";
+"badge.scan" = "فحص";
+"badge.reaction" = "استجابة";
+"badge.probe" = "اختبار";
+
+"reason.systemHotkey" = "اختصار النظام رقم %1$@ مفعّل بوصفه %2$@";
+"reason.knownApp" = "‏%1$@ يربط «%2$@» بـ %3$@";
+"reason.knownApp.notRunning" = "‏%1$@ يربط «%2$@» بـ %3$@ — غير مشغّل حاليًا، وسيتعارض عند تشغيله";
+"reason.scanPattern" = "عُثر على «%2$@» = %3$@ في إعدادات %1$@";
+"reason.scanPattern.noAction" = "عُثر على %2$@ في إعدادات %1$@";
+"reason.reaction" = "استجاب %2$@ بعد %1$@ مللي ثانية من الضغط: %3$@";
+"reason.carbonOccupied" = "سجّلت عملية أخرى %1$@ كاختصار Carbon";
+"reason.signalSeparator" = "، ";
+"signal.newWindows" = "فتح %1$@ نافذة جديدة";
+"signal.becameFrontmost" = "انتقل إلى المقدمة";
+
+"verdict.confirmed" = "‏%1$@ يستخدم هذا الاختصار";
+"verdict.likely" = "يبدو أن %1$@ يستخدم هذا الاختصار";
+"verdict.contested" = "‏%1$@ سجّلا الاختصار نفسه";
+"verdict.occupiedUnknown" = "هناك ما يشغل الاختصار، لكن تعذّر تحديده";
+"verdict.free" = "لا أحد يستخدم هذا الاختصار";
+"verdict.ownerSeparator" = " و";
+
+"owner.system" = "‏%1$@ (النظام)";
+"owner.appAction" = "‏%1$@ · %2$@";
+"owner.unknownFeature" = "وظيفة النظام رقم %1$@";
+
+"probe.start" = "بدء الاختبار";
+"probe.listening.title" = "اضغط الاختصار الآن";
+"probe.listening.hint" = "‏Esc للإلغاء · يتوقف بعد 15 ثانية";
+"probe.cancel" = "إلغاء";
+"probe.manual.toggle" = "إدخال التركيبة يدويًا";
+"probe.manual.close" = "إغلاق الإدخال اليدوي";
+"probe.manual.key" = "المفتاح";
+"probe.manual.lookUp" = "بحث: %1$@";
+"probe.limitedMode" = "وضع محدود — الأحكام من ملفات الإعدادات فقط";
+
+"verdict.evidenceCount" = "‏%1$@ من الأدلة";
+"verdict.openKeyboardSettings" = "فتح اختصارات لوحة المفاتيح";
+"verdict.openApp" = "فتح %1$@";
+"verdict.copy" = "نسخ النتيجة";
+"verdict.again" = "إعادة الاختبار";
+"verdict.unknownHint" = "قد يكون تطبيقًا لا نعرفه بعد. أغلق التطبيق المشتبه به وأعد المحاولة.";
+
+"permission.title" = "مطلوب إذن تسهيلات الاستخدام ومراقبة الإدخال";
+"permission.body" = "لمعرفة أي تطبيق يستجيب للاختصار، يحتاج HotkeyDetective إلى مراقبة ضغطات المفاتيح. يشترط macOS لذلك **تسهيلات الاستخدام** و**مراقبة الإدخال** معًا. فعّل HotkeyDetective في القائمتين. لا يتم اعتراض ضغطات المفاتيح أو تخزينها أبدًا.";
+"permission.openAccessibility" = "فتح تسهيلات الاستخدام";
+"permission.openInputMonitoring" = "فتح مراقبة الإدخال";
+"permission.limitedMode" = "المتابعة بدون أذونات (وضع محدود)";
+
+"inventory.title" = "كل الاختصارات";
+"inventory.summary" = "مسجّل %1$@ · متعارض %2$@";
+"inventory.search" = "ابحث عن اختصار أو تطبيق";
+"inventory.conflictsOnly" = "المتعارضة فقط";
+"inventory.deepScan" = "فحص عميق";
+"inventory.deepScan.hint" = "يقرأ أيضًا إعدادات التطبيقات المعزولة — سيطلب macOS الإذن لكل تطبيق.";
+"inventory.dormant" = "غير مشغّل — سيتعارض عند تشغيله";
+"inventory.refresh" = "تحديث";
+
+"footer.launchAtLogin" = "التشغيل عند تسجيل الدخول";
+"footer.showInventory" = "كل الاختصارات";
+"footer.quit" = "إنهاء";

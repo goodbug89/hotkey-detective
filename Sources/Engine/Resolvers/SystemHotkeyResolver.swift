@@ -1,7 +1,7 @@
 import Foundation
 
 public struct SystemHotkeyResolver: Resolver, Enumerable {
-    public let name = "시스템 단축키"
+    
     let plistURL: URL
 
     public init(plistURL: URL = FileManager.default.homeDirectoryForCurrentUser
@@ -18,10 +18,10 @@ public struct SystemHotkeyResolver: Resolver, Enumerable {
     public func allPairs() -> [(KeyCombo, Evidence)] {
         effectiveEntries().compactMap { e in
             guard e.enabled, let combo = e.combo else { return nil }
-            return (combo, Evidence(source: name,
+            return (combo, Evidence(source: .systemHotkeys,
                                     owner: .system(feature: SymbolicHotKeyDefaults.feature(for: e.id)),
                                     confidence: .certain,
-                                    rationale: "symbolichotkeys 항목 \(e.id)이(가) \(combo.display)으로 활성화됨"))
+                                    reason: .systemHotkey(id: e.id, combo: combo.display)))
         }
     }
 

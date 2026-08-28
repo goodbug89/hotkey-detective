@@ -33,8 +33,7 @@ public struct KnownAppDescriptor {
 }
 
 public struct KnownAppResolver: Resolver, Enumerable {
-    public var name: String { "\(descriptor.name) 설정" }
-    let descriptor: KnownAppDescriptor
+        let descriptor: KnownAppDescriptor
     let fileURL: URL
     let running: RunningAppChecker
     private static let log = Logger(subsystem: "HotkeyDetective", category: "knownapp")
@@ -57,12 +56,11 @@ public struct KnownAppResolver: Resolver, Enumerable {
         }
         let isRunning = running.isRunning(bundleID: descriptor.bundleID)
         return descriptor.parse(root).map { hit in
-            (hit.combo, Evidence(source: name,
+            (hit.combo, Evidence(source: .knownAppParser(appName: descriptor.name),
                 owner: .app(bundleID: descriptor.bundleID, name: descriptor.name, action: hit.action),
                 confidence: isRunning ? .high : .low,
-                rationale: isRunning
-                    ? "\(descriptor.name) 단축키 '\(hit.action)' = \(hit.combo.display)"
-                    : "\(descriptor.name) 단축키 '\(hit.action)' = \(hit.combo.display) — 현재 실행 중 아님, 실행 시 충돌 예상"))
+                reason: .knownApp(app: descriptor.name, action: hit.action,
+                                  combo: hit.combo.display, isRunning: isRunning)))
         }
     }
 }

@@ -1,0 +1,63 @@
+"badge.system" = "系統";
+"badge.parser" = "設定";
+"badge.scan" = "掃描";
+"badge.reaction" = "反應";
+"badge.probe" = "探測";
+
+"reason.systemHotkey" = "系統快速鍵 #%1$@ 已啟用為 %2$@";
+"reason.knownApp" = "%1$@ 將「%2$@」綁定至 %3$@";
+"reason.knownApp.notRunning" = "%1$@ 將「%2$@」綁定至 %3$@ — 目前未執行，啟動後會衝突";
+"reason.scanPattern" = "在 %1$@ 的設定中發現「%2$@」= %3$@";
+"reason.scanPattern.noAction" = "在 %1$@ 的設定中發現 %2$@";
+"reason.reaction" = "按鍵後 %1$@ 毫秒 %2$@ 作出反應：%3$@";
+"reason.carbonOccupied" = "另一個程序已將 %1$@ 註冊為 Carbon 熱鍵";
+"reason.signalSeparator" = "、";
+"signal.newWindows" = "開啟了 %1$@ 個新視窗";
+"signal.becameFrontmost" = "切換到最前面";
+
+"verdict.confirmed" = "%1$@ 正在使用";
+"verdict.likely" = "%1$@ 似乎正在使用";
+"verdict.contested" = "%1$@ 都註冊了此快速鍵";
+"verdict.occupiedUnknown" = "有程式佔用，但無法識別";
+"verdict.free" = "沒有程式在使用";
+"verdict.ownerSeparator" = " 和 ";
+
+"owner.system" = "%1$@（系統）";
+"owner.appAction" = "%1$@ · %2$@";
+"owner.unknownFeature" = "系統功能 #%1$@";
+
+"probe.start" = "開始探測";
+"probe.listening.title" = "請現在按下快速鍵";
+"probe.listening.hint" = "按 Esc 取消 · 15 秒後自動結束";
+"probe.cancel" = "取消";
+"probe.manual.toggle" = "手動輸入組合鍵";
+"probe.manual.close" = "關閉手動輸入";
+"probe.manual.key" = "按鍵";
+"probe.manual.lookUp" = "查詢：%1$@";
+"probe.limitedMode" = "受限模式 — 僅根據設定檔判斷";
+
+"verdict.evidenceCount" = "%1$@ 項依據";
+"verdict.openKeyboardSettings" = "開啟鍵盤快速鍵設定";
+"verdict.openApp" = "開啟 %1$@";
+"verdict.copy" = "複製結果";
+"verdict.again" = "重新探測";
+"verdict.unknownHint" = "可能是尚未識別的 App。請結束可疑的 App 後重試。";
+
+"permission.title" = "需要輔助使用與輸入監控權限";
+"permission.body" = "要查看哪個 App 回應快速鍵，需要觀察按鍵輸入。macOS 為此同時要求**輔助使用**與**輸入監控**權限。請在兩個列表中都啟用 HotkeyDetective。按鍵不會被攔截或儲存。";
+"permission.openAccessibility" = "開啟輔助使用設定";
+"permission.openInputMonitoring" = "開啟輸入監控設定";
+"permission.limitedMode" = "不授予權限，使用受限模式";
+
+"inventory.title" = "所有快速鍵";
+"inventory.summary" = "已註冊 %1$@ · 衝突 %2$@";
+"inventory.search" = "搜尋快速鍵或 App";
+"inventory.conflictsOnly" = "僅衝突";
+"inventory.deepScan" = "深度掃描";
+"inventory.deepScan.hint" = "同時讀取沙盒 App 的設定 — macOS 會逐一詢問權限。";
+"inventory.dormant" = "未執行 — 啟動後會衝突";
+"inventory.refresh" = "重新整理";
+
+"footer.launchAtLogin" = "登入時啟動";
+"footer.showInventory" = "所有快速鍵";
+"footer.quit" = "結束";

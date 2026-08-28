@@ -1,0 +1,63 @@
+"badge.system" = "ระบบ";
+"badge.parser" = "ตั้งค่า";
+"badge.scan" = "สแกน";
+"badge.reaction" = "ปฏิกิริยา";
+"badge.probe" = "ตรวจ";
+
+"reason.systemHotkey" = "ทางลัดระบบ #%1$@ เปิดใช้งานเป็น %2$@";
+"reason.knownApp" = "%1$@ กำหนด “%2$@” ไว้ที่ %3$@";
+"reason.knownApp.notRunning" = "%1$@ กำหนด “%2$@” ไว้ที่ %3$@ — ยังไม่ได้เปิด จะขัดแย้งเมื่อเปิดใช้";
+"reason.scanPattern" = "พบ “%2$@” = %3$@ ในการตั้งค่าของ %1$@";
+"reason.scanPattern.noAction" = "พบ %2$@ ในการตั้งค่าของ %1$@";
+"reason.reaction" = "%2$@ ตอบสนอง %1$@ มิลลิวินาทีหลังกดปุ่ม: %3$@";
+"reason.carbonOccupied" = "โปรเซสอื่นลงทะเบียน %1$@ เป็นฮ็อตคีย์ Carbon";
+"reason.signalSeparator" = ", ";
+"signal.newWindows" = "เปิดหน้าต่างใหม่ %1$@ บาน";
+"signal.becameFrontmost" = "ขึ้นมาด้านหน้า";
+
+"verdict.confirmed" = "%1$@ กำลังใช้อยู่";
+"verdict.likely" = "ดูเหมือน %1$@ กำลังใช้อยู่";
+"verdict.contested" = "%1$@ ลงทะเบียนไว้ทั้งคู่";
+"verdict.occupiedUnknown" = "มีบางอย่างใช้อยู่ แต่ระบุไม่ได้";
+"verdict.free" = "ไม่มีใครใช้";
+"verdict.ownerSeparator" = " และ ";
+
+"owner.system" = "%1$@ (ระบบ)";
+"owner.appAction" = "%1$@ · %2$@";
+"owner.unknownFeature" = "ฟังก์ชันระบบ #%1$@";
+
+"probe.start" = "เริ่มตรวจ";
+"probe.listening.title" = "กดทางลัดตอนนี้";
+"probe.listening.hint" = "Esc เพื่อยกเลิก · หยุดเองใน 15 วินาที";
+"probe.cancel" = "ยกเลิก";
+"probe.manual.toggle" = "ป้อนคีย์ผสมเอง";
+"probe.manual.close" = "ปิดการป้อนเอง";
+"probe.manual.key" = "ปุ่ม";
+"probe.manual.lookUp" = "ค้นหา: %1$@";
+"probe.limitedMode" = "โหมดจำกัด — ตัดสินจากไฟล์ตั้งค่าเท่านั้น";
+
+"verdict.evidenceCount" = "หลักฐาน %1$@ รายการ";
+"verdict.openKeyboardSettings" = "เปิดทางลัดแป้นพิมพ์";
+"verdict.openApp" = "เปิด %1$@";
+"verdict.copy" = "คัดลอกผลลัพธ์";
+"verdict.again" = "ตรวจอีกครั้ง";
+"verdict.unknownHint" = "อาจเป็นแอปที่เรายังไม่รู้จัก ลองปิดแอปที่สงสัยแล้วตรวจใหม่";
+
+"permission.title" = "ต้องการสิทธิ์การช่วยการเข้าถึงและการตรวจสอบอินพุต";
+"permission.body" = "เพื่อดูว่าแอปใดตอบสนองต่อทางลัด HotkeyDetective ต้องสังเกตการกดปุ่ม macOS กำหนดให้ต้องมีทั้ง **การช่วยการเข้าถึง** และ **การตรวจสอบอินพุต** โปรดเปิด HotkeyDetective ในทั้งสองรายการ การกดปุ่มจะไม่ถูกดักจับหรือจัดเก็บ";
+"permission.openAccessibility" = "เปิดการช่วยการเข้าถึง";
+"permission.openInputMonitoring" = "เปิดการตรวจสอบอินพุต";
+"permission.limitedMode" = "ใช้ต่อโดยไม่ให้สิทธิ์ (โหมดจำกัด)";
+
+"inventory.title" = "ทางลัดทั้งหมด";
+"inventory.summary" = "ลงทะเบียน %1$@ · ขัดแย้ง %2$@";
+"inventory.search" = "ค้นหาทางลัดหรือแอป";
+"inventory.conflictsOnly" = "เฉพาะที่ขัดแย้ง";
+"inventory.deepScan" = "สแกนเชิงลึก";
+"inventory.deepScan.hint" = "อ่านการตั้งค่าของแอปแซนด์บ็อกซ์ด้วย — macOS จะถามสิทธิ์ทีละแอป";
+"inventory.dormant" = "ยังไม่ได้เปิด — จะขัดแย้งเมื่อเปิดใช้";
+"inventory.refresh" = "รีเฟรช";
+
+"footer.launchAtLogin" = "เปิดเมื่อเข้าสู่ระบบ";
+"footer.showInventory" = "ทางลัดทั้งหมด";
+"footer.quit" = "ออก";

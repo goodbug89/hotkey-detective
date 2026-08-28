@@ -1,0 +1,63 @@
+"badge.system" = "系统";
+"badge.parser" = "配置";
+"badge.scan" = "扫描";
+"badge.reaction" = "反应";
+"badge.probe" = "探测";
+
+"reason.systemHotkey" = "系统快捷键 #%1$@ 已启用为 %2$@";
+"reason.knownApp" = "%1$@ 将“%2$@”绑定到 %3$@";
+"reason.knownApp.notRunning" = "%1$@ 将“%2$@”绑定到 %3$@ — 当前未运行，启动后会冲突";
+"reason.scanPattern" = "在 %1$@ 的设置中发现“%2$@”= %3$@";
+"reason.scanPattern.noAction" = "在 %1$@ 的设置中发现 %2$@";
+"reason.reaction" = "按键后 %1$@ 毫秒 %2$@ 作出反应：%3$@";
+"reason.carbonOccupied" = "另一个进程已将 %1$@ 注册为 Carbon 热键";
+"reason.signalSeparator" = "、";
+"signal.newWindows" = "打开了 %1$@ 个新窗口";
+"signal.becameFrontmost" = "切换到最前面";
+
+"verdict.confirmed" = "%1$@ 正在使用";
+"verdict.likely" = "%1$@ 似乎正在使用";
+"verdict.contested" = "%1$@ 都注册了此快捷键";
+"verdict.occupiedUnknown" = "有程序占用，但无法识别";
+"verdict.free" = "没有程序在使用";
+"verdict.ownerSeparator" = " 和 ";
+
+"owner.system" = "%1$@（系统）";
+"owner.appAction" = "%1$@ · %2$@";
+"owner.unknownFeature" = "系统功能 #%1$@";
+
+"probe.start" = "开始探测";
+"probe.listening.title" = "请现在按下快捷键";
+"probe.listening.hint" = "按 Esc 取消 · 15 秒后自动结束";
+"probe.cancel" = "取消";
+"probe.manual.toggle" = "手动输入组合键";
+"probe.manual.close" = "关闭手动输入";
+"probe.manual.key" = "按键";
+"probe.manual.lookUp" = "查询：%1$@";
+"probe.limitedMode" = "受限模式 — 仅根据配置文件判断";
+
+"verdict.evidenceCount" = "%1$@ 条依据";
+"verdict.openKeyboardSettings" = "打开键盘快捷键设置";
+"verdict.openApp" = "打开 %1$@";
+"verdict.copy" = "复制结果";
+"verdict.again" = "重新探测";
+"verdict.unknownHint" = "可能是尚未识别的应用。请退出可疑的应用后重试。";
+
+"permission.title" = "需要辅助功能和输入监控权限";
+"permission.body" = "要查看哪个应用响应快捷键，需要观察按键输入。macOS 为此同时要求**辅助功能**和**输入监控**权限。请在两个列表中都启用 HotkeyDetective。按键不会被拦截或存储。";
+"permission.openAccessibility" = "打开辅助功能设置";
+"permission.openInputMonitoring" = "打开输入监控设置";
+"permission.limitedMode" = "不授予权限，使用受限模式";
+
+"inventory.title" = "所有快捷键";
+"inventory.summary" = "已注册 %1$@ · 冲突 %2$@";
+"inventory.search" = "搜索快捷键或应用";
+"inventory.conflictsOnly" = "仅冲突";
+"inventory.deepScan" = "深度扫描";
+"inventory.deepScan.hint" = "同时读取沙盒应用的设置 — macOS 会逐个询问权限。";
+"inventory.dormant" = "未运行 — 启动后会冲突";
+"inventory.refresh" = "刷新";
+
+"footer.launchAtLogin" = "登录时启动";
+"footer.showInventory" = "所有快捷键";
+"footer.quit" = "退出";

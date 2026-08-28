@@ -17,12 +17,12 @@ public enum Owner: Hashable, Codable {
         }
     }
 
-    public var displayName: String {
+    /// 표시용 문구는 UI가 언어별로 만든다(App 계층 `Owner.displayName`).
+    /// Engine은 구성 요소만 노출한다.
+    public var parts: (feature: String?, appName: String?, action: String?) {
         switch self {
-        case .system(let f): return "\(f) (시스템)"
-        case .app(_, let name, let action):
-            if let a = action { return "\(name) · \(a)" }
-            return name
+        case .system(let f): return (f, nil, nil)
+        case .app(_, let name, let action): return (nil, name, action)
         }
     }
 }
@@ -42,16 +42,39 @@ public enum EvidenceKind: Hashable, Codable {
 }
 
 public struct Evidence: Hashable, Codable {
-    public let source: String
+    /// 어떤 Resolver가 냈는지를 가리키는 안정적인 키. 표시 문구는 UI가 언어별로 고른다.
+    public let source: EvidenceSource
     public let owner: Owner?
     public let confidence: Confidence
-    public let rationale: String
+    /// 왜 이 증거가 나왔는지 — 구조화된 사실. 문장 조립은 표시 계층의 몫이다.
+    public let reason: EvidenceReason
     public let kind: EvidenceKind
 
-    public init(source: String, owner: Owner?, confidence: Confidence, rationale: String,
-                kind: EvidenceKind = .claim) {
+    public init(source: EvidenceSource, owner: Owner?, confidence: Confidence,
+                reason: EvidenceReason, kind: EvidenceKind = .claim) {
         self.source = source; self.owner = owner; self.confidence = confidence
-        self.rationale = rationale; self.kind = kind
+        self.reason = reason; self.kind = kind
+    }
+}
+
+/// 증거의 출처. 뱃지 라벨과 색을 고르는 기준이며, 문자열 매칭 대신 이 값으로 판단한다.
+/// (v2에서는 소스 이름 문자열을 `contains("스캔")` 식으로 검사해 다국어에서 깨질 구조였다.)
+public enum EvidenceSource: Hashable, Codable {
+    case systemHotkeys
+    case knownAppParser(appName: String)
+    case heuristicScan
+    case reaction
+    case carbonProbe
+
+    /// 표시 순서를 결정적으로 만들기 위한 정렬 키. 신뢰도가 같을 때 강한 근거부터 보이게 한다.
+    var sortKey: (Int, String) {
+        switch self {
+        case .systemHotkeys: return (0, "")
+        case .knownAppParser(let app): return (1, app)
+        case .heuristicScan: return (2, "")
+        case .reaction: return (3, "")
+        case .carbonProbe: return (4, "")
+        }
     }
 }
 

@@ -17,13 +17,13 @@ struct VerdictView: View {
         VStack(alignment: .leading, spacing: 12) {
             Text(combo.display).font(.system(size: 34, weight: .semibold, design: .monospaced))
             headline
-            DisclosureGroup("근거 \(verdict.evidence.count)건", isExpanded: .constant(true)) {
+            DisclosureGroup(L.t("verdict.evidenceCount", String(verdict.evidence.count)), isExpanded: .constant(true)) {
                 ForEach(Array(verdict.evidence.prefix(shown).enumerated()), id: \.offset) { _, e in
                     HStack(alignment: .top, spacing: 8) {
                         dots(e.confidence)
                         SourceBadge(source: e.source)
                         // 소스는 뱃지가 이미 보여준다 — 같은 줄에 두 번 쓰지 않는다.
-                        Text(e.rationale).font(.caption).foregroundStyle(.secondary)
+                        Text(e.reason.localizedText).font(.caption).foregroundStyle(.secondary)
                             .multilineTextAlignment(.leading)
                             .frame(maxWidth: .infinity, alignment: .leading)
                     }
@@ -32,14 +32,14 @@ struct VerdictView: View {
                 }
             }
             if case .occupiedUnknown(_) = verdict {
-                Text("아직 모르는 앱일 수 있어요. 짐작 가는 앱을 종료하고 다시 시도해보세요.")
+                Text(L.t("verdict.unknownHint"))
                     .font(.caption).foregroundStyle(.secondary)
             }
             HStack {
                 ownerAction
                 Spacer()
-                Button("결과 복사") { copy() }
-                Button("다시 탐침") { session.reset() }.buttonStyle(.borderedProminent)
+                Button(L.t("verdict.copy")) { copy() }
+                Button(L.t("verdict.again")) { session.reset() }.buttonStyle(.borderedProminent)
             }
         }
         .padding()
@@ -81,17 +81,17 @@ struct VerdictView: View {
     @ViewBuilder private var headline: some View {
         switch verdict {
         case .confirmed(let o, _):
-            styled("\(o.displayName)이(가) 사용 중", .blue)
+            styled(L.t("verdict.confirmed", o.displayName), .blue)
                 .scaleEffect(pop ? 1.0 : 1.15)
         case .likely(let o, _):
-            styled("\(o.displayName)이(가) 사용 중인 것으로 보임", .blue)
+            styled(L.t("verdict.likely", o.displayName), .blue)
         case .contested(let os, _):
-            styled(os.map(\.displayName).joined(separator: "와 ") + "이(가) 모두 등록함", .orange)
+            styled(L.t("verdict.contested", os.map(\.displayName).joined(separator: L.t("verdict.ownerSeparator"))), .orange)
                 .offset(x: shake)
         case .occupiedUnknown(_):
-            styled("어떤 앱이 점유 중이지만 누구인지 찾지 못함", .gray)
+            styled(L.t("verdict.occupiedUnknown"), .gray)
         case .free(_):
-            styled("아무도 사용하지 않음", .green)
+            styled(L.t("verdict.free"), .green)
         }
     }
 
@@ -112,11 +112,11 @@ struct VerdictView: View {
     @ViewBuilder private var ownerAction: some View {
         switch primaryOwner {
         case .system(_)?:
-            Button("키보드 단축키 설정 열기") {
+            Button(L.t("verdict.openKeyboardSettings")) {
                 NSWorkspace.shared.open(URL(string: "x-apple.systempreferences:com.apple.Keyboard-Settings.extension")!)
             }
         case .app(let bid, let name, _)?:
-            Button("\(name) 열기") {
+            Button(L.t("verdict.openApp", name)) {
                 NSRunningApplication.runningApplications(withBundleIdentifier: bid).first?.activate()
             }
         case nil: EmptyView()
@@ -132,15 +132,20 @@ struct VerdictView: View {
     }
 
     private func copy() {
+        // 붙여넣는 사람이 읽을 텍스트이므로 화면과 같은 언어로 만든다.
         var s = "\(combo.display)\n"
         switch verdict {
-        case .confirmed(let o, _): s += "사용 중: \(o.displayName)\n"
-        case .likely(let o, _): s += "사용 중(추정): \(o.displayName)\n"
-        case .contested(let os, _): s += "충돌: \(os.map(\.displayName).joined(separator: ", "))\n"
-        case .occupiedUnknown(_): s += "점유됨(소유자 미상)\n"
-        case .free(_): s += "비어 있음\n"
+        case .confirmed(let o, _): s += L.t("verdict.confirmed", o.displayName) + "\n"
+        case .likely(let o, _): s += L.t("verdict.likely", o.displayName) + "\n"
+        case .contested(let os, _):
+            s += L.t("verdict.contested",
+                     os.map(\.displayName).joined(separator: L.t("verdict.ownerSeparator"))) + "\n"
+        case .occupiedUnknown(_): s += L.t("verdict.occupiedUnknown") + "\n"
+        case .free(_): s += L.t("verdict.free") + "\n"
         }
-        for e in verdict.evidence { s += "- [\(e.source)] \(e.rationale)\n" }
+        for e in verdict.evidence {
+            s += "- [\(e.source.badgeLabel)] \(e.reason.localizedText)\n"
+        }
         NSPasteboard.general.clearContents()
         NSPasteboard.general.setString(s, forType: .string)
     }

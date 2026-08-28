@@ -26,7 +26,6 @@ public struct ProbeSnapshot {
 }
 
 public protocol Resolver {
-    var name: String { get }
     /// probe == nil 이면 제한 모드(권한 없음). 스냅샷이 필요한 Resolver는 빈 배열을 반환한다.
     func resolve(_ combo: KeyCombo, probe: ProbeSnapshot?) -> [Evidence]
 }

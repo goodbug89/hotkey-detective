@@ -20,7 +20,10 @@ final class KnownAppResolverTests: XCTestCase {
         let r = KnownAppResolver(descriptor: KnownApps.rectangle, fileURL: fixture("rectangle"), running: Running(ids: []))
         let e = r.resolve(KeyCombo(keyCode: 123, modifiers: [.control, .option]), probe: nil)
         XCTAssertEqual(e.first?.confidence, .low)
-        XCTAssertTrue(e.first!.rationale.contains("실행 중 아님"))
+                guard case .knownApp(_, _, _, let isRunning) = e.first!.reason else {
+            return XCTFail("알려진 앱 근거여야 한다")
+        }
+        XCTAssertFalse(isRunning, "미실행 앱은 근거에 그 사실이 담겨야 한다")
     }
 
     func testRectangleDefaultTableUsedWhenPlistLacksAction() {

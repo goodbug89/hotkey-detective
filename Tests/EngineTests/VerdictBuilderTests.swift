@@ -7,7 +7,8 @@ final class VerdictBuilderTests: XCTestCase {
     let rect = Owner.app(bundleID: "com.knollsoft.Rectangle", name: "Rectangle", action: "왼쪽 절반")
 
     func ev(_ owner: Owner?, _ c: Confidence, src: String = "t") -> Evidence {
-        Evidence(source: src, owner: owner, confidence: c, rationale: "r")
+        Evidence(source: .knownAppParser(appName: src), owner: owner, confidence: c,
+                 reason: .systemHotkey(id: 0, combo: "-"))
     }
 
     func testNoEvidenceIsFree() {
@@ -90,10 +91,10 @@ final class VerdictBuilderTests: XCTestCase {
         let spotlightSystem = Owner.system(feature: "Spotlight 검색")
         let spotlightApp = Owner.app(bundleID: "com.apple.Spotlight", name: "Spotlight", action: nil)
         let evidence = [
-            Evidence(source: "시스템 단축키", owner: spotlightSystem, confidence: .certain,
-                     rationale: "r", kind: .claim),
-            Evidence(source: "반응 감지", owner: spotlightApp, confidence: .high,
-                     rationale: "r", kind: .observation),
+            Evidence(source: .systemHotkeys, owner: spotlightSystem, confidence: .certain,
+                     reason: .systemHotkey(id: 0, combo: "-"), kind: .claim),
+            Evidence(source: .reaction, owner: spotlightApp, confidence: .high,
+                     reason: .systemHotkey(id: 0, combo: "-"), kind: .observation),
         ]
         guard case .confirmed(let o, let e) = VerdictBuilder.build(evidence) else {
             return XCTFail("반응 증거는 시스템 소유를 뒤집지 못한다")
@@ -107,10 +108,10 @@ final class VerdictBuilderTests: XCTestCase {
         let inputSource = Owner.system(feature: "이전 입력 소스 선택")
         let maccyPreview = Owner.app(bundleID: "org.p0deje.Maccy", name: "Maccy", action: "togglePreview")
         let evidence = [
-            Evidence(source: "시스템 단축키", owner: inputSource, confidence: .certain,
-                     rationale: "r", kind: .claim),
-            Evidence(source: "Maccy 설정", owner: maccyPreview, confidence: .high,
-                     rationale: "r", kind: .claim),
+            Evidence(source: .systemHotkeys, owner: inputSource, confidence: .certain,
+                     reason: .systemHotkey(id: 0, combo: "-"), kind: .claim),
+            Evidence(source: .systemHotkeys, owner: maccyPreview, confidence: .high,
+                     reason: .systemHotkey(id: 0, combo: "-"), kind: .claim),
         ]
         guard case .contested(let owners, _) = VerdictBuilder.build(evidence) else {
             return XCTFail("설정 주장은 시스템과 충돌한다")
@@ -121,17 +122,20 @@ final class VerdictBuilderTests: XCTestCase {
     /// 관찰만 있고 주장이 없으면 여전히 소유자를 추정한다(미지 앱 탐지 경로).
     func testObservationAloneStillYieldsLikely() {
         let unknown = Owner.app(bundleID: "com.example.Unknown", name: "Unknown", action: nil)
-        let evidence = [Evidence(source: "반응 감지", owner: unknown, confidence: .high,
-                                 rationale: "r", kind: .observation)]
+        let evidence = [Evidence(source: .reaction, owner: unknown, confidence: .high,
+                     reason: .systemHotkey(id: 0, combo: "-"), kind: .observation)]
         guard case .likely(let o, _) = VerdictBuilder.build(evidence) else {
             return XCTFail("관찰만 있어도 반응한 앱을 소유자로 추정해야 한다")
         }
         XCTAssertEqual(o, unknown)
     }
 
-    func testOwnerDisplayName() {
-        XCTAssertEqual(sys.displayName, "영역 스크린샷 (시스템)")
-        XCTAssertEqual(rect.displayName, "Rectangle · 왼쪽 절반")
-        XCTAssertEqual(ray.displayName, "Raycast")
+    /// 표시 문구는 App 계층이 언어별로 만든다. Engine은 구성 요소만 노출한다.
+    func testOwnerExposesPartsForPresentation() {
+        XCTAssertEqual(sys.parts.feature, "영역 스크린샷")
+        XCTAssertNil(sys.parts.appName)
+        XCTAssertEqual(rect.parts.appName, "Rectangle")
+        XCTAssertEqual(rect.parts.action, "왼쪽 절반")
+        XCTAssertNil(ray.parts.action)
     }
 }

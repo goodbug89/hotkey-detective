@@ -14,7 +14,7 @@ final class HeuristicScanResolverTests: XCTestCase {
         XCTAssertEqual(e.count, 1)
         XCTAssertEqual(e[0].owner, .app(bundleID: "com.example.Clip", name: "Clip", action: "popup"))
         XCTAssertEqual(e[0].confidence, .medium)
-        XCTAssertEqual(e[0].source, "설정 스캔")
+        XCTAssertEqual(e[0].source, .heuristicScan)
     }
 
     func testMASPattern_keyCodeModifierFlags() {
@@ -38,8 +38,12 @@ final class HeuristicScanResolverTests: XCTestCase {
         let e = r.allEvidence()
         XCTAssertEqual(e.count, 1)
         XCTAssertEqual(e[0].owner, .app(bundleID: "com.example.Root", name: "Root", action: nil))
-        XCTAssertFalse(e[0].rationale.contains("''"), "빈 따옴표가 남으면 안 된다")
-        XCTAssertEqual(e[0].rationale, "Root 설정에서 \(KeyCombo(keyCode: 17, modifiers: [.command]).display) 패턴 발견")
+        // 루트 레벨 MAS 패턴은 액션 이름이 없다 — nil이어야 하며 빈 문자열이면 안 된다.
+        guard case .scanPattern(let app, let action, _) = e[0].reason else {
+            return XCTFail("스캔 근거여야 한다")
+        }
+        XCTAssertEqual(app, "Root")
+        XCTAssertNil(action, "액션 없는 항목은 nil이어야 표시 계층이 빈 따옴표를 만들지 않는다")
     }
 
     func testNestedDictRecursion() {
