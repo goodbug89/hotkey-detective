@@ -1,38 +1,140 @@
-# HotkeyDetective
+<h1 align="center">HotkeyDetective</h1>
 
-"이 단축키 누가 먹었지?" — macOS 글로벌 단축키 점유자를 찾는 메뉴바 유틸리티.
+<p align="center">
+  <strong>Find out which app stole your keyboard shortcut.</strong><br>
+  macOS gives you no way to ask. This does.
+</p>
 
-## 빌드
-    swift test
-    Scripts/bundle.sh          # build/HotkeyDetective.app
-    open build/HotkeyDetective.app
+<p align="center">
+  <img src="https://img.shields.io/badge/macOS-14%2B-000?logo=apple&logoColor=white" alt="macOS 14+">
+  <img src="https://img.shields.io/badge/Swift-5-F05138?logo=swift&logoColor=white" alt="Swift 5">
+  <img src="https://img.shields.io/badge/License-MIT-blue" alt="MIT">
+</p>
 
-## 권한
-**손쉬운 사용(Accessibility)** 과 **입력 모니터링(Input Monitoring)** 권한이 모두 필요합니다.
-macOS는 이벤트 탭 생성에 두 권한을 함께 요구하므로, 시스템 설정 > 개인정보 보호 및 보안의
-두 목록 모두에서 HotkeyDetective를 켜야 합니다. 키 입력은 관찰만 하며 가로채거나 저장하지 않습니다.
+<p align="center">
+  <strong>Language:</strong>
+  <strong>English</strong> ·
+  <a href="docs/readme/README.ko.md">한국어</a> ·
+  <a href="docs/readme/README.ja.md">日本語</a> ·
+  <a href="docs/readme/README.zh-Hans.md">简体中文</a> ·
+  <a href="docs/readme/README.zh-Hant.md">繁體中文</a> ·
+  <a href="docs/readme/README.de.md">Deutsch</a> ·
+  <a href="docs/readme/README.fr.md">Français</a> ·
+  <a href="docs/readme/README.es.md">Español</a> ·
+  <a href="docs/readme/README.it.md">Italiano</a> ·
+  <a href="docs/readme/README.pt-BR.md">Português</a> ·
+  <a href="docs/readme/README.ru.md">Русский</a> ·
+  <a href="docs/readme/README.ar.md">العربية</a> ·
+  <a href="docs/readme/README.th.md">ไทย</a> ·
+  <a href="docs/readme/README.tr.md">Türkçe</a> ·
+  <a href="docs/readme/README.vi.md">Tiếng Việt</a>
+</p>
 
-> **서명과 권한 유지.** `Scripts/bundle.sh`는 키체인에 Developer ID Application 인증서가 있으면 그것으로,
-> 없으면 `CODESIGN_IDENTITY` 환경변수의 인증서로, 둘 다 없으면 ad-hoc으로 서명합니다.
-> 고정 인증서로 서명하면 재빌드해도 권한이 유지됩니다. ad-hoc 서명은 빌드마다 다른 앱으로 취급되어
-> 두 목록에서 기존 항목을 (`-`) 지우고 새 번들을 다시 추가해야 합니다. 서명 방식을 바꾼 직후에도 한 번은 재추가가 필요합니다.
+---
 
-> **샌드박스 앱 설정 읽기.** Maccy처럼 샌드박스로 실행되는 앱의 단축키는 `~/Library/Containers/…` 안에 있어
-> 처음 읽을 때 macOS가 "다른 앱의 데이터에 접근" 허용 대화상자를 띄웁니다. 허용하지 않으면 해당 앱의 설정 증거만 빠집니다.
+You press ⇧⌘4 and nothing happens. Some app took it — but which one? macOS ships
+no API that answers this, and no way to ask in System Settings either.
 
-권한 없이도 **제한 모드**로 쓸 수 있습니다. 이 경우 키 입력 감지와 반응 감지 없이,
-수동으로 고른 조합에 대해 설정 파일 기반 증거만 조회합니다.
+HotkeyDetective answers it by gathering evidence and showing you the reasoning:
 
-## 판정 원리
-시스템 단축키 plist · Carbon 핫키 등록 시도 · 입력 직후 창/활성 앱 변화 · 알려진 앱 설정 파일 —
-네 가지 증거를 합쳐 판정합니다.
+```
+⇧⌘4
+Screenshot of selected area (system) is using this
+  ●●●●  System    System shortcut #30 is enabled as ⇧⌘4
+```
 
-지원하는 알려진 앱:
+## How it works
 
-| 앱 | 상태 |
-| --- | --- |
-| Rectangle | 지원 |
-| Maccy | 지원 |
-| Raycast | **실험적** — 설정 포맷을 실기기에서 검증하지 못했습니다(스펙 13절). 조회되지 않을 수 있습니다. |
+There is no single source of truth for "who owns this shortcut," so the app
+collects independent signals and weighs them:
 
-Alfred와 1Password는 v1 범위에 포함되지 않습니다.
+| Source | What it proves | Strength |
+| --- | --- | --- |
+| **System shortcuts** | macOS's own table says this combination is bound | Certain |
+| **App config** | A known app's settings file binds this combination | High (Low when the app isn't running) |
+| **Config scan** | An app's settings match a known shortcut-storage format | Medium |
+| **Reaction** | An app opened a window or came to the front right after the keypress | High |
+| **Hotkey probe** | Some process holds a Carbon hotkey registration | Observation only |
+
+A verdict is `confirmed`, `likely`, `contested`, `occupied but unidentified`,
+or `free`. Every claim shows the evidence it rests on, so you can judge it
+yourself rather than trusting a black box.
+
+One distinction matters: a **reaction** proves an app *received* the key, not
+that it *registered* it — a reaction can corroborate an owner but never
+contest one. Without that rule, ⌘Space reads as "the system and Spotlight are
+fighting" when nothing is wrong.
+
+## Install
+
+Requires macOS 14 or later.
+
+```bash
+git clone https://github.com/goodbug89/hotkey-detective.git
+cd hotkey-detective
+Scripts/bundle.sh
+open build/HotkeyDetective.app
+```
+
+The build signs with a Developer ID certificate if your keychain has one, and
+falls back to ad-hoc signing otherwise. Ad-hoc builds lose their permission
+grants on every rebuild — see [BUILDING.md](BUILDING.md).
+
+## Permissions
+
+The probe needs both **Accessibility** and **Input Monitoring**. macOS requires
+both for a listen-only keyboard event tap.
+
+Key presses are observed and never intercepted, logged, or stored. The tap is
+created with `.listenOnly` so the real owner still receives the key — that is
+exactly how reaction detection works. The only key data that survives a probe
+is the single combination you chose to look up. There is no network code in
+this repository.
+
+Without permissions the app still runs in **limited mode**: pick a combination
+manually and it answers from settings files alone.
+
+## Inventory
+
+Beyond one-shot probing, the app lists every shortcut it can see — system
+bindings, known apps, and scan results — with conflicts pinned to the top.
+
+**Deep scan** additionally reads sandboxed apps' settings. macOS asks for
+permission per app, so it is off by default.
+
+## Known limits
+
+Being honest about what this cannot do:
+
+- **Carbon hotkey probing cannot see other processes.** `RegisterEventHotKey`
+  reports a conflict only within your own process, so the "occupied but
+  unidentified" verdict is effectively unreachable. An app that registers a
+  hotkey, shows no window, and stores its config in an unrecognized format
+  stays invisible.
+- **System feature names are English outside Korean.** macOS keeps its own
+  translations in a place we cannot read, and inventing our own would disagree
+  with what you see in System Settings.
+- **Config scanning recognizes two storage formats** (the `KeyboardShortcuts`
+  library and `MASShortcut`-style dictionaries). Apps with custom formats need a
+  dedicated parser — [contributions welcome](CONTRIBUTING.md).
+
+## Development
+
+```bash
+swift test          # 94 tests
+Scripts/bundle.sh   # build/HotkeyDetective.app
+```
+
+The design documents in [`docs/superpowers/`](docs/superpowers/) record how this
+was built, including the measurements that overturned several assumptions along
+the way — the hand-maintained shortcut table that turned out to be wrong in four
+places, and a fn-key behavior that only a device test could settle.
+
+## Who makes this
+
+HotkeyDetective is built by the team behind
+**[Unifyl](https://unifyl.app)**, a dual-pane file manager for macOS.
+
+## License
+
+MIT — see [LICENSE](LICENSE).

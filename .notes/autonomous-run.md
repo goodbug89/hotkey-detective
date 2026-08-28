@@ -11,3 +11,18 @@
 - Ruling: docs/superpowers/(스펙·계획)를 공개에 포함한다. AI 협업 개발 기록이 오히려
   차별점이고, 숨길 내용이 없다. 단 비밀정보 스캔 후.
 - Ruling: 공증(D)은 자격증명이 없어 실행 불가 — 스크립트와 문서까지만 준비하고 보고.
+
+## A 완료 (현지화)
+- Engine에서 표시 문구 제거: EvidenceReason(구조화) + EvidenceSource(enum) 도입.
+  Owner.displayName도 App 계층으로 이동. VerdictBuilder 정렬은 source.sortKey 사용.
+- 15개 언어 카탈로그 55키 × 15 = 825줄. Unifyl과 동일 언어 집합.
+- 테스트 3건 추가(키 누락/여분, 위치 인자 개수 일치) — 실제로 15개 언어를 읽어 검증(스킵 아님).
+- 94/94 통과.
+- 미해결: 시스템 기능명 82개는 EN+KO만. 나머지 13개 언어는 영어 폴백(위 Ruling 참고).
+
+## B 시작 (오픈소스 준비)
+- 비밀정보 스캔: 전체 이력 57커밋에 API키·토큰·개인키 없음. "1Password"는 앱 이름 오탐.
+- Team ID/실명 하드코딩 없음(bundle.sh가 security로 동적 조회).
+- Ruling: git 이력 재작성 안 함. 커밋 이메일 goodbug@goodbugMAC.local은 로컬 호스트명 기반
+  가짜 주소이고, 서명자 실명은 어차피 배포 앱에 드러난다. 재작성은 57커밋 SHA를 모두 바꾸는
+  위험 대비 이득이 없음. 틀리면: 사용자가 원할 때 filter-repo로 정리 가능.
