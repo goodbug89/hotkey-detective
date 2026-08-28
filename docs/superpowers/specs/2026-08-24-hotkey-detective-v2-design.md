@@ -168,6 +168,14 @@ SkyLight private API, 배포/공증 DMG, Sparkle 자동 업데이트, 실시간 
 
 인벤토리와 판정은 신뢰도 하한이 다르다. 인벤토리는 "등록된 전부"라 `.low` 증거(미실행 알려진 앱)도 소유자로 싣고, 판정은 "지금 유효한 것"이라 `.low` 단독이면 `free`를 낸다. 실측 확인함(인벤토리 owner 있음 / 판정 free). 두 병합기의 패리티 테스트는 `medium` 이상에서만 성립하며, 발산 자체는 `testLowConfidenceOwnerIsInventoryOnly`가 고정한다.
 
+## 10.2 실기 검증 (2026-08-24)
+
+- **기능 A 실증:** Ice(`com.jordanbaird.Ice`, KeyboardShortcuts 라이브러리, 전용 파서 없음)에 `⌃⌥⌘I`를 설정한 뒤 탐침 → `likely(Ice · toggleHiddenSection)`, 근거 1건 `[스캔] Ice 설정에서 'toggleHiddenSection' = ⌃⌥⌘I 패턴 발견`, 신뢰도 medium. 반응 증거 없이 설정만으로 소유자를 특정 — v1의 맹점을 메운 첫 사례.
+- **커버리지 실측:** 실행 중 앱 97개 중 Preferences plist 보유 35개, 컨테이너 plist 보유 14개(13개는 프롬프트 없이 읽힘). 두 패턴에 걸린 앱은 Maccy 하나뿐이며 파서 담당이라 제외됨 — 즉 **이 머신에는 스캐너가 잡을 앱이 원래 없었다**. 기능이 아니라 표본의 문제였음.
+- **심층 스캔 프롬프트:** 실측 0회(최종 리뷰의 18회 예측은 과대). 컨테이너 대부분이 이미 접근 가능했다.
+- **인벤토리 창:** 포커스 받고 열림(`NSApp.activate` 필요 확인), 등록 45 · 충돌 1, ⌃Space 충돌 행 상단 고정.
+- **판정 규칙(스펙 v1 7절 개정):** ⌘Space `confirmed` / ⌃Space+Maccy 미실행 `confirmed`+경고 / ⌃Space+Maccy 실행 `contested` 3케이스로 가둠.
+
 ## 11. 미해결/검증 항목
 
 - 샌드박스 앱 컨테이너 plist 최초 읽기 시 macOS "다른 앱 데이터 접근" 프롬프트 — 스캔 대상이 많으면 프롬프트가 반복될 수 있음. 실측 후 UX 결정(일괄 안내 or 스캔을 사용자 명시 동작으로).
