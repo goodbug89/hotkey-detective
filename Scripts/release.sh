@@ -14,7 +14,9 @@ APP="build/HotkeyDetective.app"
 DMG="build/HotkeyDetective-$VERSION.dmg"
 STAGE="build/dmg-stage"
 
-IDENTITY="${CODESIGN_IDENTITY:-$(security find-identity -v -p codesigning 2>/dev/null | grep -o '"Developer ID Application: [^"]*"' | head -1 | tr -d '"')}"
+# `|| true`가 없으면 인증서가 하나도 없을 때 grep이 1을 반환하고, pipefail+set -e가
+# 스크립트를 여기서 죽인다 — ad-hoc 폴백이 정작 필요한 환경에서 도달하지 못한다.
+IDENTITY="${CODESIGN_IDENTITY:-$(security find-identity -v -p codesigning 2>/dev/null | grep -o '"Developer ID Application: [^"]*"' | head -1 | tr -d '"' || true)}"
 if [ -z "$IDENTITY" ]; then
   echo "에러: Developer ID Application 인증서가 없습니다. 공증에는 ad-hoc 서명을 쓸 수 없습니다." >&2
   exit 1
