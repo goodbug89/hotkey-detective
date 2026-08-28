@@ -55,7 +55,8 @@ final class ProbeSession: ObservableObject {
     private func startPermissionPoll() {
         guard permissionPoll == nil else { return }
         permissionPoll = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [weak self] _ in
-            Task { @MainActor in self?.refreshPermission() }
+            guard let self else { return }
+            Task { @MainActor in self.refreshPermission() }
         }
     }
 
@@ -82,8 +83,9 @@ final class ProbeSession: ObservableObject {
         before = SystemSnapshot.capture()
         state = .listening
         listener.start { [weak self] outcome in
+            guard let self else { return }
             Task { @MainActor in
-                guard let self, gen == self.generation else { return }
+                guard gen == self.generation else { return }
                 switch outcome {
                 case .combo(let c): self.resolve(c, withProbe: true)
                 case .cancelled, .timedOut: self.state = .idle
@@ -114,8 +116,9 @@ final class ProbeSession: ObservableObject {
         guard withProbe, let before else { run(nil); return }
         let start = Date()
         DispatchQueue.main.asyncAfter(deadline: .now() + Self.reactionDelay) { [weak self] in
+            guard let self else { return }
             Task { @MainActor in
-                guard let self, gen == self.generation else { return }
+                guard gen == self.generation else { return }
                 let after = SystemSnapshot.capture()
                 run(ProbeSnapshot(before: before, after: after, elapsed: Date().timeIntervalSince(start), selfPID: getpid()))
             }
