@@ -7,8 +7,19 @@ import SwiftUI
 /// Engine은 사실만 담고(`EvidenceReason`), 문장 조립은 여기서 언어별로 한다.
 /// 문자열은 `Resources/<lang>.lproj/Localizable.strings`에서 온다.
 enum L {
+    /// 문구를 읽을 번들.
+    ///
+    /// 배포 `.app`에서는 카탈로그가 `Contents/Resources/<lang>.lproj`에 **직접** 들어간다.
+    /// 이 배치라야 CFBundle이 앱을 15개 언어 지원으로 인식한다 — SwiftPM 리소스 번들에만
+    /// 카탈로그를 두면 메인 번들이 영어 전용으로 판정돼 하위 번들 조회까지 전부 영어로
+    /// 떨어진다(v1.0.1에서 실제로 그랬다). `swift run`·`swift test`에는 `.app`이 없으므로
+    /// 그때만 SwiftPM 번들로 물러선다.
+    static let bundle: Bundle = {
+        Bundle.main.url(forResource: "Localizable", withExtension: "strings") != nil ? .main : .module
+    }()
+
     static func t(_ key: String, _ args: CVarArg...) -> String {
-        let format = Bundle.module.localizedString(forKey: key, value: nil, table: nil)
+        let format = bundle.localizedString(forKey: key, value: nil, table: nil)
         return args.isEmpty ? format : String(format: format, arguments: args)
     }
 
@@ -19,7 +30,7 @@ enum L {
     /// 그대로 화면에 나온다) 충돌할 수 없는 센티널을 넘겨 없음을 판별한다.
     static func optional(_ key: String, fallback: String) -> String {
         let sentinel = "\u{0}"
-        let t = Bundle.module.localizedString(forKey: key, value: sentinel, table: nil)
+        let t = bundle.localizedString(forKey: key, value: sentinel, table: nil)
         return t == sentinel ? fallback : t
     }
 }
