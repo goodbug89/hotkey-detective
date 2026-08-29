@@ -17,7 +17,7 @@
 
 "verdict.confirmed" = "‏%1$@ يستخدم هذا الاختصار";
 "verdict.likely" = "يبدو أن %1$@ يستخدم هذا الاختصار";
-"verdict.contested" = "‏%1$@ سجّلا الاختصار نفسه";
+"verdict.contested" = "‏تم تسجيل الاختصار نفسه بواسطة %1$@";
 "verdict.occupiedUnknown" = "هناك ما يشغل الاختصار، لكن تعذّر تحديده";
 "verdict.free" = "لا أحد يستخدم هذا الاختصار";
 "verdict.ownerSeparator" = " و";

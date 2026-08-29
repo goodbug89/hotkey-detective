@@ -86,7 +86,7 @@ struct VerdictView: View {
         case .likely(let o, _):
             styled(L.t("verdict.likely", o.displayName), .blue)
         case .contested(let os, _):
-            styled(L.t("verdict.contested", os.map(\.displayName).joined(separator: L.t("verdict.ownerSeparator"))), .orange)
+            styled(L.t("verdict.contested", L.list(os.map(\.displayName))), .orange)
                 .offset(x: shake)
         case .occupiedUnknown(_):
             styled(L.t("verdict.occupiedUnknown"), .gray)
@@ -138,8 +138,7 @@ struct VerdictView: View {
         case .confirmed(let o, _): s += L.t("verdict.confirmed", o.displayName) + "\n"
         case .likely(let o, _): s += L.t("verdict.likely", o.displayName) + "\n"
         case .contested(let os, _):
-            s += L.t("verdict.contested",
-                     os.map(\.displayName).joined(separator: L.t("verdict.ownerSeparator"))) + "\n"
+            s += L.t("verdict.contested", L.list(os.map(\.displayName))) + "\n"
         case .occupiedUnknown(_): s += L.t("verdict.occupiedUnknown") + "\n"
         case .free(_): s += L.t("verdict.free") + "\n"
         }

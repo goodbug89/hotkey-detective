@@ -17,7 +17,7 @@
 
 "verdict.confirmed" = "%1$@ กำลังใช้อยู่";
 "verdict.likely" = "ดูเหมือน %1$@ กำลังใช้อยู่";
-"verdict.contested" = "%1$@ ลงทะเบียนไว้ทั้งคู่";
+"verdict.contested" = "%1$@ ลงทะเบียนไว้";
 "verdict.occupiedUnknown" = "มีบางอย่างใช้อยู่ แต่ระบุไม่ได้";
 "verdict.free" = "ไม่มีใครใช้";
 "verdict.ownerSeparator" = " และ ";

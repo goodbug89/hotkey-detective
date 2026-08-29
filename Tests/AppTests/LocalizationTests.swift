@@ -83,4 +83,20 @@ final class LocalizationTests: XCTestCase {
         }
         return out
     }
+
+    /// contested 소유자는 셋 이상이 될 수 있다 — VerdictBuilder는 certain 소유자를 전부 싣는다
+    /// (`certainOwners.count > 1`, `[certain] + rivals`). 그런데 초기 번역 10개는 "둘"을 못 박고
+    /// 있었다(both / 両方とも / beide / سجّلا 같은 쌍수형). 셋이 걸리면 그 언어에서만 조용히
+    /// 틀린 문장이 나오고, 한국어 화면만 보는 개발자에게는 영원히 보이지 않는다.
+    func testContestedHeadlineDoesNotAssumeTwoOwners() throws {
+        let dualForms = ["both", "両方", "beide", "les deux", "ambos", "entrambi",
+                         "os dois", "ikisi", "ทั้งคู่", "سجّلا", "оба"]
+        for lang in Self.languages {
+            let line = try XCTUnwrap(strings(for: lang)["verdict.contested"], "\(lang)에 verdict.contested가 없다")
+            for form in dualForms {
+                XCTAssertFalse(line.lowercased().contains(form.lowercased()),
+                               "\(lang): 소유자가 둘이라고 전제한다(\"\(form)\") — \(line)")
+            }
+        }
+    }
 }

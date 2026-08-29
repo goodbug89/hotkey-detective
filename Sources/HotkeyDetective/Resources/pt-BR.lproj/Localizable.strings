@@ -17,7 +17,7 @@
 
 "verdict.confirmed" = "%1$@ está usando";
 "verdict.likely" = "%1$@ parece estar usando";
-"verdict.contested" = "%1$@ registraram os dois";
+"verdict.contested" = "%1$@ registraram este atalho";
 "verdict.occupiedUnknown" = "Algo está ocupando, mas não foi possível identificar";
 "verdict.free" = "Ninguém está usando";
 "verdict.ownerSeparator" = " e ";

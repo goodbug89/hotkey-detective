@@ -17,7 +17,7 @@
 
 "verdict.confirmed" = "%1$@ verwendet diesen Kurzbefehl";
 "verdict.likely" = "%1$@ verwendet diesen Kurzbefehl offenbar";
-"verdict.contested" = "%1$@ haben beide diesen Kurzbefehl registriert";
+"verdict.contested" = "%1$@ haben diesen Kurzbefehl registriert";
 "verdict.occupiedUnknown" = "Etwas belegt ihn, konnte aber nicht identifiziert werden";
 "verdict.free" = "Niemand verwendet diesen Kurzbefehl";
 "verdict.ownerSeparator" = " und ";

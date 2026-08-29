@@ -23,6 +23,19 @@ enum L {
         return args.isEmpty ? format : String(format: format, arguments: args)
     }
 
+    /// 소유자 이름들을 언어 규칙에 맞게 잇는다.
+    ///
+    /// 구분자 하나를 반복해 넣으면 셋 이상에서 "A and B and C"가 된다 — 언어마다 마지막
+    /// 항목만 접속사를 쓰고 나머지는 쉼표로 잇는 규칙이 다르다. `ListFormatter`가 그 규칙을
+    /// 알고 있고, 아랍어처럼 RTL인 언어에서는 라틴 이름 주위에 격리 문자까지 넣어준다.
+    static func list(_ items: [String]) -> String {
+        let f = ListFormatter()
+        // Locale.current가 아니라 실제로 고른 언어를 쓴다 — 앱별 언어를 따로 지정한
+        // 사용자에게서 둘이 갈릴 수 있다.
+        f.locale = Locale(identifier: bundle.preferredLocalizations.first ?? "en")
+        return f.string(from: items) ?? items.joined(separator: t("verdict.ownerSeparator"))
+    }
+
     /// 번역이 있으면 쓰고, 없으면 원문을 그대로 돌려준다.
     /// 시스템 기능명처럼 일부 언어에만 번역이 있는 문자열에 쓴다.
     ///

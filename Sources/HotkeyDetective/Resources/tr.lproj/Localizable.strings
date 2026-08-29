@@ -17,7 +17,7 @@
 
 "verdict.confirmed" = "%1$@ kullanıyor";
 "verdict.likely" = "%1$@ kullanıyor görünüyor";
-"verdict.contested" = "%1$@ ikisi de kaydetmiş";
+"verdict.contested" = "%1$@ kaydetmiş";
 "verdict.occupiedUnknown" = "Bir şey kullanıyor ama tespit edilemedi";
 "verdict.free" = "Kimse kullanmıyor";
 "verdict.ownerSeparator" = " ve ";

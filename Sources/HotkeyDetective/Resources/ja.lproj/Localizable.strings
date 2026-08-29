@@ -17,7 +17,7 @@
 
 "verdict.confirmed" = "%1$@ が使用中";
 "verdict.likely" = "%1$@ が使用しているようです";
-"verdict.contested" = "%1$@ が両方とも登録しています";
+"verdict.contested" = "%1$@ がいずれも登録しています";
 "verdict.occupiedUnknown" = "何かが占有していますが、特定できませんでした";
 "verdict.free" = "誰も使用していません";
 "verdict.ownerSeparator" = " と ";

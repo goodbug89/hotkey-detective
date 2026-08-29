@@ -17,7 +17,7 @@
 
 "verdict.confirmed" = "%1$@ lo está usando";
 "verdict.likely" = "%1$@ parece estar usándolo";
-"verdict.contested" = "%1$@ lo han registrado ambos";
+"verdict.contested" = "%1$@ lo han registrado";
 "verdict.occupiedUnknown" = "Algo lo ocupa, pero no pudimos identificarlo";
 "verdict.free" = "Nadie lo está usando";
 "verdict.ownerSeparator" = " y ";

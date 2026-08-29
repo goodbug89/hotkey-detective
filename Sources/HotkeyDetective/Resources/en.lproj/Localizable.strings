@@ -20,7 +20,8 @@
 /* Verdict headlines */
 "verdict.confirmed" = "%1$@ is using this";
 "verdict.likely" = "%1$@ appears to be using this";
-"verdict.contested" = "%1$@ have both registered this";
+/* Owners can be three or more — keep this count-neutral (no "both", no dual forms). */
+"verdict.contested" = "%1$@ have registered this";
 "verdict.occupiedUnknown" = "Something has this, but we could not identify it";
 "verdict.free" = "Nothing is using this";
 "verdict.ownerSeparator" = " and ";
