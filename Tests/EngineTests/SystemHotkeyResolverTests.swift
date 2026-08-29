@@ -11,7 +11,7 @@ final class SystemHotkeyResolverTests: XCTestCase {
         let r = SystemHotkeyResolver(plistURL: fixture("symbolichotkeys-default"))
         let e = r.resolve(cmdShift4, probe: nil)
         XCTAssertEqual(e.count, 1)
-        XCTAssertEqual(e[0].owner, .system(feature: "영역 스크린샷 저장"))
+        XCTAssertEqual(e[0].owner, .system(feature: "Save picture of selected area as a file"))
         XCTAssertEqual(e[0].confidence, .certain)
     }
 
@@ -24,18 +24,18 @@ final class SystemHotkeyResolverTests: XCTestCase {
         let r = SystemHotkeyResolver(plistURL: fixture("symbolichotkeys-custom28"))
         XCTAssertTrue(r.resolve(cmdShift4, probe: nil).isEmpty)
         let e = r.resolve(KeyCombo(keyCode: 23, modifiers: [.command, .option]), probe: nil)
-        XCTAssertEqual(e.first?.owner, .system(feature: "영역 스크린샷 저장"))
+        XCTAssertEqual(e.first?.owner, .system(feature: "Save picture of selected area as a file"))
     }
 
     func testExplicitlyEnabledEntryFromPlist() {
         let r = SystemHotkeyResolver(plistURL: fixture("symbolichotkeys-default"))
         let e = r.resolve(KeyCombo(keyCode: 49, modifiers: [.command]), probe: nil)
-        XCTAssertEqual(e.first?.owner, .system(feature: "Spotlight 검색"))
+        XCTAssertEqual(e.first?.owner, .system(feature: "Show Spotlight search"))
     }
 
     func testMissingFileFallsBackToDefaults() {
         let r = SystemHotkeyResolver(plistURL: URL(fileURLWithPath: "/nonexistent.plist"))
-        XCTAssertEqual(r.resolve(cmdShift4, probe: nil).first?.owner, .system(feature: "영역 스크린샷 저장"))
+        XCTAssertEqual(r.resolve(cmdShift4, probe: nil).first?.owner, .system(feature: "Save picture of selected area as a file"))
     }
 
     func testUnknownIDUsesGenericName() {
@@ -43,7 +43,7 @@ final class SystemHotkeyResolverTests: XCTestCase {
         let r = SystemHotkeyResolver(plistURL: tempPlist(["999": ["enabled": true,
             "value": ["parameters": [65535, 111, 1048576], "type": "standard"]]]))
         let e = r.resolve(KeyCombo(keyCode: 111, modifiers: [.command]), probe: nil)
-        XCTAssertEqual(e.first?.owner, .system(feature: "시스템 기능 #999"))
+        XCTAssertEqual(e.first?.owner, .system(feature: "System function #999"))
     }
 
     /// plist 마스크에 fn 비트(8388608)가 섞여 있어도 fn 없는 조합으로 매칭돼야 한다.
@@ -52,7 +52,7 @@ final class SystemHotkeyResolverTests: XCTestCase {
             "value": ["parameters": [65535, 126, 8650752], "type": "standard"]]]))
         let e = r.resolve(KeyCombo(keyCode: 126, modifiers: [.control]), probe: nil)
         XCTAssertEqual(e.count, 1)
-        XCTAssertEqual(e.first?.owner, .system(feature: "모든 윈도우 (Mission Control)"))
+        XCTAssertEqual(e.first?.owner, .system(feature: "All windows"))
     }
 
     // MARK: 기본 비활성 항목 (F2/F3)
@@ -74,14 +74,14 @@ final class SystemHotkeyResolverTests: XCTestCase {
         let r = SystemHotkeyResolver(plistURL: fixture("symbolichotkeys-default"))
         let e = r.resolve(KeyCombo(keyCode: 2, modifiers: [.command, .option]), probe: nil)
         XCTAssertEqual(e.count, 1)
-        XCTAssertEqual(e[0].owner, .system(feature: "Dock 자동 숨기기 전환"))
+        XCTAssertEqual(e[0].owner, .system(feature: "Turn Dock hiding on/off"))
     }
 
     func testFullScreenshotFeatureName() {
         let r = SystemHotkeyResolver(plistURL: fixture("symbolichotkeys-default"))
         let e = r.resolve(KeyCombo(keyCode: 20, modifiers: [.command, .shift]), probe: nil)
         XCTAssertEqual(e.count, 1)
-        XCTAssertEqual(e[0].owner, .system(feature: "전체 화면 스크린샷 저장"))
+        XCTAssertEqual(e[0].owner, .system(feature: "Save picture of screen as a file"))
     }
 
     func testNoTwoDefaultEnabledEntriesShareACombo() {

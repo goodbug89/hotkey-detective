@@ -11,6 +11,17 @@ enum L {
         let format = Bundle.module.localizedString(forKey: key, value: nil, table: nil)
         return args.isEmpty ? format : String(format: format, arguments: args)
     }
+
+    /// 번역이 있으면 쓰고, 없으면 원문을 그대로 돌려준다.
+    /// 시스템 기능명처럼 일부 언어에만 번역이 있는 문자열에 쓴다.
+    ///
+    /// `value`를 빈 문자열로 주면 Foundation이 **키 자체**를 돌려주므로("feature.Save…"가
+    /// 그대로 화면에 나온다) 충돌할 수 없는 센티널을 넘겨 없음을 판별한다.
+    static func optional(_ key: String, fallback: String) -> String {
+        let sentinel = "\u{0}"
+        let t = Bundle.module.localizedString(forKey: key, value: sentinel, table: nil)
+        return t == sentinel ? fallback : t
+    }
 }
 
 extension EvidenceSource {
@@ -38,7 +49,11 @@ extension Owner {
     /// 소유자 표시 문구. 시스템/앱/액션 조합을 언어별 포맷으로 만든다.
     var displayName: String {
         let p = parts
-        if let feature = p.feature { return L.t("owner.system", feature) }
+        if let feature = p.feature {
+            // 기능명은 macOS가 영어로만 주고, 번역은 한국어 카탈로그에만 있다.
+            // 다른 언어는 영어 원문으로 떨어져 시스템 설정과 표현이 어긋나지 않는다.
+            return L.t("owner.system", L.optional("feature.\(feature)", fallback: feature))
+        }
         let name = p.appName ?? ""
         if let action = p.action { return L.t("owner.appAction", name, action) }
         return name

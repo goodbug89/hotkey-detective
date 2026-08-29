@@ -36,11 +36,9 @@ Você aperta ⇧⌘4 e nada acontece. Algum app pegou o atalho — mas qual? O m
 
 O HotkeyDetective reúne evidências, dá um veredicto e mostra o raciocínio:
 
-```
-⇧⌘4
-Salvar imagem da área selecionada (sistema) está usando
-  ●●●●  Sistema    O atalho do sistema nº 30 está ativado como ⇧⌘4
-```
+<p align="center">
+  <img src="../images/verdict.png" alt="HotkeyDetective" width="420">
+</p>
 
 ## Como funciona
 

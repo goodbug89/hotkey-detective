@@ -36,11 +36,9 @@ Premi ⇧⌘4 e non succede nulla. Qualche app se l'è presa — ma quale? macOS
 
 HotkeyDetective raccoglie indizi, emette un verdetto e mostra il ragionamento:
 
-```
-⇧⌘4
-Salva immagine dell'area selezionata (sistema) la sta usando
-  ●●●●  Sistema    La scorciatoia di sistema n. 30 è attiva come ⇧⌘4
-```
+<p align="center">
+  <img src="../images/verdict.png" alt="HotkeyDetective" width="420">
+</p>
 
 ## Come funziona
 

@@ -36,11 +36,9 @@ Pulsas ⇧⌘4 y no ocurre nada. Alguna app se lo ha quedado, ¿pero cuál? macO
 
 HotkeyDetective reúne pruebas, emite un veredicto y muestra su razonamiento:
 
-```
-⇧⌘4
-Guardar imagen del área seleccionada (sistema) lo está usando
-  ●●●●  Sistema    El atajo del sistema n.º 30 está activado como ⇧⌘4
-```
+<p align="center">
+  <img src="../images/verdict.png" alt="HotkeyDetective" width="420">
+</p>
 
 ## Cómo funciona
 

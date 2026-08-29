@@ -36,11 +36,9 @@ Vous appuyez sur ⇧⌘4 et rien ne se passe. Une app l'a pris — mais laquelle
 
 HotkeyDetective rassemble des indices, rend un verdict et montre son raisonnement :
 
-```
-⇧⌘4
-Enregistrer une image de la zone sélectionnée (système) l'utilise
-  ●●●●  Système    Le raccourci système n°30 est activé sur ⇧⌘4
-```
+<p align="center">
+  <img src="../images/verdict.png" alt="HotkeyDetective" width="420">
+</p>
 
 ## Fonctionnement
 

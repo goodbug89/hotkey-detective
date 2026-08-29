@@ -36,11 +36,9 @@
 
 HotkeyDetective kanıt toplar, bir karar verir ve gerekçesini de gösterir:
 
-```
-⇧⌘4
-Seçili alanın resmini kaydet (sistem) kullanıyor
-  ●●●●  Sistem    30 numaralı sistem kısayolu ⇧⌘4 olarak etkin
-```
+<p align="center">
+  <img src="../images/verdict.png" alt="HotkeyDetective" width="420">
+</p>
 
 ## Nasıl çalışır
 

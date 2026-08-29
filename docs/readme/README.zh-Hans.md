@@ -36,11 +36,9 @@
 
 HotkeyDetective 通过收集证据给出判断，并把推理过程一并展示:
 
-```
-⇧⌘4
-存储所选区域的图片（系统）正在使用
-  ●●●●  系统    系统快捷键 #30 已启用为 ⇧⌘4
-```
+<p align="center">
+  <img src="../images/verdict.png" alt="HotkeyDetective" width="420">
+</p>
 
 ## 工作原理
 

@@ -8,6 +8,7 @@ rm -rf "$APP"
 mkdir -p "$APP/Contents/MacOS" "$APP/Contents/Resources"
 cp ".build/$CONF/HotkeyDetective" "$APP/Contents/MacOS/"
 cp Resources/Info.plist "$APP/Contents/"
+cp Resources/AppIcon.icns "$APP/Contents/Resources/"
 # 서명: CODESIGN_IDENTITY 환경변수 > Developer ID Application > ad-hoc.
 # 고정된 인증서로 서명해야 재빌드 후에도 손쉬운 사용/입력 모니터링 권한이 유지된다.
 # `|| true`가 없으면 인증서가 하나도 없을 때 grep이 1을 반환하고, pipefail+set -e가

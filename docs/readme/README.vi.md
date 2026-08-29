@@ -36,11 +36,9 @@ Bạn nhấn ⇧⌘4 và không có gì xảy ra. Một ứng dụng nào đó �
 
 HotkeyDetective thu thập bằng chứng, đưa ra kết luận và trình bày luôn lập luận:
 
-```
-⇧⌘4
-Lưu ảnh vùng đã chọn (hệ thống) đang dùng
-  ●●●●  Hệ thống    Phím tắt hệ thống #30 đang bật là ⇧⌘4
-```
+<p align="center">
+  <img src="../images/verdict.png" alt="HotkeyDetective" width="420">
+</p>
 
 ## Cách hoạt động
 

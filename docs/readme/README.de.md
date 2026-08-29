@@ -36,11 +36,9 @@ Du drückst ⇧⌘4 und nichts passiert. Irgendeine App hat den Kurzbefehl — a
 
 HotkeyDetective sammelt Belege, fällt ein Urteil und zeigt die Begründung gleich mit:
 
-```
-⇧⌘4
-Bild des ausgewählten Bereichs sichern (System) verwendet diesen Kurzbefehl
-  ●●●●  System    Systemkurzbefehl #30 ist als ⇧⌘4 aktiviert
-```
+<p align="center">
+  <img src="../images/verdict.png" alt="HotkeyDetective" width="420">
+</p>
 
 ## Funktionsweise
 

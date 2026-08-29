@@ -24,15 +24,40 @@ final class LocalizationTests: XCTestCase {
         }
     }
 
+    /// `feature.*`(시스템 기능명)은 의도적으로 한국어에만 있다 — 다른 언어는 macOS가
+    /// 쓰는 영문 원문으로 떨어져야 시스템 설정과 표현이 어긋나지 않는다. 비교에서 제외한다.
+    private func uiKeys(_ d: [String: String]) -> Set<String> {
+        Set(d.keys.filter { !$0.hasPrefix("feature.") })
+    }
+
     func testEveryLanguageHasEveryKey() throws {
-        let base = Set(try strings(for: "en").keys)
+        let base = uiKeys(try strings(for: "en"))
         XCTAssertGreaterThan(base.count, 40, "영어 카탈로그가 너무 작다 — 기준으로 쓸 수 없다")
         for lang in Self.languages where lang != "en" {
-            let keys = Set(try strings(for: lang).keys)
+            let keys = uiKeys(try strings(for: lang))
             XCTAssertTrue(base.subtracting(keys).isEmpty,
                           "\(lang)에 없는 키: \(base.subtracting(keys).sorted())")
             XCTAssertTrue(keys.subtracting(base).isEmpty,
                           "\(lang)에만 있는 키: \(keys.subtracting(base).sorted())")
+        }
+    }
+
+    /// 시스템 기능명 번역은 한국어에만 있고, 나머지 언어는 macOS의 영문 원문으로 떨어진다.
+    /// 키는 영문명 그대로이므로 Engine이 내는 이름과 정확히 맞아야 한다 — 어긋나면
+    /// 한국어에서도 조용히 영어가 나온다.
+    func testKoreanFeatureNamesKeyOnTheEnglishSystemName() throws {
+        let ko = try strings(for: "ko")
+        let features = ko.filter { $0.key.hasPrefix("feature.") }
+        XCTAssertGreaterThan(features.count, 70, "한국어 기능명이 거의 없다")
+        // Engine이 실제로 내는 영문명으로 키가 잡혀 있는지 대표 항목으로 확인한다.
+        XCTAssertEqual(ko["feature.Save picture of selected area as a file"], "영역 스크린샷 저장")
+        XCTAssertEqual(ko["feature.Turn VoiceOver on or off"], "VoiceOver 켜기/끄기")
+        XCTAssertEqual(ko["feature.Show Spotlight search"], "Spotlight 검색")
+        // 다른 언어에는 없어야 한다(영문 폴백이 의도).
+        for lang in ["en", "ja", "de"] {
+            let d = try strings(for: lang)
+            XCTAssertTrue(d.keys.filter { $0.hasPrefix("feature.") }.isEmpty,
+                          "\(lang)에 feature.* 키가 있다 — 영문 폴백 설계와 어긋난다")
         }
     }
 

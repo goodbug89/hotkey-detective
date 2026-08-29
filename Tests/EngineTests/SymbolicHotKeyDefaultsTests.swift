@@ -38,7 +38,7 @@ final class SymbolicHotKeyDefaultsTests: XCTestCase {
         XCTAssertEqual(e[57]?.combo, KeyCombo(keyCode: 100, modifiers: [.control]))
         // ID 59 — VoiceOver(⌘F5). 예전엔 "메뉴 막대 이동 ⌃F2"로 완전히 잘못 붙어 있었다.
         XCTAssertEqual(e[59]?.combo, KeyCombo(keyCode: 96, modifiers: [.command]))
-        XCTAssertEqual(e[59]?.feature, "VoiceOver 켜기/끄기")
+        XCTAssertEqual(e[59]?.feature, "Turn VoiceOver on or off", "Engine은 시스템의 영문명을 그대로 낸다 — 번역은 App 계층의 몫")
         // ID 162 — 손쉬운 사용 제어(⌥⌘F5). 예전엔 이 조합을 175에 붙였다.
         XCTAssertEqual(e[162]?.combo, KeyCombo(keyCode: 96, modifiers: [.command, .option]))
         // ID 175 — 방해금지 모드, 기본 키 없음.

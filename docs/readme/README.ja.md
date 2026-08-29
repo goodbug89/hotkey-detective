@@ -36,11 +36,9 @@
 
 HotkeyDetective は根拠を集めて判定し、その理由も一緒に示します:
 
-```
-⇧⌘4
-選択範囲のスクリーンショットを保存（システム）が使用中
-  ●●●●  システム    システムショートカット #30 が ⇧⌘4 で有効になっています
-```
+<p align="center">
+  <img src="../images/verdict.png" alt="HotkeyDetective" width="420">
+</p>
 
 ## 仕組み
 

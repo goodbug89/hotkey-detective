@@ -37,11 +37,9 @@ no API that answers this, and no way to ask in System Settings either.
 
 HotkeyDetective answers it by gathering evidence and showing you the reasoning:
 
-```
-⇧⌘4
-Screenshot of selected area (system) is using this
-  ●●●●  System    System shortcut #30 is enabled as ⇧⌘4
-```
+<p align="center">
+  <img src="docs/images/verdict.png" alt="A probe result: the system owns Shift-Command-4, with the evidence it rests on" width="420">
+</p>
 
 ## How it works
 
@@ -98,6 +96,10 @@ manually and it answers from settings files alone.
 
 Beyond one-shot probing, the app lists every shortcut it can see — system
 bindings, known apps, and scan results — with conflicts pinned to the top.
+
+<p align="center">
+  <img src="docs/images/inventory.png" alt="The inventory window listing every known shortcut" width="720">
+</p>
 
 **Deep scan** additionally reads sandboxed apps' settings. macOS asks for
 permission per app, so it is off by default.

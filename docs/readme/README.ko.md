@@ -36,11 +36,9 @@
 
 HotkeyDetective는 증거를 모아 판정하고, 그 근거를 함께 보여줍니다:
 
-```
-⇧⌘4
-영역 스크린샷 저장 (시스템)이(가) 사용 중
-  ●●●●  시스템    시스템 단축키 30번이 ⇧⌘4으로 활성화됨
-```
+<p align="center">
+  <img src="../images/verdict.png" alt="HotkeyDetective" width="420">
+</p>
 
 ## 작동 원리
 
