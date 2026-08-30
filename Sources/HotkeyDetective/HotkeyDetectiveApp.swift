@@ -7,6 +7,15 @@ import os
 struct HotkeyDetectiveApp: App {
     @StateObject private var session = ProbeSession()
 
+#if DEBUG_CAPTURE
+    init() {
+        let a = CommandLine.arguments
+        if let i = a.firstIndex(of: "--capture"), i + 1 < a.count {
+            MainActor.assumeIsolated { CaptureMode.run(outDir: a[i + 1]) }; exit(0)
+        }
+    }
+#endif
+
     var body: some Scene {
         MenuBarExtra("HotkeyDetective", systemImage: "keyboard.badge.ellipsis") {
             RootView().environmentObject(session).frame(width: 360)

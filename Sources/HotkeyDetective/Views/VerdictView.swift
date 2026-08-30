@@ -35,11 +35,20 @@ struct VerdictView: View {
                 Text(L.t("verdict.unknownHint"))
                     .font(.caption).foregroundStyle(.secondary)
             }
-            HStack {
-                ownerAction
-                Spacer()
-                Button(L.t("verdict.copy")) { copy() }
-                Button(L.t("verdict.again")) { session.reset() }.buttonStyle(.borderedProminent)
+            // 버튼 문구 길이는 언어마다 크게 다르다(영어 31자 → 러시아어 93자). 360pt 한 줄에
+            // 밀어 넣으면 독일어·러시아어·프랑스어에서 "Ergebnis kopi..."처럼 잘린다.
+            // 언어마다 문구를 깎는 대신, 한 줄에 안 들어가면 두 줄로 접는다.
+            ViewThatFits(in: .horizontal) {
+                HStack {
+                    ownerAction
+                    Spacer()
+                    copyButton
+                    againButton
+                }
+                VStack(alignment: .leading, spacing: 8) {
+                    ownerAction
+                    HStack { Spacer(); copyButton; againButton }
+                }
             }
         }
         .padding()
@@ -107,6 +116,14 @@ struct VerdictView: View {
             }
         }
         .padding(.top, 4)
+    }
+
+    private var copyButton: some View {
+        Button(L.t("verdict.copy")) { copy() }
+    }
+
+    private var againButton: some View {
+        Button(L.t("verdict.again")) { session.reset() }.buttonStyle(.borderedProminent)
     }
 
     @ViewBuilder private var ownerAction: some View {
