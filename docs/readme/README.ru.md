@@ -60,6 +60,16 @@ HotkeyDetective собирает свидетельства, выносит ве
 
 Требуется macOS 14 или новее.
 
+**Homebrew** (рекомендуется — `brew upgrade` поддерживает актуальную версию):
+
+```bash
+brew install --cask goodbug89/tap/hotkey-detective
+```
+
+**Прямая загрузка:** скачайте нотаризованный `.dmg` из [последнего релиза](https://github.com/goodbug89/hotkey-detective/releases/latest), откройте и перетащите приложение в «Программы».
+
+**Из исходников:**
+
 ```bash
 git clone https://github.com/goodbug89/hotkey-detective.git
 cd hotkey-detective

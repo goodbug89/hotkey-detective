@@ -60,6 +60,16 @@ Bir ayrım önemli: **tepki**, uygulamanın tuşu *aldığını* kanıtlar, *kay
 
 macOS 14 veya üstü gerekir.
 
+**Homebrew** (önerilir — `brew upgrade` güncel tutar):
+
+```bash
+brew install --cask goodbug89/tap/hotkey-detective
+```
+
+**Doğrudan indirme:** [son sürümden](https://github.com/goodbug89/hotkey-detective/releases/latest) noter onaylı `.dmg` dosyasını indirin, açın ve uygulamayı Uygulamalar’a sürükleyin.
+
+**Kaynaktan derleme:**
+
 ```bash
 git clone https://github.com/goodbug89/hotkey-detective.git
 cd hotkey-detective

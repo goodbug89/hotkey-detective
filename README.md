@@ -67,6 +67,16 @@ fighting" when nothing is wrong.
 
 Requires macOS 14 or later.
 
+**Homebrew** (recommended — `brew upgrade` keeps it current):
+
+```bash
+brew install --cask goodbug89/tap/hotkey-detective
+```
+
+**Direct download:** get the notarized `.dmg` from the [latest release](https://github.com/goodbug89/hotkey-detective/releases/latest), open it, and drag the app to Applications.
+
+**From source:**
+
 ```bash
 git clone https://github.com/goodbug89/hotkey-detective.git
 cd hotkey-detective

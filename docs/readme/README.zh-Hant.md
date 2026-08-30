@@ -60,6 +60,16 @@ HotkeyDetective 透過蒐集證據給出判斷，並把推理過程一併呈現:
 
 需要 macOS 14 或更高版本。
 
+**Homebrew**（建議 — `brew upgrade` 即可保持最新）：
+
+```bash
+brew install --cask goodbug89/tap/hotkey-detective
+```
+
+**直接下載：** 從[最新發佈](https://github.com/goodbug89/hotkey-detective/releases/latest)取得已公證的 `.dmg`，開啟後將 App 拖入「應用程式」。
+
+**從原始碼建置：**
+
 ```bash
 git clone https://github.com/goodbug89/hotkey-detective.git
 cd hotkey-detective

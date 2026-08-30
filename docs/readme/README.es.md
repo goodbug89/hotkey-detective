@@ -60,6 +60,16 @@ Una distinción importa: una **reacción** demuestra que una app *recibió* la t
 
 Requiere macOS 14 o posterior.
 
+**Homebrew** (recomendado — `brew upgrade` lo mantiene al día):
+
+```bash
+brew install --cask goodbug89/tap/hotkey-detective
+```
+
+**Descarga directa:** obtén el `.dmg` notarizado desde la [última versión](https://github.com/goodbug89/hotkey-detective/releases/latest), ábrelo y arrastra la app a Aplicaciones.
+
+**Desde el código fuente:**
+
 ```bash
 git clone https://github.com/goodbug89/hotkey-detective.git
 cd hotkey-detective

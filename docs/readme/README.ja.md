@@ -60,6 +60,16 @@ HotkeyDetective は根拠を集めて判定し、その理由も一緒に示し�
 
 macOS 14 以降が必要です。
 
+**Homebrew**（推奨 — `brew upgrade` で最新に保てます）:
+
+```bash
+brew install --cask goodbug89/tap/hotkey-detective
+```
+
+**直接ダウンロード:** [最新リリース](https://github.com/goodbug89/hotkey-detective/releases/latest) から公証済みの `.dmg` を取得し、開いてアプリを「アプリケーション」にドラッグします。
+
+**ソースからビルド:**
+
 ```bash
 git clone https://github.com/goodbug89/hotkey-detective.git
 cd hotkey-detective

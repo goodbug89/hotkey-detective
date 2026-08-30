@@ -60,6 +60,16 @@ Có một phân biệt quan trọng: **phản hồi** chứng minh ứng dụng 
 
 Yêu cầu macOS 14 trở lên.
 
+**Homebrew** (khuyến nghị — `brew upgrade` giữ bản mới nhất):
+
+```bash
+brew install --cask goodbug89/tap/hotkey-detective
+```
+
+**Tải trực tiếp:** lấy tệp `.dmg` đã công chứng từ [bản phát hành mới nhất](https://github.com/goodbug89/hotkey-detective/releases/latest), mở rồi kéo ứng dụng vào Applications.
+
+**Dựng từ mã nguồn:**
+
 ```bash
 git clone https://github.com/goodbug89/hotkey-detective.git
 cd hotkey-detective
