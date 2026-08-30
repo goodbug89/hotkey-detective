@@ -114,4 +114,60 @@ final class LocalizationTests: XCTestCase {
             }
         }
     }
+
+    // MARK: 복수형 (.stringsdict)
+
+    func plurals(for lang: String) throws -> [String: [String: Any]] {
+        guard let url = Bundle.module.url(forResource: "Localizable", withExtension: "stringsdict",
+                                          subdirectory: nil, localization: lang),
+              let dict = NSDictionary(contentsOf: url) as? [String: [String: Any]] else {
+            throw XCTSkip("\(lang) stringsdict를 번들에서 찾지 못했다")
+        }
+        return dict
+    }
+
+    /// 개수가 들어가는 문구는 15개 언어 전부에 있어야 한다. 빠진 언어에서는 키 이름이
+    /// 그대로 화면에 나온다 — .strings에서 이미 지웠으므로 폴백이 없다.
+    func testEveryLanguageHasEveryPluralKey() throws {
+        let base = Set(try plurals(for: "en").keys)
+        XCTAssertEqual(base, ["verdict.evidenceCount", "signal.newWindows", "inventory.summary"])
+        for lang in Self.languages where lang != "en" {
+            XCTAssertEqual(Set(try plurals(for: lang).keys), base, "\(lang)의 복수형 키가 영어와 다르다")
+        }
+    }
+
+    /// 모든 복수 변수에 other 범주가 있어야 한다. 없으면 그 개수에서 문구가 비어버린다.
+    func testEveryPluralVariableHasOtherCategory() throws {
+        for lang in Self.languages {
+            for (key, entry) in try plurals(for: lang) {
+                for (name, value) in entry where name != "NSStringLocalizedFormatKey" {
+                    let forms = try XCTUnwrap(value as? [String: Any], "\(lang)/\(key)/\(name)이 사전이 아니다")
+                    XCTAssertNotNil(forms["other"], "\(lang)/\(key)/\(name)에 other 범주가 없다")
+                    XCTAssertEqual(forms["NSStringFormatSpecTypeKey"] as? String, "NSStringPluralRuleType",
+                                   "\(lang)/\(key)/\(name)의 규칙 종류가 잘못됐다")
+                }
+            }
+        }
+    }
+
+    /// 같은 키가 .strings와 .stringsdict 양쪽에 있으면 어느 쪽이 쓰이는지 흐려진다.
+    /// (실제로는 stringsdict가 이기지만, 번역자가 .strings만 고치고 반영이 안 됐다고
+    /// 오해하기 쉽다.) 겹치지 않게 못 박는다.
+    func testPluralKeysAreNotAlsoInStrings() throws {
+        let pluralKeys = Set(try plurals(for: "en").keys)
+        for lang in Self.languages {
+            let overlap = pluralKeys.intersection(Set(try strings(for: lang).keys))
+            XCTAssertTrue(overlap.isEmpty, "\(lang): \(overlap.sorted())가 .strings에도 남아 있다")
+        }
+    }
+
+    /// 괄호 복수 표기가 다시 들어오지 않게 한다 — "(s)"는 복수 규칙이 아니라 회피다.
+    func testNoParentheticalPluralsRemainInStrings() throws {
+        for lang in Self.languages {
+            for (key, value) in try strings(for: lang) {
+                XCTAssertFalse(value.contains("(s)") || value.contains("(e)") || value.contains("(es)"),
+                               "\(lang) \(key): 괄호 복수 표기 — .stringsdict로 옮겨야 한다: \(value)")
+            }
+        }
+    }
 }

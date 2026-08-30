@@ -20,6 +20,13 @@ for dir in "$SRC"/*.lproj; do
   if ! plutil -lint "$target" >/dev/null 2>&1; then
     echo "파싱 실패: $target — strings 문법 오류면 그 언어 전체가 조용히 영어로 떨어진다"; fail=1
   fi
+  # 복수형은 .stringsdict에만 있다. 빠지면 개수가 들어가는 문구가 키 이름으로 나온다.
+  dict="$APP/Contents/Resources/$lang/Localizable.stringsdict"
+  if [ ! -f "$dict" ]; then
+    echo "누락: $lang/Localizable.stringsdict 가 .app에 없다"; fail=1
+  elif ! plutil -lint "$dict" >/dev/null 2>&1; then
+    echo "파싱 실패: $dict"; fail=1
+  fi
 done
 
 # 카탈로그가 Contents/Resources에 있어야 CFBundle이 메인 번들을 다국어로 인식한다.

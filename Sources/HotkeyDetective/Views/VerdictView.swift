@@ -17,7 +17,7 @@ struct VerdictView: View {
         VStack(alignment: .leading, spacing: 12) {
             Text(combo.display).font(.system(size: 34, weight: .semibold, design: .monospaced))
             headline
-            DisclosureGroup(L.t("verdict.evidenceCount", String(verdict.evidence.count)), isExpanded: .constant(true)) {
+            DisclosureGroup(L.count("verdict.evidenceCount", verdict.evidence.count), isExpanded: .constant(true)) {
                 ForEach(Array(verdict.evidence.prefix(shown).enumerated()), id: \.offset) { _, e in
                     HStack(alignment: .top, spacing: 8) {
                         dots(e.confidence)

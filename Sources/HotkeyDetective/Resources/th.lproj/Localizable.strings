@@ -12,7 +12,6 @@
 "reason.reaction" = "%2$@ ตอบสนอง %1$@ มิลลิวินาทีหลังกดปุ่ม: %3$@";
 "reason.carbonOccupied" = "โปรเซสอื่นลงทะเบียน %1$@ เป็นฮ็อตคีย์ Carbon";
 "reason.signalSeparator" = ", ";
-"signal.newWindows" = "เปิดหน้าต่างใหม่ %1$@ บาน";
 "signal.becameFrontmost" = "ขึ้นมาด้านหน้า";
 
 "verdict.confirmed" = "%1$@ กำลังใช้อยู่";
@@ -36,7 +35,6 @@
 "probe.manual.lookUp" = "ค้นหา: %1$@";
 "probe.limitedMode" = "โหมดจำกัด — ตัดสินจากไฟล์ตั้งค่าเท่านั้น";
 
-"verdict.evidenceCount" = "หลักฐาน %1$@ รายการ";
 "verdict.openKeyboardSettings" = "เปิดทางลัดแป้นพิมพ์";
 "verdict.openApp" = "เปิด %1$@";
 "verdict.copy" = "คัดลอกผลลัพธ์";
@@ -50,7 +48,6 @@
 "permission.limitedMode" = "ใช้ต่อโดยไม่ให้สิทธิ์ (โหมดจำกัด)";
 
 "inventory.title" = "ทางลัดทั้งหมด";
-"inventory.summary" = "ลงทะเบียน %1$@ · ขัดแย้ง %2$@";
 "inventory.search" = "ค้นหาทางลัดหรือแอป";
 "inventory.conflictsOnly" = "เฉพาะที่ขัดแย้ง";
 "inventory.deepScan" = "สแกนเชิงลึก";

@@ -12,7 +12,6 @@
 "reason.reaction" = "入力から %1$@ms 後に %2$@ が反応: %3$@";
 "reason.carbonOccupied" = "別のプロセスが %1$@ を Carbon ホットキーとして登録しています";
 "reason.signalSeparator" = "、";
-"signal.newWindows" = "新しいウインドウを %1$@ 個表示";
 "signal.becameFrontmost" = "最前面に移動";
 
 "verdict.confirmed" = "%1$@ が使用中";
@@ -36,7 +35,6 @@
 "probe.manual.lookUp" = "検索: %1$@";
 "probe.limitedMode" = "制限モード — 設定ファイルのみで判定します";
 
-"verdict.evidenceCount" = "根拠 %1$@ 件";
 "verdict.openKeyboardSettings" = "キーボードショートカット設定を開く";
 "verdict.openApp" = "%1$@ を開く";
 "verdict.copy" = "結果をコピー";
@@ -50,7 +48,6 @@
 "permission.limitedMode" = "権限なしで制限モードを使う";
 
 "inventory.title" = "すべてのショートカット";
-"inventory.summary" = "登録 %1$@ · 競合 %2$@";
 "inventory.search" = "ショートカット・アプリを検索";
 "inventory.conflictsOnly" = "競合のみ";
 "inventory.deepScan" = "詳細スキャン";

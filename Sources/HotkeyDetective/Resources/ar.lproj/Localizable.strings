@@ -12,7 +12,6 @@
 "reason.reaction" = "استجاب %2$@ بعد %1$@ مللي ثانية من الضغط: %3$@";
 "reason.carbonOccupied" = "سجّلت عملية أخرى %1$@ كاختصار Carbon";
 "reason.signalSeparator" = "، ";
-"signal.newWindows" = "فتح %1$@ نافذة جديدة";
 "signal.becameFrontmost" = "انتقل إلى المقدمة";
 
 "verdict.confirmed" = "‏%1$@ يستخدم هذا الاختصار";
@@ -36,7 +35,6 @@
 "probe.manual.lookUp" = "بحث: %1$@";
 "probe.limitedMode" = "وضع محدود — الأحكام من ملفات الإعدادات فقط";
 
-"verdict.evidenceCount" = "‏%1$@ من الأدلة";
 "verdict.openKeyboardSettings" = "فتح اختصارات لوحة المفاتيح";
 "verdict.openApp" = "فتح %1$@";
 "verdict.copy" = "نسخ النتيجة";
@@ -50,7 +48,6 @@
 "permission.limitedMode" = "المتابعة بدون أذونات (وضع محدود)";
 
 "inventory.title" = "كل الاختصارات";
-"inventory.summary" = "مسجّل %1$@ · متعارض %2$@";
 "inventory.search" = "ابحث عن اختصار أو تطبيق";
 "inventory.conflictsOnly" = "المتعارضة فقط";
 "inventory.deepScan" = "فحص عميق";

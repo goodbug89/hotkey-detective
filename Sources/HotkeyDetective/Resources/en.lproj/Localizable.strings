@@ -14,7 +14,6 @@
 "reason.reaction" = "%2$@ responded %1$@ms after the keypress: %3$@";
 "reason.carbonOccupied" = "Another process registered %1$@ as a Carbon hotkey";
 "reason.signalSeparator" = ", ";
-"signal.newWindows" = "opened %1$@ new window(s)";
 "signal.becameFrontmost" = "came to the front";
 
 /* Verdict headlines */
@@ -43,7 +42,6 @@
 "probe.limitedMode" = "Limited mode — verdicts come from settings files only";
 
 /* Verdict screen */
-"verdict.evidenceCount" = "%1$@ piece(s) of evidence";
 "verdict.openKeyboardSettings" = "Open Keyboard Shortcuts";
 "verdict.openApp" = "Open %1$@";
 "verdict.copy" = "Copy result";
@@ -59,7 +57,6 @@
 
 /* Inventory window */
 "inventory.title" = "All shortcuts";
-"inventory.summary" = "%1$@ registered · %2$@ conflicting";
 "inventory.search" = "Search shortcut or app";
 "inventory.conflictsOnly" = "Conflicts only";
 "inventory.deepScan" = "Deep scan";

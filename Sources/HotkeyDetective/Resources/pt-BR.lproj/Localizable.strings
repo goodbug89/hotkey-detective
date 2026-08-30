@@ -12,7 +12,6 @@
 "reason.reaction" = "%2$@ reagiu %1$@ ms após a tecla: %3$@";
 "reason.carbonOccupied" = "Outro processo registrou %1$@ como atalho Carbon";
 "reason.signalSeparator" = ", ";
-"signal.newWindows" = "abriu %1$@ nova(s) janela(s)";
 "signal.becameFrontmost" = "veio para a frente";
 
 "verdict.confirmed" = "%1$@ está usando";
@@ -36,7 +35,6 @@
 "probe.manual.lookUp" = "Consultar: %1$@";
 "probe.limitedMode" = "Modo limitado — veredictos apenas por arquivos de ajustes";
 
-"verdict.evidenceCount" = "%1$@ evidência(s)";
 "verdict.openKeyboardSettings" = "Abrir Atalhos de Teclado";
 "verdict.openApp" = "Abrir %1$@";
 "verdict.copy" = "Copiar resultado";
@@ -50,7 +48,6 @@
 "permission.limitedMode" = "Continuar sem permissões (modo limitado)";
 
 "inventory.title" = "Todos os atalhos";
-"inventory.summary" = "%1$@ registrados · %2$@ em conflito";
 "inventory.search" = "Buscar atalho ou app";
 "inventory.conflictsOnly" = "Somente conflitos";
 "inventory.deepScan" = "Varredura profunda";

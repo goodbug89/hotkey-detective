@@ -8,7 +8,7 @@ struct InventoryWindow: View {
             HStack(spacing: 10) {
                 Image(systemName: "keyboard")
                 Text(L.t("inventory.title")).font(.headline)
-                Text(L.t("inventory.summary", String(model.entries.count), String(model.conflictCount)))
+                Text(L.count("inventory.summary", model.entries.count, model.conflictCount))
                     .font(.caption).foregroundStyle(.secondary)
                 Spacer()
                 TextField(L.t("inventory.search"), text: $model.query)

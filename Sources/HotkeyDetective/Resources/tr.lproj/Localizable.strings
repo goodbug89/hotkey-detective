@@ -12,7 +12,6 @@
 "reason.reaction" = "%2$@, tuşa basıldıktan %1$@ ms sonra tepki verdi: %3$@";
 "reason.carbonOccupied" = "Başka bir işlem %1$@ kısayolunu Carbon kısayolu olarak kaydetmiş";
 "reason.signalSeparator" = ", ";
-"signal.newWindows" = "%1$@ yeni pencere açtı";
 "signal.becameFrontmost" = "öne geldi";
 
 "verdict.confirmed" = "%1$@ kullanıyor";
@@ -36,7 +35,6 @@
 "probe.manual.lookUp" = "Ara: %1$@";
 "probe.limitedMode" = "Sınırlı mod — yalnızca ayar dosyalarına göre";
 
-"verdict.evidenceCount" = "%1$@ kanıt";
 "verdict.openKeyboardSettings" = "Klavye Kısayolları'nı aç";
 "verdict.openApp" = "%1$@ uygulamasını aç";
 "verdict.copy" = "Sonucu kopyala";
@@ -50,7 +48,6 @@
 "permission.limitedMode" = "İzinsiz devam et (sınırlı mod)";
 
 "inventory.title" = "Tüm kısayollar";
-"inventory.summary" = "%1$@ kayıtlı · %2$@ çakışma";
 "inventory.search" = "Kısayol veya uygulama ara";
 "inventory.conflictsOnly" = "Yalnızca çakışmalar";
 "inventory.deepScan" = "Derin tarama";

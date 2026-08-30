@@ -12,7 +12,6 @@
 "reason.reaction" = "%2$@ reagierte %1$@ ms nach dem Tastendruck: %3$@";
 "reason.carbonOccupied" = "Ein anderer Prozess hat %1$@ als Carbon-Hotkey registriert";
 "reason.signalSeparator" = ", ";
-"signal.newWindows" = "%1$@ neue(s) Fenster geöffnet";
 "signal.becameFrontmost" = "in den Vordergrund gewechselt";
 
 "verdict.confirmed" = "%1$@ verwendet diesen Kurzbefehl";
@@ -36,7 +35,6 @@
 "probe.manual.lookUp" = "Nachschlagen: %1$@";
 "probe.limitedMode" = "Eingeschränkter Modus — Bewertung nur anhand von Konfigurationsdateien";
 
-"verdict.evidenceCount" = "%1$@ Beleg(e)";
 "verdict.openKeyboardSettings" = "Tastaturkurzbefehle öffnen";
 "verdict.openApp" = "%1$@ öffnen";
 "verdict.copy" = "Ergebnis kopieren";
@@ -50,7 +48,6 @@
 "permission.limitedMode" = "Ohne Berechtigungen fortfahren (eingeschränkt)";
 
 "inventory.title" = "Alle Kurzbefehle";
-"inventory.summary" = "%1$@ registriert · %2$@ Konflikte";
 "inventory.search" = "Kurzbefehl oder App suchen";
 "inventory.conflictsOnly" = "Nur Konflikte";
 "inventory.deepScan" = "Tiefer Scan";

@@ -12,7 +12,6 @@
 "reason.reaction" = "%2$@ a réagi %1$@ ms après la frappe : %3$@";
 "reason.carbonOccupied" = "Un autre processus a enregistré %1$@ comme raccourci Carbon";
 "reason.signalSeparator" = ", ";
-"signal.newWindows" = "%1$@ nouvelle(s) fenêtre(s) ouverte(s)";
 "signal.becameFrontmost" = "passée au premier plan";
 
 "verdict.confirmed" = "%1$@ l'utilise";
@@ -36,7 +35,6 @@
 "probe.manual.lookUp" = "Rechercher : %1$@";
 "probe.limitedMode" = "Mode limité — verdicts basés uniquement sur les fichiers de réglages";
 
-"verdict.evidenceCount" = "%1$@ élément(s) de preuve";
 "verdict.openKeyboardSettings" = "Ouvrir les raccourcis clavier";
 "verdict.openApp" = "Ouvrir %1$@";
 "verdict.copy" = "Copier le résultat";
@@ -50,7 +48,6 @@
 "permission.limitedMode" = "Continuer sans autorisations (mode limité)";
 
 "inventory.title" = "Tous les raccourcis";
-"inventory.summary" = "%1$@ enregistrés · %2$@ en conflit";
 "inventory.search" = "Rechercher un raccourci ou une app";
 "inventory.conflictsOnly" = "Conflits seulement";
 "inventory.deepScan" = "Analyse approfondie";

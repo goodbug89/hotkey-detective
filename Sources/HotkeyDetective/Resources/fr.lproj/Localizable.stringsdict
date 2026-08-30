@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>inventory.summary</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%1$#@r@ · %2$#@c@</string>
+		<key>c</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>ld</string>
+			<key>one</key>
+			<string>%ld en conflit</string>
+			<key>other</key>
+			<string>%ld en conflit</string>
+		</dict>
+		<key>r</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>ld</string>
+			<key>one</key>
+			<string>%ld enregistré</string>
+			<key>other</key>
+			<string>%ld enregistrés</string>
+		</dict>
+	</dict>
+	<key>signal.newWindows</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@n@</string>
+		<key>n</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>ld</string>
+			<key>one</key>
+			<string>%ld nouvelle fenêtre ouverte</string>
+			<key>other</key>
+			<string>%ld nouvelles fenêtres ouvertes</string>
+		</dict>
+	</dict>
+	<key>verdict.evidenceCount</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@n@</string>
+		<key>n</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>ld</string>
+			<key>one</key>
+			<string>%ld élément de preuve</string>
+			<key>other</key>
+			<string>%ld éléments de preuve</string>
+		</dict>
+	</dict>
+</dict>
+</plist>

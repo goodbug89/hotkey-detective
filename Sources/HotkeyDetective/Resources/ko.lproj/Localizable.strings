@@ -14,7 +14,6 @@
 "reason.reaction" = "입력 %1$@ms 후 %2$@이(가) 반응: %3$@";
 "reason.carbonOccupied" = "다른 프로세스가 %1$@을(를) Carbon 핫키로 등록함";
 "reason.signalSeparator" = ", ";
-"signal.newWindows" = "새 창 %1$@개 표시";
 "signal.becameFrontmost" = "활성 앱으로 전환";
 
 /* Verdict headlines */
@@ -42,7 +41,6 @@
 "probe.limitedMode" = "제한 모드 — 설정 파일 기반으로만 판정합니다";
 
 /* Verdict screen */
-"verdict.evidenceCount" = "근거 %1$@건";
 "verdict.openKeyboardSettings" = "키보드 단축키 설정 열기";
 "verdict.openApp" = "%1$@ 열기";
 "verdict.copy" = "결과 복사";
@@ -58,7 +56,6 @@
 
 /* Inventory window */
 "inventory.title" = "전체 단축키";
-"inventory.summary" = "등록 %1$@ · 충돌 %2$@";
 "inventory.search" = "조합·앱 검색";
 "inventory.conflictsOnly" = "충돌만";
 "inventory.deepScan" = "심층 스캔";

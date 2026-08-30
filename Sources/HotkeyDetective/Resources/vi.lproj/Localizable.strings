@@ -12,7 +12,6 @@
 "reason.reaction" = "%2$@ phản hồi %1$@ ms sau khi nhấn phím: %3$@";
 "reason.carbonOccupied" = "Một tiến trình khác đã đăng ký %1$@ làm phím nóng Carbon";
 "reason.signalSeparator" = ", ";
-"signal.newWindows" = "mở %1$@ cửa sổ mới";
 "signal.becameFrontmost" = "chuyển lên trước";
 
 "verdict.confirmed" = "%1$@ đang dùng";
@@ -36,7 +35,6 @@
 "probe.manual.lookUp" = "Tra: %1$@";
 "probe.limitedMode" = "Chế độ giới hạn — chỉ dựa trên tệp cài đặt";
 
-"verdict.evidenceCount" = "%1$@ bằng chứng";
 "verdict.openKeyboardSettings" = "Mở Phím tắt bàn phím";
 "verdict.openApp" = "Mở %1$@";
 "verdict.copy" = "Sao chép kết quả";
@@ -50,7 +48,6 @@
 "permission.limitedMode" = "Tiếp tục không cần quyền (giới hạn)";
 
 "inventory.title" = "Tất cả phím tắt";
-"inventory.summary" = "%1$@ đã đăng ký · %2$@ xung đột";
 "inventory.search" = "Tìm phím tắt hoặc ứng dụng";
 "inventory.conflictsOnly" = "Chỉ xung đột";
 "inventory.deepScan" = "Quét sâu";

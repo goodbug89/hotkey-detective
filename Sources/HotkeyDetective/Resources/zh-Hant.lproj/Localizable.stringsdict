@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>inventory.summary</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%1$#@r@ · %2$#@c@</string>
+		<key>c</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>ld</string>
+			<key>other</key>
+			<string>衝突 %ld</string>
+		</dict>
+		<key>r</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>ld</string>
+			<key>other</key>
+			<string>已註冊 %ld</string>
+		</dict>
+	</dict>
+	<key>signal.newWindows</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@n@</string>
+		<key>n</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>ld</string>
+			<key>other</key>
+			<string>開啟了 %ld 個新視窗</string>
+		</dict>
+	</dict>
+	<key>verdict.evidenceCount</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@n@</string>
+		<key>n</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>ld</string>
+			<key>other</key>
+			<string>%ld 項依據</string>
+		</dict>
+	</dict>
+</dict>
+</plist>

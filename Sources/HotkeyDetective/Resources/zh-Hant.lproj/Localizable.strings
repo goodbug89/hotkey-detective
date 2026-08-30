@@ -12,7 +12,6 @@
 "reason.reaction" = "按鍵後 %1$@ 毫秒 %2$@ 作出反應：%3$@";
 "reason.carbonOccupied" = "另一個程序已將 %1$@ 註冊為 Carbon 熱鍵";
 "reason.signalSeparator" = "、";
-"signal.newWindows" = "開啟了 %1$@ 個新視窗";
 "signal.becameFrontmost" = "切換到最前面";
 
 "verdict.confirmed" = "%1$@ 正在使用";
@@ -36,7 +35,6 @@
 "probe.manual.lookUp" = "查詢：%1$@";
 "probe.limitedMode" = "受限模式 — 僅根據設定檔判斷";
 
-"verdict.evidenceCount" = "%1$@ 項依據";
 "verdict.openKeyboardSettings" = "開啟鍵盤快速鍵設定";
 "verdict.openApp" = "開啟 %1$@";
 "verdict.copy" = "複製結果";
@@ -50,7 +48,6 @@
 "permission.limitedMode" = "不授予權限，使用受限模式";
 
 "inventory.title" = "所有快速鍵";
-"inventory.summary" = "已註冊 %1$@ · 衝突 %2$@";
 "inventory.search" = "搜尋快速鍵或 App";
 "inventory.conflictsOnly" = "僅衝突";
 "inventory.deepScan" = "深度掃描";

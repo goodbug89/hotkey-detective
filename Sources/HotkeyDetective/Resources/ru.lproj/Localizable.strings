@@ -12,7 +12,6 @@
 "reason.reaction" = "%2$@ отреагировало через %1$@ мс после нажатия: %3$@";
 "reason.carbonOccupied" = "Другой процесс зарегистрировал %1$@ как горячую клавишу Carbon";
 "reason.signalSeparator" = ", ";
-"signal.newWindows" = "открыто новых окон: %1$@";
 "signal.becameFrontmost" = "вышло на передний план";
 
 "verdict.confirmed" = "%1$@ использует это сочетание";
@@ -36,7 +35,6 @@
 "probe.manual.lookUp" = "Найти: %1$@";
 "probe.limitedMode" = "Ограниченный режим — только по файлам настроек";
 
-"verdict.evidenceCount" = "Свидетельств: %1$@";
 "verdict.openKeyboardSettings" = "Открыть сочетания клавиш";
 "verdict.openApp" = "Открыть %1$@";
 "verdict.copy" = "Скопировать результат";
@@ -50,7 +48,6 @@
 "permission.limitedMode" = "Продолжить без разрешений (ограниченно)";
 
 "inventory.title" = "Все сочетания";
-"inventory.summary" = "Зарегистрировано: %1$@ · Конфликтов: %2$@";
 "inventory.search" = "Поиск сочетания или приложения";
 "inventory.conflictsOnly" = "Только конфликты";
 "inventory.deepScan" = "Глубокий скан";

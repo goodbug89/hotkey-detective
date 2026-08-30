@@ -18,6 +18,22 @@ enum L {
         Bundle.main.url(forResource: "Localizable", withExtension: "strings") != nil ? .main : .module
     }()
 
+    /// 문구를 고른 언어의 로케일. 복수 규칙과 목록 접속사가 이걸 따라야 한다 —
+    /// Locale.current는 앱별 언어를 따로 지정한 사용자에게서 갈릴 수 있다.
+    static let locale: Locale = Locale(identifier: bundle.preferredLocalizations.first ?? "en")
+
+    /// 개수가 들어가는 문구. 번역은 `.stringsdict`에서 오고 언어별 복수 규칙이 적용된다.
+    ///
+    /// `.strings`로는 복수를 표현할 수 없어 "%1$@ piece(s) of evidence"처럼 괄호로 때우고
+    /// 있었다. 한국어·중국어처럼 복수 구분이 없는 언어에는 불필요하고, 러시아어(one/few/many)나
+    /// 아랍어(zero/one/two/few/many)에는 애초에 맞지 않는다.
+    ///
+    /// `%#@...@` 확장은 로케일이 있어야 동작하므로 `String(format:locale:)`을 쓴다.
+    static func count(_ key: String, _ values: Int...) -> String {
+        let format = bundle.localizedString(forKey: key, value: nil, table: nil)
+        return String(format: format, locale: locale, arguments: values.map { $0 as CVarArg })
+    }
+
     static func t(_ key: String, _ args: CVarArg...) -> String {
         let format = bundle.localizedString(forKey: key, value: nil, table: nil)
         return args.isEmpty ? format : String(format: format, arguments: args)
@@ -30,9 +46,7 @@ enum L {
     /// 알고 있고, 아랍어처럼 RTL인 언어에서는 라틴 이름 주위에 격리 문자까지 넣어준다.
     static func list(_ items: [String]) -> String {
         let f = ListFormatter()
-        // Locale.current가 아니라 실제로 고른 언어를 쓴다 — 앱별 언어를 따로 지정한
-        // 사용자에게서 둘이 갈릴 수 있다.
-        f.locale = Locale(identifier: bundle.preferredLocalizations.first ?? "en")
+        f.locale = locale
         return f.string(from: items) ?? items.joined(separator: t("verdict.ownerSeparator"))
     }
 
@@ -113,7 +127,7 @@ extension EvidenceReason {
 extension EvidenceReason.ReactionSignal {
     var localizedText: String {
         switch self {
-        case .newWindows(let count): return L.t("signal.newWindows", String(count))
+        case .newWindows(let count): return L.count("signal.newWindows", count)
         case .becameFrontmost: return L.t("signal.becameFrontmost")
         }
     }

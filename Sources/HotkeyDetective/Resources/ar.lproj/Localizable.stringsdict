@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>inventory.summary</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%1$#@r@ · %2$#@c@</string>
+		<key>c</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>ld</string>
+			<key>other</key>
+			<string>متعارض %ld</string>
+		</dict>
+		<key>r</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>ld</string>
+			<key>other</key>
+			<string>مسجّل %ld</string>
+		</dict>
+	</dict>
+	<key>signal.newWindows</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@n@</string>
+		<key>n</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>ld</string>
+			<key>few</key>
+			<string>فتح %ld نوافذ جديدة</string>
+			<key>many</key>
+			<string>فتح %ld نافذة جديدة</string>
+			<key>one</key>
+			<string>فتح نافذة جديدة</string>
+			<key>other</key>
+			<string>فتح %ld نافذة جديدة</string>
+			<key>two</key>
+			<string>فتح نافذتين جديدتين</string>
+			<key>zero</key>
+			<string>لم يفتح أي نافذة</string>
+		</dict>
+	</dict>
+	<key>verdict.evidenceCount</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>‏%#@n@</string>
+		<key>n</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>ld</string>
+			<key>few</key>
+			<string>%ld أدلة</string>
+			<key>many</key>
+			<string>%ld دليلًا</string>
+			<key>one</key>
+			<string>دليل واحد</string>
+			<key>other</key>
+			<string>%ld دليل</string>
+			<key>two</key>
+			<string>دليلان</string>
+			<key>zero</key>
+			<string>لا أدلة</string>
+		</dict>
+	</dict>
+</dict>
+</plist>

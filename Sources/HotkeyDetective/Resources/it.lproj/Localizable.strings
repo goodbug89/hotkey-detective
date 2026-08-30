@@ -12,7 +12,6 @@
 "reason.reaction" = "%2$@ ha reagito %1$@ ms dopo la pressione: %3$@";
 "reason.carbonOccupied" = "Un altro processo ha registrato %1$@ come tasto di scelta rapida Carbon";
 "reason.signalSeparator" = ", ";
-"signal.newWindows" = "ha aperto %1$@ nuova/e finestra/e";
 "signal.becameFrontmost" = "è passata in primo piano";
 
 "verdict.confirmed" = "%1$@ la sta usando";
@@ -36,7 +35,6 @@
 "probe.manual.lookUp" = "Cerca: %1$@";
 "probe.limitedMode" = "Modalità limitata — verdetti basati solo sui file di impostazioni";
 
-"verdict.evidenceCount" = "%1$@ prova/e";
 "verdict.openKeyboardSettings" = "Apri Abbreviazioni da tastiera";
 "verdict.openApp" = "Apri %1$@";
 "verdict.copy" = "Copia risultato";
@@ -50,7 +48,6 @@
 "permission.limitedMode" = "Continua senza permessi (modalità limitata)";
 
 "inventory.title" = "Tutte le scorciatoie";
-"inventory.summary" = "%1$@ registrate · %2$@ in conflitto";
 "inventory.search" = "Cerca scorciatoia o app";
 "inventory.conflictsOnly" = "Solo conflitti";
 "inventory.deepScan" = "Scansione approfondita";

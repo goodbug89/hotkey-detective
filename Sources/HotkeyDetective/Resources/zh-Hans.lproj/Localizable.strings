@@ -12,7 +12,6 @@
 "reason.reaction" = "按键后 %1$@ 毫秒 %2$@ 作出反应：%3$@";
 "reason.carbonOccupied" = "另一个进程已将 %1$@ 注册为 Carbon 热键";
 "reason.signalSeparator" = "、";
-"signal.newWindows" = "打开了 %1$@ 个新窗口";
 "signal.becameFrontmost" = "切换到最前面";
 
 "verdict.confirmed" = "%1$@ 正在使用";
@@ -36,7 +35,6 @@
 "probe.manual.lookUp" = "查询：%1$@";
 "probe.limitedMode" = "受限模式 — 仅根据配置文件判断";
 
-"verdict.evidenceCount" = "%1$@ 条依据";
 "verdict.openKeyboardSettings" = "打开键盘快捷键设置";
 "verdict.openApp" = "打开 %1$@";
 "verdict.copy" = "复制结果";
@@ -50,7 +48,6 @@
 "permission.limitedMode" = "不授予权限，使用受限模式";
 
 "inventory.title" = "所有快捷键";
-"inventory.summary" = "已注册 %1$@ · 冲突 %2$@";
 "inventory.search" = "搜索快捷键或应用";
 "inventory.conflictsOnly" = "仅冲突";
 "inventory.deepScan" = "深度扫描";
