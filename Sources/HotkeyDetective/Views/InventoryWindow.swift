@@ -65,17 +65,21 @@ struct InventoryWindow: View {
                 .opacity(e.isDormant ? 0.55 : 1)
                 .listRowBackground(e.isConflict ? Color.orange.opacity(0.08) : Color.clear)
             }
-        }
-        .safeAreaInset(edge: .bottom) {
             // 탐침 팝오버(자주 쓰는 경로)에는 넣지 않는다 — 사용자가 일부러 연 창에서만,
             // 한 줄로.
+            //
+            // safeAreaInset으로 얹었더니 마지막 행 위에 겹쳐 그려졌다. 바깥 VStack에
+            // 붙여도, List에 직접 붙여도 마찬가지였다(둘 다 실기 확인). 스크롤 내용까지
+            // 안전 영역이 전해지지 않는다. 스택의 형제로 두면 자리를 실제로 차지하므로
+            // 겹칠 수가 없다 — 내용 아래로 스크롤이 지나가는 효과는 포기한다.
+            Divider()
             HStack {
                 Spacer()
                 Link(L.t("footer.madeBy"), destination: URL(string: "https://unifyl.app")!)
                     .font(.caption2)
                     .foregroundStyle(.secondary)
             }
-            .padding(.horizontal, 12).padding(.bottom, 6)
+            .padding(.horizontal, 12).padding(.vertical, 6)
         }
         .frame(minWidth: 520, minHeight: 400)
         .onAppear { model.reload() }
