@@ -1,3 +1,4 @@
+import AppKit
 import SwiftUI
 import Engine
 
@@ -7,7 +8,18 @@ struct SourceBadge: View {
     let source: EvidenceSource
 
     /// 뱃지 글자 수가 언어마다 달라도 뒤따르는 설명이 같은 x에서 시작하도록 칸 너비를 고정한다.
-    static let columnWidth: CGFloat = 64
+    ///
+    /// 64pt로 못박아 뒀더니 러시아어 "Настройки", 이탈리아어 "Scansione", 아랍어 "الإعدادات"가
+    /// "Настро…"로 잘렸다. 언어별로 숫자를 손보는 대신 그 언어의 가장 긴 뱃지를 실제로 재서
+    /// 칸을 잡는다 — 정렬(같은 x에서 설명 시작)은 그대로 지키면서 어떤 언어에서도 안 잘린다.
+    static let columnWidth: CGFloat = {
+        let labels = [EvidenceSource.systemHotkeys, .knownAppParser(appName: ""),
+                      .heuristicScan, .reaction, .carbonProbe].map(\.badgeLabel)
+        let font = NSFont.preferredFont(forTextStyle: .caption2)
+        let widest = labels.map { ($0 as NSString).size(withAttributes: [.font: font]).width }.max() ?? 52
+        // 캡슐 좌우 여백(6+6)과 글꼴 렌더링 오차를 더한다.
+        return max(64, ceil(widest) + 16)
+    }()
 
     var body: some View {
         Text(source.badgeLabel)

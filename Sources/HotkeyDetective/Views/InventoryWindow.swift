@@ -11,7 +11,11 @@ struct InventoryWindow: View {
                 Text(L.t("inventory.summary", String(model.entries.count), String(model.conflictCount)))
                     .font(.caption).foregroundStyle(.secondary)
                 Spacer()
-                TextField(L.t("inventory.search"), text: $model.query).textFieldStyle(.roundedBorder).frame(width: 160)
+                TextField(L.t("inventory.search"), text: $model.query)
+                    .textFieldStyle(.roundedBorder)
+                    // 160pt 고정이면 독일어 자리표시자가 "…App suc"로 잘린다.
+                    // 언어마다 길이가 다르므로 창 너비에 맞춰 늘어나게 둔다.
+                    .frame(minWidth: 160, idealWidth: 240, maxWidth: 320)
                 Toggle(L.t("inventory.conflictsOnly"), isOn: $model.conflictsOnly).toggleStyle(.button)
                 if model.isLoading {
                     ProgressView().controlSize(.small)

@@ -99,4 +99,19 @@ final class LocalizationTests: XCTestCase {
             }
         }
     }
+
+    /// 근거 행의 뱃지 칸은 그 언어의 가장 긴 뱃지에 맞춰 늘어난다(SourceBadge.columnWidth).
+    /// 번역자가 뱃지에 문장을 넣으면 칸이 설명을 밀어내 행이 무너진다. 짧게 유지시킨다.
+    /// (64pt 고정이던 시절에는 반대로 러시아어 "Настройки"가 "Настро…"로 잘렸다.)
+    func testSourceBadgeLabelsStayShort() throws {
+        let keys = ["badge.system", "badge.parser", "badge.scan", "badge.reaction", "badge.probe"]
+        for lang in Self.languages {
+            let d = try strings(for: lang)
+            for key in keys {
+                let label = try XCTUnwrap(d[key], "\(lang)에 \(key)가 없다")
+                XCTAssertLessThanOrEqual(label.count, 14,
+                    "\(lang) \(key)가 너무 길다(\(label.count)자): \(label) — 뱃지는 한 단어여야 한다")
+            }
+        }
+    }
 }
