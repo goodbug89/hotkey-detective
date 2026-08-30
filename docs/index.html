@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HotkeyDetective — Find out which app stole your keyboard shortcut</title>
+<meta name="description" content="A free menu-bar utility for macOS that identifies which app owns a keyboard shortcut. It gathers evidence from five independent sources and shows you the reasoning, so you can judge the answer instead of trusting it. Notarized, open source, 15 languages.">
+<meta property="og:title" content="HotkeyDetective — Find out which app stole your keyboard shortcut">
+<meta property="og:description" content="macOS gives you no way to ask which app owns a shortcut. This does — and it shows its evidence.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://goodbug89.github.io/hotkey-detective/">
+<meta property="og:image" content="https://goodbug89.github.io/hotkey-detective/images/verdict.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://goodbug89.github.io/hotkey-detective/">
+<link rel="icon" href="images/icon.png">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --bg: #0d1117; --bg2: #161b22; --bg3: #21262d;
+    --text: #e6edf3; --text2: #8b949e; --border: #30363d;
+    --accent: #4da6ff; --accent2: #1a7fdb;
+    --orange: #f0883e; --green: #3fb950; --red: #f85149;
+    --radius: 12px;
+  }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", "Noto Sans", sans-serif;
+    background: var(--bg); color: var(--text); line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  img { max-width: 100%; }
+
+  .container { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+  section { padding: 88px 0; }
+  .narrow { max-width: 720px; margin: 0 auto; }
+
+  /* Nav */
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(13,17,23,0.85); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+  nav .container { display: flex; align-items: center; justify-content: space-between; height: 56px; }
+  nav .logo { display: flex; align-items: center; gap: 10px; font-size: 16px; font-weight: 700; letter-spacing: -0.3px; color: var(--text); }
+  nav .logo img { width: 24px; height: 24px; border-radius: 6px; }
+  nav .links { display: flex; gap: 26px; font-size: 14px; align-items: center; }
+  nav .links a { color: var(--text2); }
+  nav .links a:hover { color: var(--text); text-decoration: none; }
+
+  /* Hero */
+  .hero { padding: 150px 0 72px; text-align: center; }
+  .hero-icon { width: 104px; height: 104px; margin: 0 auto 28px; display: block; border-radius: 24px; }
+  .hero h1 { font-size: clamp(34px, 5.5vw, 52px); font-weight: 800; letter-spacing: -1.5px; line-height: 1.15; margin-bottom: 18px; }
+  .hero h1 span { background: linear-gradient(135deg, var(--orange), #ffc07a); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+  .hero p.lede { font-size: 19px; color: var(--text2); max-width: 580px; margin: 0 auto 36px; }
+  .hero-buttons { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+  .btn { display: inline-flex; align-items: center; gap: 8px; padding: 13px 26px; border-radius: 10px; font-size: 15px; font-weight: 600; border: none; cursor: pointer; transition: transform .15s, box-shadow .15s, background .15s; }
+  .btn:hover { transform: translateY(-1px); text-decoration: none; }
+  .btn-primary { background: var(--accent); color: #fff; }
+  .btn-primary:hover { background: #5fb3ff; box-shadow: 0 4px 24px rgba(77,166,255,.3); }
+  .btn-outline { background: transparent; color: var(--text); border: 1px solid var(--border); }
+  .btn-outline:hover { border-color: var(--text2); }
+  .badge-row { margin-top: 30px; display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
+  .badge { font-size: 12px; padding: 4px 12px; border-radius: 20px; background: var(--bg3); color: var(--text2); border: 1px solid var(--border); }
+
+  /* Shot */
+  .shot { max-width: 760px; margin: 56px auto 0; border-radius: var(--radius); overflow: hidden; border: 1px solid var(--border); box-shadow: 0 16px 56px rgba(0,0,0,.5); background: #fff; }
+  .shot img { display: block; width: 100%; }
+  .shot-caption { text-align: center; color: var(--text2); font-size: 13px; margin-top: 14px; }
+
+  /* Sections */
+  .alt { background: var(--bg2); }
+  .section-title { text-align: center; font-size: 31px; font-weight: 700; margin-bottom: 12px; letter-spacing: -0.5px; }
+  .section-sub { text-align: center; color: var(--text2); font-size: 17px; margin-bottom: 52px; max-width: 640px; margin-left: auto; margin-right: auto; }
+
+  /* Evidence sources */
+  .src-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+  .src-card { background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; transition: border-color .2s; }
+  .alt .src-card { background: var(--bg); }
+  .src-card:hover { border-color: var(--accent); }
+  .src-head { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+  .pill { font-size: 11px; font-weight: 600; padding: 3px 11px; border-radius: 20px; letter-spacing: .2px; }
+  .pill-strong { background: rgba(77,166,255,.15); color: var(--accent); }
+  .pill-weak { background: var(--bg3); color: var(--text2); }
+  .src-card h3 { font-size: 16px; font-weight: 600; }
+  .src-card p { color: var(--text2); font-size: 14px; line-height: 1.65; }
+  .strength { display: inline-block; margin-top: 14px; font-size: 12px; color: var(--text2); }
+  .dots { display: inline-flex; gap: 3px; vertical-align: middle; margin-inline-end: 7px; }
+  .dots i { width: 6px; height: 6px; border-radius: 50%; background: var(--border); display: block; }
+  .dots i.on { background: var(--text2); }
+
+  /* Verdict ladder */
+  .ladder { max-width: 720px; margin: 0 auto; }
+  .rung { display: flex; align-items: flex-start; gap: 16px; padding: 16px 0; border-bottom: 1px solid var(--border); }
+  .rung:last-child { border-bottom: none; }
+  .rung .tag { flex: 0 0 132px; font-size: 14px; font-weight: 700; font-family: "SF Mono", ui-monospace, monospace; }
+  .rung p { color: var(--text2); font-size: 14.5px; }
+  .t-confirmed { color: var(--accent); }
+  .t-likely { color: #79c0ff; }
+  .t-contested { color: var(--orange); }
+  .t-unknown { color: var(--text2); }
+  .t-free { color: var(--green); }
+
+  /* Callout */
+  .callout { max-width: 760px; margin: 0 auto; background: var(--bg2); border: 1px solid var(--border); border-inline-start: 3px solid var(--orange); border-radius: var(--radius); padding: 30px 32px; }
+  .alt .callout { background: var(--bg); }
+  .callout h3 { font-size: 19px; margin-bottom: 12px; }
+  .callout p { color: var(--text2); font-size: 15px; }
+  .callout p + p { margin-top: 12px; }
+
+  /* Limits */
+  .limits { max-width: 760px; margin: 0 auto; display: grid; gap: 16px; }
+  .limit { background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px 24px; }
+  .alt .limit { background: var(--bg); }
+  .limit h4 { font-size: 15px; font-weight: 600; margin-bottom: 6px; }
+  .limit p { color: var(--text2); font-size: 14px; }
+
+  /* Install */
+  .install-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 22px; }
+  .install-card { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius); padding: 26px; }
+  .install-card.featured { border-color: var(--accent); }
+  .install-card h3 { font-size: 17px; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+  .install-card p { color: var(--text2); font-size: 14px; margin-bottom: 16px; }
+  .tag-rec { font-size: 10px; font-weight: 700; letter-spacing: .5px; background: var(--accent); color: #fff; padding: 2px 8px; border-radius: 20px; }
+  pre { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 14px 16px; overflow-x: auto; }
+  code { font-family: "SF Mono", ui-monospace, Menlo, monospace; font-size: 13px; color: var(--text); }
+  p code, li code { background: var(--bg3); padding: 2px 6px; border-radius: 5px; font-size: 12.5px; }
+  kbd { background: var(--bg3); border: 1px solid var(--border); border-bottom-width: 2px; border-radius: 6px; padding: 2px 8px; font-family: "SF Mono", ui-monospace, monospace; font-size: 13px; color: var(--text); }
+
+  /* Privacy */
+  .facts { max-width: 760px; margin: 0 auto; display: grid; gap: 14px; }
+  .fact { display: flex; gap: 14px; align-items: flex-start; }
+  .fact .mark { color: var(--green); font-weight: 700; flex: 0 0 auto; }
+  .fact p { color: var(--text2); font-size: 15px; }
+  .fact strong { color: var(--text); font-weight: 600; }
+
+  /* Languages */
+  .langs { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; max-width: 700px; margin: 0 auto; }
+  .langs span { font-size: 13px; padding: 5px 13px; border-radius: 20px; background: var(--bg3); color: var(--text2); border: 1px solid var(--border); }
+
+  /* Footer */
+  footer { border-top: 1px solid var(--border); padding: 44px 0; text-align: center; }
+  footer .footer-links { display: flex; gap: 22px; justify-content: center; margin-bottom: 18px; font-size: 14px; flex-wrap: wrap; }
+  footer .footer-links a { color: var(--text2); }
+  footer .made { color: var(--text2); font-size: 14px; margin-bottom: 8px; }
+  footer .copyright { color: var(--text2); font-size: 13px; opacity: .75; }
+
+  @media (max-width: 640px) {
+    section { padding: 60px 0; }
+    .hero { padding: 116px 0 52px; }
+    nav .links { gap: 14px; font-size: 13px; }
+    nav .links .hide-sm { display: none; }
+    .rung { flex-direction: column; gap: 4px; }
+    .rung .tag { flex: none; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="container">
+    <a class="logo" href="#top"><img src="images/icon.png" alt=""> HotkeyDetective</a>
+    <div class="links">
+      <a class="hide-sm" href="#how">How it works</a>
+      <a class="hide-sm" href="#inventory">Inventory</a>
+      <a class="hide-sm" href="#privacy">Privacy</a>
+      <a href="#install">Install</a>
+      <a href="https://github.com/goodbug89/hotkey-detective">GitHub</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="container">
+    <img class="hero-icon" src="images/icon.png" alt="HotkeyDetective icon">
+    <h1>Find out which app<br><span>stole your keyboard shortcut</span></h1>
+    <p class="lede">
+      You press <kbd>⇧⌘4</kbd> and nothing happens. Some app took it — but which one?
+      macOS ships no API that answers this, and no way to ask in System Settings either.
+    </p>
+    <div class="hero-buttons">
+      <a class="btn btn-primary" href="https://github.com/goodbug89/hotkey-detective/releases/latest">Download for macOS</a>
+      <a class="btn btn-outline" href="#install">Install with Homebrew</a>
+    </div>
+    <div class="badge-row">
+      <span class="badge">macOS 14+</span>
+      <span class="badge">Notarized</span>
+      <span class="badge">Open source · MIT</span>
+      <span class="badge">15 languages</span>
+      <span class="badge">~1 MB</span>
+      <span class="badge">No account</span>
+    </div>
+
+    <div class="shot">
+      <img src="images/verdict.png" alt="HotkeyDetective showing that Maccy, Raycast and Spotlight have all registered ⌘Space, with four pieces of evidence listed beneath">
+    </div>
+    <p class="shot-caption">Press the combination. Get an answer — and the reasoning behind it.</p>
+  </div>
+</header>
+
+<section id="how">
+  <div class="container">
+    <h2 class="section-title">It gathers evidence, then weighs it</h2>
+    <p class="section-sub">
+      There is no single source of truth for “who owns this shortcut,” so the app collects
+      independent signals and tells you which one it is leaning on.
+    </p>
+    <div class="src-grid">
+
+      <div class="src-card">
+        <div class="src-head"><span class="pill pill-strong">System</span><h3>System shortcuts</h3></div>
+        <p>Reads macOS’s own shortcut table — the authoritative one behind System Settings — and the
+           overrides you have made to it.</p>
+        <span class="strength"><span class="dots"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span>Certain</span>
+      </div>
+
+      <div class="src-card">
+        <div class="src-head"><span class="pill pill-strong">Config</span><h3>App config</h3></div>
+        <p>Parses the settings files of apps it knows, so it can name the exact action —
+           not just the app.</p>
+        <span class="strength"><span class="dots"><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span>High — lower when the app isn’t running</span>
+      </div>
+
+      <div class="src-card">
+        <div class="src-head"><span class="pill pill-weak">Scan</span><h3>Config scan</h3></div>
+        <p>Recognizes two common shortcut-storage formats in any app’s settings, so unfamiliar
+           apps are not automatically invisible.</p>
+        <span class="strength"><span class="dots"><i class="on"></i><i class="on"></i><i></i><i></i></span>Medium</span>
+      </div>
+
+      <div class="src-card">
+        <div class="src-head"><span class="pill pill-weak">Reaction</span><h3>Reaction</h3></div>
+        <p>Watches what actually happens after the keypress — an app opening a window or coming
+           to the front within milliseconds.</p>
+        <span class="strength"><span class="dots"><i class="on"></i><i class="on"></i><i></i><i></i></span>Observation, never a claim</span>
+      </div>
+
+      <div class="src-card">
+        <div class="src-head"><span class="pill pill-weak">Probe</span><h3>Hotkey probe</h3></div>
+        <p>Asks the Carbon hotkey API whether the combination is already spoken for. Honest about
+           its ceiling — see the limits below.</p>
+        <span class="strength"><span class="dots"><i class="on"></i><i></i><i></i><i></i></span>Observation only</span>
+      </div>
+
+      <div class="src-card">
+        <div class="src-head"><span class="pill pill-strong">Verdict</span><h3>…and then a verdict</h3></div>
+        <p>Every claim shows the evidence it rests on, so you can judge the answer yourself rather
+           than trusting a black box.</p>
+        <span class="strength">Five outcomes — see below</span>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="alt">
+  <div class="container">
+    <h2 class="section-title">Five answers, not one</h2>
+    <p class="section-sub">A shortcut is rarely a clean yes or no. The verdict says how sure it is.</p>
+    <div class="ladder">
+      <div class="rung">
+        <span class="tag t-confirmed">confirmed</span>
+        <p>An authoritative source binds this combination. The system table said so, or a known app’s
+           settings did while the app is running.</p>
+      </div>
+      <div class="rung">
+        <span class="tag t-likely">likely</span>
+        <p>The evidence points one way but does not settle it — a scan match, or an app that reacted
+           without a registration to back it up.</p>
+      </div>
+      <div class="rung">
+        <span class="tag t-contested">contested</span>
+        <p>Two or more owners registered the same combination. This is the case you came here for,
+           and it is pinned to the top of the inventory.</p>
+      </div>
+      <div class="rung">
+        <span class="tag t-unknown">occupied</span>
+        <p>Something holds it, but nothing identified who. Rare in practice — the limits section
+           explains why.</p>
+      </div>
+      <div class="rung">
+        <span class="tag t-free">free</span>
+        <p>Nothing found. Safe to assign — with the same caveat as above.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="callout">
+      <h3>The distinction that makes it trustworthy</h3>
+      <p>
+        A <strong>reaction</strong> proves an app <em>received</em> the key. It does not prove the app
+        <em>registered</em> it. So a reaction can corroborate an owner — but it can never contest one.
+      </p>
+      <p>
+        Without that rule, <kbd>⌘Space</kbd> reads as “the system and Spotlight are fighting” when
+        nothing is wrong at all: Spotlight is simply what the system shortcut opens. Getting this
+        backwards is what makes a conflict detector cry wolf, and it is the reason every verdict here
+        shows its sources instead of a single confident sentence.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="alt" id="inventory">
+  <div class="container">
+    <h2 class="section-title">Or skip the guessing entirely</h2>
+    <p class="section-sub">
+      Beyond one-shot probing, the app lists every shortcut it can see — system bindings, known apps
+      and scan results — with conflicts pinned to the top.
+    </p>
+    <div class="shot">
+      <img src="images/inventory.png" alt="The inventory window listing every known shortcut with its owner and evidence source">
+    </div>
+    <p class="shot-caption">
+      Search by combination or app. <strong>Deep scan</strong> additionally reads sandboxed apps’
+      settings — macOS asks permission per app, so it is off by default.
+    </p>
+  </div>
+</section>
+
+<section id="privacy">
+  <div class="container">
+    <h2 class="section-title">What it does with your keystrokes</h2>
+    <p class="section-sub">Short version: watches one, keeps one, sends none.</p>
+    <div class="facts">
+      <div class="fact"><span class="mark">✓</span><p><strong>There is no network code in the repository.</strong> Nothing is uploaded, because nothing can be.</p></div>
+      <div class="fact"><span class="mark">✓</span><p><strong>The keyboard tap is listen-only.</strong> Keys are observed, never intercepted — the real owner still receives them. That is exactly how reaction detection works.</p></div>
+      <div class="fact"><span class="mark">✓</span><p><strong>Nothing is logged or stored.</strong> The only key data that survives a probe is the single combination you chose to look up.</p></div>
+      <div class="fact"><span class="mark">✓</span><p><strong>Permissions are explained, not demanded.</strong> The probe needs Accessibility <em>and</em> Input Monitoring, because macOS requires both for a listen-only tap.</p></div>
+      <div class="fact"><span class="mark">✓</span><p><strong>It still works without them.</strong> In limited mode you pick a combination manually and it answers from settings files alone.</p></div>
+      <div class="fact"><span class="mark">✓</span><p><strong>The source is public.</strong> MIT licensed — every claim on this page is checkable.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="alt">
+  <div class="container">
+    <h2 class="section-title">What it cannot do</h2>
+    <p class="section-sub">A detector that hides its blind spots is worse than no detector.</p>
+    <div class="limits">
+      <div class="limit">
+        <h4>Carbon hotkey probing cannot see other processes</h4>
+        <p><code>RegisterEventHotKey</code> reports a conflict only within the calling process, which
+           makes the “occupied but unidentified” verdict effectively unreachable. An app that registers
+           a hotkey, shows no window, and stores its config in an unrecognized format stays invisible.</p>
+      </div>
+      <div class="limit">
+        <h4>System feature names are English outside Korean</h4>
+        <p>macOS keeps its own translations somewhere we cannot read. Inventing replacements would
+           disagree with what you see in System Settings, so the original English name is shown instead.</p>
+      </div>
+      <div class="limit">
+        <h4>Config scanning recognizes two storage formats</h4>
+        <p>The <code>KeyboardShortcuts</code> library and <code>MASShortcut</code>-style dictionaries.
+           Apps with custom formats need a dedicated parser —
+           <a href="https://github.com/goodbug89/hotkey-detective/blob/main/CONTRIBUTING.md">contributions welcome</a>.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="install">
+  <div class="container">
+    <h2 class="section-title">Install</h2>
+    <p class="section-sub">Requires macOS 14 or later. Free, and there is nothing to unlock.</p>
+    <div class="install-grid">
+
+      <div class="install-card featured">
+        <h3>Homebrew <span class="tag-rec">RECOMMENDED</span></h3>
+        <p>There is no in-app updater, so this is the path that keeps you current — <code>brew upgrade</code> does the rest.</p>
+        <pre><code>brew install --cask \
+goodbug89/tap/hotkey-detective</code></pre>
+      </div>
+
+      <div class="install-card">
+        <h3>Direct download</h3>
+        <p>A notarized disk image, about a megabyte. Open it and drag the app to Applications.</p>
+        <pre><code><a href="https://github.com/goodbug89/hotkey-detective/releases/latest">Latest release →</a></code></pre>
+      </div>
+
+      <div class="install-card">
+        <h3>From source</h3>
+        <p>Signs with your own Developer ID if the keychain has one, ad-hoc otherwise.</p>
+        <pre><code>git clone https://github.com/\
+goodbug89/hotkey-detective.git
+cd hotkey-detective
+Scripts/bundle.sh</code></pre>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="alt">
+  <div class="container">
+    <h2 class="section-title">Speaks your language</h2>
+    <p class="section-sub">The interface follows your system language. No setting to find.</p>
+    <div class="langs">
+      <span>English</span><span>한국어</span><span>日本語</span><span>简体中文</span><span>繁體中文</span>
+      <span>Deutsch</span><span>Français</span><span>Español</span><span>Italiano</span><span>Português</span>
+      <span>Русский</span><span>العربية</span><span>ไทย</span><span>Türkçe</span><span>Tiếng Việt</span>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-links">
+      <a href="https://github.com/goodbug89/hotkey-detective">Source</a>
+      <a href="https://github.com/goodbug89/hotkey-detective/releases">Releases</a>
+      <a href="https://github.com/goodbug89/hotkey-detective/issues">Issues</a>
+      <a href="https://github.com/goodbug89/hotkey-detective/blob/main/LICENSE">License</a>
+    </div>
+    <p class="made">Built by the team behind <a href="https://unifyl.app">Unifyl</a>, a dual-pane file manager for macOS.</p>
+    <p class="copyright">MIT licensed. Not affiliated with Apple.</p>
+  </div>
+</footer>
+
+</body>
+</html>

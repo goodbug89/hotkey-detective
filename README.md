@@ -12,6 +12,10 @@
 </p>
 
 <p align="center">
+  <a href="https://goodbug89.github.io/hotkey-detective/"><strong>Website →</strong></a>
+</p>
+
+<p align="center">
   <strong>Language:</strong>
   <strong>English</strong> ·
   <a href="docs/readme/README.ko.md">한국어</a> ·

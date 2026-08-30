@@ -18,9 +18,22 @@ enum CaptureMode {
         NSApp.setActivationPolicy(.accessory)
         NSApp.finishLaunching()
 
-        shoot(name: "verdict", width: 360, view: AnyView(
-            VerdictView(combo: KeyCombo(keyCode: 49, modifiers: [.command]), verdict: sampleVerdict)
-                .environmentObject(ProbeSession())), lang: lang, outDir: outDir)
+        shoot(name: "verdict", width: 360, view: AnyView(root(
+            combo: KeyCombo(keyCode: 49, modifiers: [.command]), verdict: sampleVerdict)),
+            lang: lang, outDir: outDir)
+
+
+        // 시스템 소유자 판정은 "Open Keyboard Settings"라는 더 긴 버튼을 낸다 —
+        // README 스크린샷에서 영어인데도 "Open Keyboard..."로 잘려 있었다.
+        shoot(name: "verdict-system", width: 360, view: AnyView(root(
+            combo: KeyCombo(keyCode: 21, modifiers: [.command, .shift]),
+            verdict: .confirmed(.system(feature: "Save picture of selected area as a file"), [
+                Evidence(source: .systemHotkeys,
+                         owner: .system(feature: "Save picture of selected area as a file"),
+                         confidence: .certain,
+                         reason: .systemHotkey(id: 30, combo: "\u{21E7}\u{2318}4")),
+            ]))), lang: lang, outDir: outDir)
+
 
         shoot(name: "permission", width: 360, view: AnyView(
             PermissionView().environmentObject(ProbeSession())), lang: lang, outDir: outDir)
@@ -29,6 +42,14 @@ enum CaptureMode {
         // 잘려 푸터가 마지막 행과 겹쳐 보인다(창 크기 문제이지 레이아웃 결함이 아니다).
         shoot(name: "inventory", width: 900, view: AnyView(InventoryWindow()),
               lang: lang, outDir: outDir, settle: 1.5, height: 600)
+    }
+
+    /// 실제 메뉴바 팝오버 그대로 — 판정 화면에 푸터 메뉴까지 붙는다.
+    /// 세션 상태를 직접 넣어 탐침 없이 결과 화면을 띄운다.
+    @MainActor private static func root(combo: KeyCombo, verdict: Verdict) -> some View {
+        let session = ProbeSession()
+        session.state = .result(combo, verdict)
+        return RootView().environmentObject(session)
     }
 
     /// 소유자 셋짜리 contested — 목록 조립과 가장 긴 문장, 근거 4행을 한 화면에서 본다.
