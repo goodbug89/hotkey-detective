@@ -41,7 +41,25 @@ enum CaptureMode {
         // 인벤토리는 실제로 쓰는 창 크기로 그린다 — 높이를 fittingSize에 맡기면 List가
         // 잘려 푸터가 마지막 행과 겹쳐 보인다(창 크기 문제이지 레이아웃 결함이 아니다).
         shoot(name: "inventory", width: 900, view: AnyView(InventoryWindow()),
-              lang: lang, outDir: outDir, settle: 1.5, height: 600)
+              lang: lang, outDir: outDir, settle: 6, height: 600)
+    }
+
+    /// 본문 영역이 거의 균일한 배경색이면 아직 내용이 없다는 뜻이다.
+    /// 머리말·꼬리말은 항상 그려지므로 가운데 띠만 본다.
+    @MainActor private static func isBlank(_ rep: NSBitmapImageRep, in bounds: NSRect) -> Bool {
+        let y0 = Int(bounds.height * 0.35), y1 = Int(bounds.height * 0.75)
+        guard y1 > y0, rep.pixelsHigh > 0 else { return false }
+        let sy = Double(rep.pixelsHigh) / Double(bounds.height)
+        let sx = Double(rep.pixelsWide) / Double(bounds.width)
+        var uniform = 0, total = 0
+        for y in stride(from: y0, to: y1, by: 4) {
+            for x in stride(from: 8, to: Int(bounds.width) - 8, by: 8) {
+                guard let c = rep.colorAt(x: Int(Double(x) * sx), y: Int(Double(y) * sy)) else { continue }
+                total += 1
+                if c.brightnessComponent > 0.96 && c.saturationComponent < 0.05 { uniform += 1 }
+            }
+        }
+        return total > 0 && Double(uniform) / Double(total) > 0.98
     }
 
     /// 실제 메뉴바 팝오버 그대로 — 판정 화면에 푸터 메뉴까지 붙는다.
@@ -100,6 +118,15 @@ enum CaptureMode {
             FileHandle.standardError.write("렌더 실패 \(lang)/\(name)\n".data(using: .utf8)!); return
         }
         host.cacheDisplay(in: host.bounds, to: rep)
+        // 인벤토리는 비동기로 채워진다. 스캔이 끝나기 전에 찍으면 스피너만 있는 빈 목록이
+        // 나오는데, 그게 조용히 저장되면 그대로 사이트와 README에 실릴 수 있다. 실제로
+        // 앱을 하나 더 설치해 스캔이 길어지자 빈 화면이 찍혔다 — 큰 소리로 실패시킨다.
+        if isBlank(rep, in: host.bounds) {
+            FileHandle.standardError.write(
+                "빈 화면이 찍혔다 (\(lang)/\(name)) — 내용이 로드되기 전이다. settle을 늘려라.\n"
+                    .data(using: .utf8)!)
+            exit(2)
+        }
         guard let png = rep.representation(using: .png, properties: [:]) else { return }
         try! png.write(to: URL(fileURLWithPath: "\(outDir)/\(name)-\(lang).png"))
         print("\(lang)/\(name): \(Int(host.bounds.width))x\(Int(host.bounds.height))")
