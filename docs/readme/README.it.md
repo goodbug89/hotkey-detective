@@ -12,7 +12,7 @@
 </p>
 
 <p align="center">
-  <a href="https://goodbug89.github.io/hotkey-detective/"><strong>Sito web →</strong></a>
+  <a href="https://goodbug89.github.io/hotkey-detective/it/"><strong>Sito web →</strong></a>
 </p>
 
 <p align="center">
