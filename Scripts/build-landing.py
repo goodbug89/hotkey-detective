@@ -10,7 +10,7 @@
 영어 출력이 커밋된 docs/index.html과 바이트 단위로 같은지 스스로 검사한다(--check).
 추출이 어긋나면 그 자리에서 드러난다.
 """
-import json, pathlib, re, sys
+import datetime, json, pathlib, re, sys
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 SRC = ROOT / "Scripts" / "landing"
@@ -96,6 +96,36 @@ def render(loc, template, keys):
     return out
 
 
+def write_sitemap():
+    """15개 로케일을 hreflang 대체 링크와 함께 담은 sitemap을 만든다.
+
+    다국어 사이트에서 sitemap의 xhtml:link는 hreflang 태그와 같은 정보를 검색엔진에
+    한 번 더, 더 확실하게 준다. 페이지가 15개로 늘어난 이상 손으로 유지할 대상이 아니다.
+    """
+    day = datetime.date.today().isoformat()
+    alts = "".join(
+        f'\n      <xhtml:link rel="alternate" hreflang="{LOCALES[l][1]}" href="{page_url(l)}"/>'
+        for l in LOCALES
+    ) + f'\n      <xhtml:link rel="alternate" hreflang="x-default" href="{BASE}/"/>'
+    urls = "".join(
+        f"""  <url>
+    <loc>{page_url(l)}</loc>
+    <lastmod>{day}</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>{"1.0" if l == DEFAULT else "0.8"}</priority>{alts}
+  </url>
+"""
+        for l in LOCALES
+    )
+    (OUT / "sitemap.xml").write_text(
+        '<?xml version="1.0" encoding="UTF-8"?>\n'
+        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"\n'
+        '        xmlns:xhtml="http://www.w3.org/1999/xhtml">\n' + urls + "</urlset>\n")
+    (OUT / "robots.txt").write_text(
+        f"User-agent: *\nAllow: /\n\nSitemap: {BASE}/sitemap.xml\n")
+    return len(LOCALES)
+
+
 def main():
     check = "--check" in sys.argv
     template = (SRC / "template.html").read_text()
@@ -146,6 +176,9 @@ def main():
         target.parent.mkdir(parents=True, exist_ok=True)
         target.write_text(html)
         print(f"  {loc:8} → {target.relative_to(ROOT)}  ({len(html):,} bytes)")
+    if not problems and not check:
+        n = write_sitemap()
+        print(f"  sitemap.xml ({n}개 URL) · robots.txt")
     return 1 if problems else 0
 
 
