@@ -79,7 +79,7 @@ final class KnownAppResolverTests: XCTestCase {
     func testRaycastStringFormat() {
         let r = KnownAppResolver(descriptor: KnownApps.raycast, fileURL: fixture("raycast"), running: Running(ids: ["com.raycast.macos"]))
         let e = r.resolve(KeyCombo(keyCode: 49, modifiers: [.option]), probe: nil)
-        XCTAssertEqual(e.first?.owner, .app(bundleID: "com.raycast.macos", name: "Raycast", action: "호출"))
+        XCTAssertEqual(e.first?.owner, .app(bundleID: "com.raycast.macos", name: "Raycast", action: "globalHotkey"))
     }
 
     func testNonMatchingComboGivesNothing() {
@@ -94,5 +94,23 @@ final class KnownAppResolverTests: XCTestCase {
 
     func testAllBuildsThreeResolvers() {
         XCTAssertEqual(KnownApps.all(running: Running(ids: [])).count, 3)
+    }
+
+    /// Engine은 표시 문구를 만들지 않는다 — 액션 이름은 앱 자신의 키에서 오는 식별자다.
+    /// Raycast 서술자가 한국어 "호출"을 하드코딩하고 있었고, 그러면 나머지 14개 언어
+    /// 화면에 한국어가 그대로 새어 나온다(시스템 기능명에서 한 번 겪은 문제다).
+    func testDescriptorActionsAreLanguageNeutral() {
+        let cases: [(KnownAppDescriptor, String)] = [
+            (KnownApps.maccy, "maccy"), (KnownApps.rectangle, "rectangle"), (KnownApps.raycast, "raycast"),
+        ]
+        for (descriptor, name) in cases {
+            let r = KnownAppResolver(descriptor: descriptor, fileURL: fixture(name),
+                                     running: Running(ids: [descriptor.bundleID]))
+            for e in r.allEvidence() {
+                guard case .app(_, _, let action?) = e.owner else { continue }
+                XCTAssertTrue(action.allSatisfy(\.isASCII),
+                              "\(descriptor.name)의 액션 '\(action)'에 비ASCII 문자가 있다 — 지역화는 App 계층의 몫")
+            }
+        }
     }
 }

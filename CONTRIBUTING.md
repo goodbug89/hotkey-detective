@@ -23,6 +23,26 @@ a dedicated parser, which is one file plus one fixture:
 why: it does not write its default shortcuts to disk at all, so a plausible-looking
 fixture would have hidden that entirely.
 
+## Help wanted: confirm the Raycast parser
+
+`RaycastResolver.swift` is the one parser in the tree that was never checked
+against a real installation. Both the preference key (`raycastGlobalHotkey`) and
+the value format (`"Command-Shift-49"`) are assumptions. A fresh Raycast writes
+no hotkey until its onboarding is finished, so this has stayed unresolved —
+and the key names Raycast *does* write use an underscore (`raycast_AnonymousId`),
+which the assumed name does not.
+
+If you run Raycast with a global hotkey set, this is a two-minute contribution:
+
+```bash
+defaults read com.raycast.macos | grep -i hotkey
+```
+
+Send the key name and its value (or open a PR with a fixture). If it turns out
+the parser never matched anything, that is worth knowing too — the current
+failure mode is a silent miss, which is exactly the kind of thing this project
+is supposed to be honest about.
+
 ## Ground rules for this codebase
 
 - `Engine` imports only `Foundation` and `os`. No AppKit, no CoreGraphics — it
