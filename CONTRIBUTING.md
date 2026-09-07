@@ -3,6 +3,34 @@
 Thanks for looking. The most useful contribution is usually a **parser for an
 app whose shortcuts we miss** — that is the project's main coverage gap.
 
+## First check whether a parser is even needed
+
+The generic scanner already recognizes two storage formats, so a good number of
+apps are covered without any code. Check before writing anything:
+
+```bash
+swift build -c release -Xswiftc -DDEBUG_CAPTURE
+.build/release/HotkeyDetective --scan
+```
+
+It prints what the scanner sees twice — without and with container reading (the
+"deep scan" the app exposes as a checkbox). Example, with Shottr installed:
+
+```
+includeContainers=false: 0건
+includeContainers=true: 3건
+   ⇧⌘1  Shottr · fullscreen
+   ⇧⌘2  Shottr · area
+   ⌃⌥⌘O  Shottr · ocr
+```
+
+Shottr needs no parser. It is sandboxed, so its settings live in a container and
+only the deep scan reaches them — that difference is the design, not a bug: macOS
+asks permission per app for container reads, so it stays off by default.
+
+If your app shows up in either list, it is already handled. If it shows up in
+neither, read on.
+
 ## Adding an app parser
 
 The scanner recognizes two common storage formats. Apps with custom formats need

@@ -2,6 +2,7 @@
 import AppKit
 import SwiftUI
 import Engine
+import Probe
 
 /// `--capture <dir>`로 실행하면 주요 화면을 PNG로 렌더링하고 끝낸다.
 ///
@@ -12,6 +13,21 @@ import Engine
 /// 실행하지 않아 근거 목록(등장 애니메이션으로 채워진다)이 비어 있는 채로 찍혔다.
 /// 임시 도구이며 DEBUG_CAPTURE 없이는 컴파일되지 않는다.
 enum CaptureMode {
+    /// `--scan` 진단: 휴리스틱 스캐너가 지금 이 머신에서 무엇을 보는지 컨테이너 포함/제외로
+    /// 각각 출력한다. 샌드박스 앱이 심층 스캔에서만 보이는 것이 설계대로인지 확인할 때 쓴다.
+    @MainActor static func scanDiagnostic() {
+        for deep in [false, true] {
+            let r = HeuristicScanResolver(apps: RunningAppsProvider.scannableApps(),
+                                          excludedBundleIDs: KnownApps.parserBundleIDs,
+                                          includeContainers: deep)
+            let pairs = r.allPairs()
+            print("includeContainers=\(deep): \(pairs.count)건")
+            for (combo, e) in pairs.sorted(by: { $0.0.display < $1.0.display }) {
+                print("   \(combo.display)  \(e.owner.map(String.init(describing:)) ?? "-")")
+            }
+        }
+    }
+
     @MainActor static func run(outDir: String) {
         let lang = Bundle.main.preferredLocalizations.first ?? "?"
         _ = NSApplication.shared

@@ -10,6 +10,9 @@ struct HotkeyDetectiveApp: App {
 #if DEBUG_CAPTURE
     init() {
         let a = CommandLine.arguments
+        if a.contains("--scan") {
+            MainActor.assumeIsolated { CaptureMode.scanDiagnostic() }; exit(0)
+        }
         if let i = a.firstIndex(of: "--capture"), i + 1 < a.count {
             MainActor.assumeIsolated { CaptureMode.run(outDir: a[i + 1]) }; exit(0)
         }
