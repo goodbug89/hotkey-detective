@@ -73,9 +73,9 @@ public enum KnownApps {
         home.appendingPathComponent("Library/Containers/\(bundleID)/Data/Library/Preferences/\(bundleID).plist")
     }
 
-    public static let parserBundleIDs: Set<String> = ["com.knollsoft.Rectangle", "org.p0deje.Maccy", "com.raycast.macos"]
+    public static let parserBundleIDs: Set<String> = ["com.knollsoft.Rectangle", "org.p0deje.Maccy", "com.raycast.macos", "com.lwouis.alt-tab-macos"]
 
     public static func all(running: RunningAppChecker) -> [Resolver] {
-        [rectangle, maccy, raycast].map { KnownAppResolver(descriptor: $0, running: running) }
+        [rectangle, maccy, raycast, altTab].map { KnownAppResolver(descriptor: $0, running: running) }
     }
 }

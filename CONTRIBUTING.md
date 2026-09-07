@@ -26,37 +26,23 @@ fixture would have hidden that entirely.
 ## Why parsers need someone who already uses the app
 
 Adding a parser looks like a job you can do by installing the app and reading its
-plist. Twice now that has failed at the same point, and it is worth writing down
-so the next attempt does not repeat it.
+plist. That fails at a predictable point, and it is worth writing down.
 
 A freshly installed app has **not written its shortcuts anywhere**. Most store
 only what differs from their compiled-in defaults, so the file you need does not
 exist until a human opens Settings and changes something.
 
-  - **Raycast** writes four keys on first launch (`raycast_AnonymousId` and
-    friends) and no hotkey at all until onboarding is finished.
-  - **AltTab** writes no shortcut either, and actively deletes keys it does not
-    recognize: writing `nextWindowShortcut` by hand — as a ShortcutRecorder-style
-    `{keyCode, modifierFlags}` dictionary and again as a plain string — left the
-    key gone after the next launch, both times.
+  - **Raycast** writes four keys on first launch and no hotkey at all until
+    onboarding is finished — still unresolved, see below.
+  - **AltTab** wrote nothing either, and actively deleted keys it did not
+    recognize: `nextWindowShortcut` written by hand, once as a
+    `{keyCode, modifierFlags}` dictionary and once as a plain string, was gone
+    after the next launch both times. That pruning turned out to be useful — it
+    is a reliable signal for whether a guessed shape is right.
 
-So the parser has to be written against a real, *configured* installation. If you
-already run one of these apps, the groundwork is done:
-
-  - **AltTab** (`com.lwouis.alt-tab-macos`) uses the ShortcutRecorder library
-    (`SRShortcut` appears in the binary). The keys are `holdShortcut`,
-    `holdShortcut2`…`holdShortcut5`, `nextWindowShortcut`, `nextWindowShortcut0`,
-    `previousWindowShortcut`, `focusWindowShortcut`, `closeWindowShortcut`,
-    `hideShowAppShortcut`, `cancelShortcut`. What is missing is the *value* shape,
-    which only a configured install can show:
-
-    ```bash
-    defaults read com.lwouis.alt-tab-macos | grep -i shortcut
-    ```
-
-Guessing the shape is not an acceptable shortcut — the Raycast parser above is
-what that looks like a year later, and its failure mode is a silent miss that
-nobody notices.
+AltTab was finished by driving its Settings window: adding a second shortcut set
+forced it to persist one, which revealed the real shape. See
+`AltTabResolver.swift` — the format was nothing like either guess.
 
 ## Help wanted: confirm the Raycast parser
 

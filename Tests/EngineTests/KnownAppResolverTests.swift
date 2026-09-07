@@ -92,8 +92,8 @@ final class KnownAppResolverTests: XCTestCase {
         XCTAssertTrue(KnownAppResolver(descriptor: KnownApps.rectangle, fileURL: URL(fileURLWithPath: "/nope.plist"), running: Running(ids: [])).resolve(KeyCombo(keyCode: 123, modifiers: [.control, .option]), probe: nil).isEmpty)
     }
 
-    func testAllBuildsThreeResolvers() {
-        XCTAssertEqual(KnownApps.all(running: Running(ids: [])).count, 3)
+    func testAllBuildsOneResolverPerKnownApp() {
+        XCTAssertEqual(KnownApps.all(running: Running(ids: [])).count, 4)
     }
 
     /// Engine은 표시 문구를 만들지 않는다 — 액션 이름은 앱 자신의 키에서 오는 식별자다.
@@ -112,5 +112,29 @@ final class KnownAppResolverTests: XCTestCase {
                               "\(descriptor.name)의 액션 '\(action)'에 비ASCII 문자가 있다 — 지역화는 App 계층의 몫")
             }
         }
+    }
+
+    // MARK: AltTab
+
+    /// AltTab은 단축키를 {string, secureData} 딕셔너리로 저장하고, secureData는
+    /// ShortcutRecorder SRShortcut의 NSKeyedArchiver 아카이브다. 픽스처는 실제 설치에서
+    /// 뽑았다 — hold는 ⌥(키 없음), next는 ⌥Q.
+    func testAltTabParsesArchivedShortcut() {
+        let r = KnownAppResolver(descriptor: KnownApps.altTab, fileURL: fixture("alttab"),
+                                 running: Running(ids: ["com.lwouis.alt-tab-macos"]))
+        let pairs = r.allPairs()
+        // hold 트리거는 키가 없어(keyCode 65535) 조합이 되지 않으므로 제외된다.
+        XCTAssertEqual(pairs.map(\.0), [KeyCombo(keyCode: 12, modifiers: [.option])])
+        XCTAssertEqual(pairs.first?.1.owner,
+                       .app(bundleID: "com.lwouis.alt-tab-macos", name: "AltTab",
+                            action: "nextWindowShortcut3"))
+    }
+
+    /// keyCode 65535는 "키 없음"이다. 수정자만 쓰는 hold 트리거가 이 값을 쓰는데,
+    /// 이를 조합으로 만들면 존재하지 않는 단축키를 인벤토리에 싣게 된다.
+    func testAltTabTreats65535AsNoKey() throws {
+        let d = NSDictionary(contentsOf: fixture("alttab")) as! [String: Any]
+        let hold = try XCTUnwrap((d["holdShortcut3"] as? [String: Any])?["secureData"] as? Data)
+        XCTAssertNil(KnownApps.parseAltTabShortcut(hold))
     }
 }

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>holdShortcut3</key>
+	<dict>
+		<key>secureData</key>
+		<data>
+		YnBsaXN0MDDUAQIDBAUGBwpYJHZlcnNpb25ZJGFyY2hpdmVyVCR0b3BYJG9i
+		amVjdHMSAAGGoF8QD05TS2V5ZWRBcmNoaXZlctEICVRyb290gAGmCwwZGhsc
+		VSRudWxs1g0ODxAREhMUFRQXGF1tb2RpZmllckZsYWdzXxAbY2hhcmFjdGVy
+		c0lnbm9yaW5nTW9kaWZpZXJzViRjbGFzc1pjaGFyYWN0ZXJzV2tleUNvZGVX
+		dmVyc2lvboADgASABYAEgAKAABH//xIACAAAUNIdHh8gWiRjbGFzc25hbWVY
+		JGNsYXNzZXNaU1JTaG9ydGN1dKIfIVhOU09iamVjdAAIABEAGgAkACkAMgA3
+		AEkATABRAFMAWgBgAG0AewCZAKAAqwCzALsAvQC/AMEAwwDFAMcAygDPANAA
+		1QDgAOkA9AD3AAAAAAAAAgEAAAAAAAAAIgAAAAAAAAAAAAAAAAAAAQA=
+		</data>
+		<key>string</key>
+		<string>⌥</string>
+	</dict>
+	<key>nextWindowShortcut3</key>
+	<dict>
+		<key>secureData</key>
+		<data>
+		YnBsaXN0MDDUAQIDBAUGGx5ZJGFyY2hpdmVyWCRvYmplY3RzVCR0b3BYJHZl
+		cnNpb25fEA9OU0tleWVkQXJjaGl2ZXKlBwgTFBVVJG51bGzWCQoLDA0ODxAQ
+		ERIQViRjbGFzc1pjaGFyYWN0ZXJzXxAbY2hhcmFjdGVyc0lnbm9yaW5nTW9k
+		aWZpZXJzV2tleUNvZGVdbW9kaWZpZXJGbGFnc1d2ZXJzaW9ugASAAIACgAMQ
+		DBIACAAA0hYXGBlYJGNsYXNzZXNaJGNsYXNzbmFtZaIZGlpTUlNob3J0Y3V0
+		WE5TT2JqZWN00RwdVHJvb3SAARIAAYagCBEbJCkyREpQXWRvjZWjq62vsbO1
+		ur/I09bh6u3y9AAAAAAAAAEBAAAAAAAAAB8AAAAAAAAAAAAAAAAAAAD5
+		</data>
+		<key>string</key>
+		<string>⌥Q</string>
+	</dict>
+	<key>shortcutCount</key>
+	<string>3</string>
+</dict>
+</plist>

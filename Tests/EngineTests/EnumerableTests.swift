@@ -9,7 +9,7 @@ final class EnumerableTests: XCTestCase {
     /// 파서를 추가하고 목록을 갱신하지 않아도 테스트가 통과해버린다.
     func testParserBundleIDsCoversEveryKnownAppDescriptor() {
         XCTAssertEqual(KnownApps.parserBundleIDs,
-                       Set([KnownApps.rectangle, KnownApps.maccy, KnownApps.raycast].map(\.bundleID)))
+                       Set([KnownApps.rectangle, KnownApps.maccy, KnownApps.raycast, KnownApps.altTab].map(\.bundleID)))
     }
 
     /// 같은 앱을 전용 파서와 휴리스틱 스캐너 양쪽에 먹여도 인벤토리에는 소유자가 하나만
