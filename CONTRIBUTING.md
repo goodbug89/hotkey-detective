@@ -79,25 +79,26 @@ AltTab was finished by driving its Settings window: adding a second shortcut set
 forced it to persist one, which revealed the real shape. See
 `AltTabResolver.swift` — the format was nothing like either guess.
 
-## Help wanted: confirm the Raycast parser
+## Why there is no Raycast parser
 
-`RaycastResolver.swift` is the one parser in the tree that was never checked
-against a real installation. Both the preference key (`raycastGlobalHotkey`) and
-the value format (`"Command-Shift-49"`) are assumptions. A fresh Raycast writes
-no hotkey until its onboarding is finished, so this has stayed unresolved —
-and the key names Raycast *does* write use an underscore (`raycast_AnonymousId`),
-which the assumed name does not.
+There used to be one, written against a guessed preference key. It never matched
+anything, and in September 2026 a configured installation showed why: **Raycast
+keeps no preferences we can read.**
 
-If you run Raycast with a global hotkey set, this is a two-minute contribution:
+  - Its `com.raycast.macos` defaults domain holds only telemetry and onboarding
+    flags — no shortcut, even after the hotkey is changed in Settings.
+  - There is not a single plist anywhere under
+    `~/Library/Application Support/com.raycast.macos/`.
+  - Settings live in SQLite files there, and those files are encrypted: their
+    headers are random bytes rather than `SQLite format 3`, and a `last_key` file
+    sits beside them.
 
-```bash
-defaults read com.raycast.macos | grep -i hotkey
-```
+So the parser was removed rather than fixed. Raycast is still detected — it opens
+a window when its hotkey fires, which the reaction signal sees — but no config
+source can name the action, and that is the honest ceiling.
 
-Send the key name and its value (or open a PR with a fixture). If it turns out
-the parser never matched anything, that is worth knowing too — the current
-failure mode is a silent miss, which is exactly the kind of thing this project
-is supposed to be honest about.
+The lesson generalizes: **check that the app writes something readable before
+writing a parser.** `--scan` above answers that in one command.
 
 ## Ground rules for this codebase
 

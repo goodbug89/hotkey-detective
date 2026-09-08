@@ -76,11 +76,6 @@ final class KnownAppResolverTests: XCTestCase {
         XCTAssertEqual(e.first?.owner, .app(bundleID: "org.p0deje.Maccy", name: "Maccy", action: "popup"))
     }
 
-    func testRaycastStringFormat() {
-        let r = KnownAppResolver(descriptor: KnownApps.raycast, fileURL: fixture("raycast"), running: Running(ids: ["com.raycast.macos"]))
-        let e = r.resolve(KeyCombo(keyCode: 49, modifiers: [.option]), probe: nil)
-        XCTAssertEqual(e.first?.owner, .app(bundleID: "com.raycast.macos", name: "Raycast", action: "globalHotkey"))
-    }
 
     func testNonMatchingComboGivesNothing() {
         let r = KnownAppResolver(descriptor: KnownApps.rectangle, fileURL: fixture("rectangle"), running: Running(ids: []))
@@ -93,7 +88,7 @@ final class KnownAppResolverTests: XCTestCase {
     }
 
     func testAllBuildsOneResolverPerKnownApp() {
-        XCTAssertEqual(KnownApps.all(running: Running(ids: [])).count, 5)
+        XCTAssertEqual(KnownApps.all(running: Running(ids: [])).count, 4)
     }
 
     /// Engine은 표시 문구를 만들지 않는다 — 액션 이름은 앱 자신의 키에서 오는 식별자다.
@@ -101,7 +96,7 @@ final class KnownAppResolverTests: XCTestCase {
     /// 화면에 한국어가 그대로 새어 나온다(시스템 기능명에서 한 번 겪은 문제다).
     func testDescriptorActionsAreLanguageNeutral() {
         let cases: [(KnownAppDescriptor, String)] = [
-            (KnownApps.maccy, "maccy"), (KnownApps.rectangle, "rectangle"), (KnownApps.raycast, "raycast"),
+            (KnownApps.maccy, "maccy"), (KnownApps.rectangle, "rectangle"),
         ]
         for (descriptor, name) in cases {
             let r = KnownAppResolver(descriptor: descriptor, fileURL: fixture(name),

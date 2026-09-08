@@ -87,10 +87,14 @@ enum CaptureMode {
     }
 
     /// 소유자 셋짜리 contested — 목록 조립과 가장 긴 문장, 근거 4행을 한 화면에서 본다.
+    ///
+    /// 예시로 쓰는 앱은 그 근거 종류로 실제로 잡힐 수 있는 앱이어야 한다. 예전에는 Raycast를
+    /// 스캔 근거에 썼는데, Raycast는 설정을 암호화된 DB에 두어 스캐너가 영영 찾을 수 없다 —
+    /// 홍보 스크린샷이 일어날 수 없는 조합을 그리고 있었다.
     private static var sampleVerdict: Verdict {
         let owners: [Owner] = [
             .app(bundleID: "org.p0deje.Maccy", name: "Maccy", action: "popup"),
-            .app(bundleID: "com.raycast.macos", name: "Raycast", action: "toggle"),
+            .app(bundleID: "com.jordanbaird.Ice", name: "Ice", action: "toggle"),
             .system(feature: "Show Spotlight search"),
         ]
         return .contested(owners, [
@@ -99,9 +103,9 @@ enum CaptureMode {
             Evidence(source: .knownAppParser(appName: "Maccy"), owner: owners[0], confidence: .high,
                      reason: .knownApp(app: "Maccy", action: "popup", combo: "⌘Space", isRunning: true)),
             Evidence(source: .heuristicScan, owner: owners[1], confidence: .medium,
-                     reason: .scanPattern(app: "Raycast", action: "toggle", combo: "⌘Space")),
+                     reason: .scanPattern(app: "Ice", action: "toggle", combo: "⌘Space")),
             Evidence(source: .reaction, owner: owners[1], confidence: .medium,
-                     reason: .reaction(app: "Raycast", milliseconds: 120,
+                     reason: .reaction(app: "Ice", milliseconds: 120,
                                        signals: [.newWindows(count: 1), .becameFrontmost])),
         ])
     }
