@@ -93,7 +93,7 @@ final class KnownAppResolverTests: XCTestCase {
     }
 
     func testAllBuildsOneResolverPerKnownApp() {
-        XCTAssertEqual(KnownApps.all(running: Running(ids: [])).count, 4)
+        XCTAssertEqual(KnownApps.all(running: Running(ids: [])).count, 5)
     }
 
     /// Engine은 표시 문구를 만들지 않는다 — 액션 이름은 앱 자신의 키에서 오는 식별자다.
@@ -136,5 +136,25 @@ final class KnownAppResolverTests: XCTestCase {
         let d = NSDictionary(contentsOf: fixture("alttab")) as! [String: Any]
         let hold = try XCTUnwrap((d["holdShortcut3"] as? [String: Any])?["secureData"] as? Data)
         XCTAssertNil(KnownApps.parseAltTabShortcut(hold))
+    }
+
+    // MARK: Alfred
+
+    /// Alfred는 메인 단축키를 설정 번들 안 hotkey/prefs.plist에 둔다.
+    /// key는 가상 키코드, mod는 CG 수정자 비트다. 픽스처는 실제 설치에서 뽑았다 — ⌃⌥⌘J.
+    func testAlfredParsesHotkey() {
+        let r = KnownAppResolver(descriptor: KnownApps.alfred, fileURL: fixture("alfred"),
+                                 running: Running(ids: ["com.runningwithcrayons.Alfred"]))
+        let pairs = r.allPairs()
+        XCTAssertEqual(pairs.map(\.0), [KeyCombo(keyCode: 38, modifiers: [.control, .option, .command])])
+        XCTAssertEqual(pairs.first?.1.owner,
+                       .app(bundleID: "com.runningwithcrayons.Alfred", name: "Alfred", action: "default"))
+    }
+
+    /// prefs.json을 읽을 수 없어도 후보가 비면 안 된다 — resolvedFileURL이 첫 원소를
+    /// 꺼내므로 빈 배열은 크래시다.
+    func testAlfredAlwaysOffersACandidatePath() {
+        XCTAssertFalse(KnownApps.alfredHotkeyURLs.isEmpty)
+        XCTAssertTrue(KnownApps.alfredHotkeyURLs[0].path.hasSuffix("hotkey/prefs.plist"))
     }
 }

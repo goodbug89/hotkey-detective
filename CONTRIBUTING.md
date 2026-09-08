@@ -68,18 +68,12 @@ exist until a human opens Settings and changes something.
     after the next launch both times. That pruning turned out to be useful — it
     is a reliable signal for whether a guessed shape is right.
 
-Alfred hits the same wall and has not been resolved. Its config root is
-`~/Library/Application Support/Alfred/`, where `prefs.json` names the active
-preferences bundle and a per-machine `localhash`:
-
-```json
-{ "current": "…/Alfred.alfredpreferences", "localhash": "270503b2…" }
-```
-
-The `.alfredpreferences` bundle is **empty** until you change a setting, so where
-inside it the hotkey lands has not been observed — do not guess it. If you use
-Alfred, `find ~/Library/Application\ Support/Alfred -name '*.plist'` after setting
-a hotkey would settle it.
+Alfred was resolved the same way, and its layout is worth knowing because the
+path is not fixed: `~/Library/Application Support/Alfred/prefs.json` names the
+active preferences bundle (`current`, which can point at a synced folder) and a
+per-machine `localhash`. The hotkey lands at
+`<current>/preferences/local/<localhash>/hotkey/prefs.plist`, and only after you
+change it — see `AlfredResolver.swift`.
 
 AltTab was finished by driving its Settings window: adding a second shortcut set
 forced it to persist one, which revealed the real shape. See
