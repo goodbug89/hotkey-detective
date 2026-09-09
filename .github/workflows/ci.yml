@@ -10,6 +10,11 @@ jobs:
     runs-on: macos-14
     steps:
       - uses: actions/checkout@v4
+        with:
+          # 랜딩 생성기가 sitemap의 lastmod를 원본의 마지막 커밋 날짜에서 뽑는다.
+          # 얕은 클론이면 그 날짜를 못 구해 오늘 날짜로 떨어지고, 아래 diff 검사가
+          # 가짜로 실패한다.
+          fetch-depth: 0
       - name: Show toolchain
         run: swift --version
       - name: Build
@@ -18,3 +23,11 @@ jobs:
         run: swift test
       - name: Bundle (ad-hoc signed)
         run: Scripts/bundle.sh debug
+      # 소개 페이지는 템플릿 + 로케일 JSON에서 생성한다. 생성기는 치환자가 엉뚱한 자리에
+      # 붙거나(CSS 안, og:title 안) 번역본에 영어 원문이 남으면 실패한다 — 영어 페이지만
+      # 봐서는 절대 드러나지 않는 종류라 CI에서 돌려야 한다. 이어서 생성물이 커밋된 것과
+      # 같은지 본다: 다르면 누군가 docs/를 손으로 고쳤고, 다음 생성 때 조용히 덮어써진다.
+      - name: Landing pages build and match the committed output
+        run: |
+          python3 Scripts/build-landing.py
+          git diff --exit-code -- docs/

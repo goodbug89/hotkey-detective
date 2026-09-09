@@ -10,7 +10,7 @@
 영어 출력이 커밋된 docs/index.html과 바이트 단위로 같은지 스스로 검사한다(--check).
 추출이 어긋나면 그 자리에서 드러난다.
 """
-import datetime, json, pathlib, re, sys
+import datetime, json, pathlib, re, subprocess, sys
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 SRC = ROOT / "Scripts" / "landing"
@@ -102,7 +102,16 @@ def write_sitemap():
     다국어 사이트에서 sitemap의 xhtml:link는 hreflang 태그와 같은 정보를 검색엔진에
     한 번 더, 더 확실하게 준다. 페이지가 15개로 늘어난 이상 손으로 유지할 대상이 아니다.
     """
-    day = datetime.date.today().isoformat()
+    # 오늘 날짜를 쓰면 생성할 때마다 sitemap이 바뀌어, "생성물이 원본과 같은가"를
+    # CI에서 diff로 검사할 수 없다. 원본(Scripts/landing)의 마지막 커밋 날짜를 쓰면
+    # 같은 저장소 상태에서는 항상 같은 결과가 나온다.
+    try:
+        day = subprocess.run(["git", "log", "-1", "--format=%cs", "--", str(SRC)],
+                             capture_output=True, text=True, cwd=ROOT, check=True).stdout.strip()
+    except Exception:
+        day = ""
+    if not day:
+        day = datetime.date.today().isoformat()
     alts = "".join(
         f'\n      <xhtml:link rel="alternate" hreflang="{LOCALES[l][1]}" href="{page_url(l)}"/>'
         for l in LOCALES
