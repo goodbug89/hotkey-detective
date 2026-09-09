@@ -31,6 +31,7 @@ final class ProbeSession: ObservableObject {
                                excludedBundleIDs: KnownApps.parserBundleIDs,
                                includeContainers: false)]
         + KnownApps.all(running: WorkspaceRunningApps())
+        + [KarabinerResolver(isActive: KarabinerService.isActive)]
     }
 
     func refreshPermission() {

@@ -79,6 +79,36 @@ AltTab was finished by driving its Settings window: adding a second shortcut set
 forced it to persist one, which revealed the real shape. See
 `AltTabResolver.swift` — the format was nothing like either guess.
 
+## Karabiner-Elements is a different kind of source
+
+Every other parser reads what an app *registered*. Karabiner reads what it
+*intercepts*: it remaps at the HID-driver level, so a combination it consumes never
+reaches the system shortcut table and never reaches an app — no reaction, no
+registration, nothing for the other sources to see. That is exactly the "occupied
+but unidentified" hole the README admits to, and Karabiner's own config closes a
+large part of it.
+
+`KarabinerResolver.swift` reads `~/.config/karabiner/karabiner.json` (a documented,
+hand-editable JSON, not a reverse-engineered plist), takes the selected profile, and
+reports:
+
+  - `complex_modifications` manipulators as `key_code` + `modifiers.mandatory`
+    (left/right modifiers collapse — a combination has no side);
+  - `simple_modifications` and `fn_function_keys` as bare keys, **except identity
+    maps** (`f1 → f1`), which change nothing and would only add noise.
+
+Two things were measured rather than assumed:
+
+  - Key names come from `Karabiner-Elements.app/Contents/Resources/simple_modifications.json`
+    (206 of them); the fixture's rules are Karabiner's own shipped
+    `complex_modifications_rules_example.json`.
+  - The core service runs as **root**. `NSRunningApplication` cannot see it, and
+    libproc's `proc_name` returns EPERM to a non-root caller, so the first
+    liveness check silently reported "inactive" while pid 784 was running.
+    `sysctl KERN_PROC_ALL` sees it — with `p_comm` truncated to 16 characters,
+    hence the comparison against `"Karabiner-Core-S"`. `KarabinerServiceTests`
+    pins this on any machine that has Karabiner installed.
+
 ## Why there is no Raycast parser
 
 There used to be one, written against a guessed preference key. It never matched

@@ -25,6 +25,7 @@ final class InventoryModel: ObservableObject {
                                           excludedBundleIDs: KnownApps.parserBundleIDs,
                                           includeContainers: deep)]
                     + KnownApps.all(running: WorkspaceRunningApps()).compactMap { $0 as? Enumerable }
+                    + [KarabinerResolver(isActive: KarabinerService.isActive)]
                 return InventoryBuilder.build(enumerables.flatMap { $0.allPairs() })
             }.value
             self.entries = built

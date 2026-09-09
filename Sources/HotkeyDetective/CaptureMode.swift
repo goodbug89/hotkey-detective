@@ -16,6 +16,10 @@ enum CaptureMode {
     /// `--scan` 진단: 휴리스틱 스캐너가 지금 이 머신에서 무엇을 보는지 컨테이너 포함/제외로
     /// 각각 출력한다. 샌드박스 앱이 심층 스캔에서만 보이는 것이 설계대로인지 확인할 때 쓴다.
     @MainActor static func scanDiagnostic() {
+        let k = KarabinerResolver(isActive: KarabinerService.isActive)
+        let kp = k.allPairs()
+        print("Karabiner: active=\(KarabinerService.isActive()) 가로채는 조합 \(kp.count)건")
+        for (combo, e) in kp { print("   \(combo.display)  \(e.owner.map(String.init(describing:)) ?? "-")") }
         for deep in [false, true] {
             let r = HeuristicScanResolver(apps: RunningAppsProvider.scannableApps(),
                                           excludedBundleIDs: KnownApps.parserBundleIDs,
@@ -57,7 +61,9 @@ enum CaptureMode {
         // 인벤토리는 실제로 쓰는 창 크기로 그린다 — 높이를 fittingSize에 맡기면 List가
         // 잘려 푸터가 마지막 행과 겹쳐 보인다(창 크기 문제이지 레이아웃 결함이 아니다).
         shoot(name: "inventory", width: 900, view: AnyView(InventoryWindow()),
-              lang: lang, outDir: outDir, settle: 6, height: 600)
+              lang: lang, outDir: outDir, settle: 6,
+              // 진단용: 목록 전체를 한 장에 보고 싶을 때 CAPTURE_INVENTORY_HEIGHT로 늘린다.
+              height: CGFloat(Int(ProcessInfo.processInfo.environment["CAPTURE_INVENTORY_HEIGHT"] ?? "") ?? 600))
     }
 
     /// 본문 영역이 거의 균일한 배경색이면 아직 내용이 없다는 뜻이다.
