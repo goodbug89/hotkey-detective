@@ -11,6 +11,8 @@
 "reason.scanPattern.noAction" = "Encontrado %2$@ nos ajustes de %1$@";
 "reason.reaction" = "%2$@ reagiu %1$@ ms após a tecla: %3$@";
 "reason.carbonOccupied" = "Outro processo registrou %1$@ como atalho Carbon";
+"reason.remap" = "%1$@ intercepta %3$@ e o remapeia ('%2$@') — a tecla não chega a outros apps";
+"reason.remap.inactive" = "%1$@ remapeia %3$@ ('%2$@') — o serviço não está rodando, o remapeamento está inativo";
 "reason.signalSeparator" = ", ";
 "signal.becameFrontmost" = "veio para a frente";
 

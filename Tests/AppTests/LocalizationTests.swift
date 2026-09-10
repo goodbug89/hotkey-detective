@@ -1,5 +1,6 @@
 import XCTest
 @testable import HotkeyDetective
+import Engine
 
 /// 15개 언어 카탈로그가 서로 어긋나지 않는지 고정한다.
 /// 키가 빠지면 해당 언어에서 키 이름이 그대로 화면에 나오고, 포맷 인자 개수가
@@ -169,5 +170,17 @@ final class LocalizationTests: XCTestCase {
                                "\(lang) \(key): 괄호 복수 표기 — .stringsdict로 옮겨야 한다: \(value)")
             }
         }
+    }
+
+    /// remap 문구는 세 인자(앱·규칙·조합)를 전부 쓰고 "가로챈다/도달하지 않는다"는 뜻을 담아야
+    /// 한다. 문자열 대체가 아니라 실제 조립 결과로 확인한다.
+    func testRemapReasonRendersAllArguments() {
+        let on = EvidenceReason.remap(app: "Karabiner-Elements", rule: "caps_lock → escape", combo: "⇪", isActive: true).localizedText
+        let off = EvidenceReason.remap(app: "Karabiner-Elements", rule: "caps_lock → escape", combo: "⇪", isActive: false).localizedText
+        for text in [on, off] {
+            XCTAssertTrue(text.contains("Karabiner-Elements") && text.contains("caps_lock → escape") && text.contains("⇪"), text)
+            XCTAssertFalse(text.contains("%"), "치환되지 않은 자리: \(text)")
+        }
+        XCTAssertNotEqual(on, off)
     }
 }

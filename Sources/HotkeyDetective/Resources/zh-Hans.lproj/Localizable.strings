@@ -11,6 +11,8 @@
 "reason.scanPattern.noAction" = "在 %1$@ 的设置中发现 %2$@";
 "reason.reaction" = "按键后 %1$@ 毫秒 %2$@ 作出反应：%3$@";
 "reason.carbonOccupied" = "另一个进程已将 %1$@ 注册为 Carbon 热键";
+"reason.remap" = "%1$@ 拦截并重映射了 %3$@（'%2$@'）—— 该按键不会到达其他应用";
+"reason.remap.inactive" = "%1$@ 重映射了 %3$@（'%2$@'）—— 其服务当前未运行，重映射未生效";
 "reason.signalSeparator" = "、";
 "signal.becameFrontmost" = "切换到最前面";
 

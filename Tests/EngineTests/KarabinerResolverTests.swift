@@ -51,6 +51,18 @@ final class KarabinerResolverTests: XCTestCase {
     }
 
     /// 코어 서비스가 죽어 있으면 규칙도 죽은 것이다 — low로 내려 인벤토리에 dormant로 실린다.
+    /// 근거는 "등록"이 아니라 "가로채기"다. knownApp을 재사용하면 "binds … to"로 읽혀
+    /// 조합이 앱에 도달한다는 뜻이 되는데, 정반대다.
+    func testReasonIsRemapNotKnownApp() {
+        for active in [true, false] {
+            let e = resolver(active: active).allEvidence().first!
+            guard case .remap(let app, _, _, let isActive) = e.reason else {
+                return XCTFail("remap이 아니라 \(e.reason)")
+            }
+            XCTAssertEqual(app, "Karabiner-Elements"); XCTAssertEqual(isActive, active)
+        }
+    }
+
     func testConfidenceFollowsServiceState() {
         XCTAssertTrue(resolver(active: true).allEvidence().allSatisfy { $0.confidence == .high })
         XCTAssertTrue(resolver(active: false).allEvidence().allSatisfy { $0.confidence == .low })

@@ -11,6 +11,8 @@
 "reason.scanPattern.noAction" = "%1$@ ayarlarında %2$@ bulundu";
 "reason.reaction" = "%2$@, tuşa basıldıktan %1$@ ms sonra tepki verdi: %3$@";
 "reason.carbonOccupied" = "Başka bir işlem %1$@ kısayolunu Carbon kısayolu olarak kaydetmiş";
+"reason.remap" = "%1$@, %3$@ tuşunu yakalayıp yeniden eşliyor ('%2$@') — tuş diğer uygulamalara ulaşmıyor";
+"reason.remap.inactive" = "%1$@, %3$@ tuşunu yeniden eşliyor ('%2$@') — hizmeti şu an çalışmıyor, eşleme etkin değil";
 "reason.signalSeparator" = ", ";
 "signal.becameFrontmost" = "öne geldi";
 

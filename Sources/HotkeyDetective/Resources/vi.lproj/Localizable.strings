@@ -11,6 +11,8 @@
 "reason.scanPattern.noAction" = "Tìm thấy %2$@ trong cài đặt của %1$@";
 "reason.reaction" = "%2$@ phản hồi %1$@ ms sau khi nhấn phím: %3$@";
 "reason.carbonOccupied" = "Một tiến trình khác đã đăng ký %1$@ làm phím nóng Carbon";
+"reason.remap" = "%1$@ chặn %3$@ và ánh xạ lại ('%2$@') — phím không tới được ứng dụng khác";
+"reason.remap.inactive" = "%1$@ ánh xạ lại %3$@ ('%2$@') — dịch vụ hiện không chạy, ánh xạ chưa có hiệu lực";
 "reason.signalSeparator" = ", ";
 "signal.becameFrontmost" = "chuyển lên trước";
 

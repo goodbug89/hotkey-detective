@@ -16,6 +16,10 @@ public enum EvidenceReason: Hashable, Codable {
     case reaction(app: String, milliseconds: Int, signals: [ReactionSignal])
     /// 다른 프로세스가 Carbon 핫키로 등록해 두었다(소유자는 알 수 없다).
     case carbonOccupied(combo: String)
+    /// 키 리매퍼(Karabiner)가 이 조합을 드라이버 수준에서 가로채 다른 것으로 바꾼다.
+    /// 등록이 아니라 가로채기다 — 조합은 시스템 표에도 앱에도 도달하지 않는다.
+    /// `isActive == false`면 리매핑 서비스가 꺼져 있어 지금은 적용되지 않는다.
+    case remap(app: String, rule: String, combo: String, isActive: Bool)
 
     public enum ReactionSignal: Hashable, Codable {
         case newWindows(count: Int)

@@ -11,6 +11,8 @@
 "reason.scanPattern.noAction" = "Trovato %2$@ nelle impostazioni di %1$@";
 "reason.reaction" = "%2$@ ha reagito %1$@ ms dopo la pressione: %3$@";
 "reason.carbonOccupied" = "Un altro processo ha registrato %1$@ come tasto di scelta rapida Carbon";
+"reason.remap" = "%1$@ intercetta %3$@ e lo rimappa ('%2$@') — il tasto non raggiunge le altre app";
+"reason.remap.inactive" = "%1$@ rimappa %3$@ ('%2$@') — il servizio non è in esecuzione, la rimappatura è inattiva";
 "reason.signalSeparator" = ", ";
 "signal.becameFrontmost" = "è passata in primo piano";
 

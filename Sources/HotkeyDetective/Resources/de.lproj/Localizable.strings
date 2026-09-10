@@ -11,6 +11,8 @@
 "reason.scanPattern.noAction" = "%2$@ in den Einstellungen von %1$@ gefunden";
 "reason.reaction" = "%2$@ reagierte %1$@ ms nach dem Tastendruck: %3$@";
 "reason.carbonOccupied" = "Ein anderer Prozess hat %1$@ als Carbon-Hotkey registriert";
+"reason.remap" = "%1$@ fängt %3$@ ab und belegt es um ('%2$@') — die Taste erreicht andere Apps nicht";
+"reason.remap.inactive" = "%1$@ belegt %3$@ um ('%2$@') — der Dienst läuft gerade nicht, die Umbelegung ist inaktiv";
 "reason.signalSeparator" = ", ";
 "signal.becameFrontmost" = "in den Vordergrund gewechselt";
 

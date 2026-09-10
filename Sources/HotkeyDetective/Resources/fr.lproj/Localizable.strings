@@ -11,6 +11,8 @@
 "reason.scanPattern.noAction" = "%2$@ trouvé dans les réglages de %1$@";
 "reason.reaction" = "%2$@ a réagi %1$@ ms après la frappe : %3$@";
 "reason.carbonOccupied" = "Un autre processus a enregistré %1$@ comme raccourci Carbon";
+"reason.remap" = "%1$@ intercepte %3$@ et le réassigne (« %2$@ ») — la touche n’atteint pas les autres apps";
+"reason.remap.inactive" = "%1$@ réassigne %3$@ (« %2$@ ») — son service est arrêté, la réassignation est inactive";
 "reason.signalSeparator" = ", ";
 "signal.becameFrontmost" = "passée au premier plan";
 

@@ -11,6 +11,8 @@
 "reason.scanPattern.noAction" = "在 %1$@ 的設定中發現 %2$@";
 "reason.reaction" = "按鍵後 %1$@ 毫秒 %2$@ 作出反應：%3$@";
 "reason.carbonOccupied" = "另一個程序已將 %1$@ 註冊為 Carbon 熱鍵";
+"reason.remap" = "%1$@ 攔截並重新對應了 %3$@（'%2$@'）—— 該按鍵不會到達其他 App";
+"reason.remap.inactive" = "%1$@ 重新對應了 %3$@（'%2$@'）—— 其服務目前未執行，重新對應未生效";
 "reason.signalSeparator" = "、";
 "signal.becameFrontmost" = "切換到最前面";
 

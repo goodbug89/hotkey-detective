@@ -120,6 +120,11 @@ extension EvidenceReason {
 
         case .carbonOccupied(let combo):
             return L.t("reason.carbonOccupied", combo)
+
+        case .remap(let app, let rule, let combo, let isActive):
+            return isActive
+                ? L.t("reason.remap", app, rule, combo)
+                : L.t("reason.remap.inactive", app, rule, combo)
         }
     }
 }

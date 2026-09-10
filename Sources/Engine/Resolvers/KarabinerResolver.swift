@@ -42,8 +42,8 @@ public struct KarabinerResolver: Resolver, Enumerable {
             (hit.combo, Evidence(source: .knownAppParser(appName: Self.name),
                 owner: .app(bundleID: Self.bundleID, name: Self.name, action: hit.action),
                 confidence: active ? .high : .low,
-                reason: .knownApp(app: Self.name, action: hit.action,
-                                  combo: hit.combo.display, isRunning: active)))
+                reason: .remap(app: Self.name, rule: hit.action,
+                               combo: hit.combo.display, isActive: active)))
         }
     }
 

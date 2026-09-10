@@ -11,6 +11,8 @@
 "reason.scanPattern.noAction" = "%1$@ の設定に %2$@ を発見";
 "reason.reaction" = "入力から %1$@ms 後に %2$@ が反応: %3$@";
 "reason.carbonOccupied" = "別のプロセスが %1$@ を Carbon ホットキーとして登録しています";
+"reason.remap" = "%1$@ が %3$@ を横取りして再割り当てします（'%2$@'）— 他のアプリには届きません";
+"reason.remap.inactive" = "%1$@ が %3$@ を再割り当てします（'%2$@'）— サービスが停止中のため今は無効です";
 "reason.signalSeparator" = "、";
 "signal.becameFrontmost" = "最前面に移動";
 

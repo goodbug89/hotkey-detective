@@ -13,6 +13,8 @@
 "reason.scanPattern.noAction" = "Found %2$@ in %1$@'s settings";
 "reason.reaction" = "%2$@ responded %1$@ms after the keypress: %3$@";
 "reason.carbonOccupied" = "Another process registered %1$@ as a Carbon hotkey";
+"reason.remap" = "%1$@ intercepts %3$@ and remaps it ('%2$@') — the key never reaches other apps";
+"reason.remap.inactive" = "%1$@ remaps %3$@ ('%2$@') — its service is not running now, so the remap is inactive";
 "reason.signalSeparator" = ", ";
 "signal.becameFrontmost" = "came to the front";
 

@@ -11,6 +11,8 @@
 "reason.scanPattern.noAction" = "عُثر على %2$@ في إعدادات %1$@";
 "reason.reaction" = "استجاب %2$@ بعد %1$@ مللي ثانية من الضغط: %3$@";
 "reason.carbonOccupied" = "سجّلت عملية أخرى %1$@ كاختصار Carbon";
+"reason.remap" = "‏%1$@ يعترض %3$@ ويعيد تعيينه ('%2$@') — لا يصل المفتاح إلى التطبيقات الأخرى";
+"reason.remap.inactive" = "‏%1$@ يعيد تعيين %3$@ ('%2$@') — خدمته متوقفة الآن، فإعادة التعيين غير فعّالة";
 "reason.signalSeparator" = "، ";
 "signal.becameFrontmost" = "انتقل إلى المقدمة";
 
