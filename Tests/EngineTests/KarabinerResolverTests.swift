@@ -32,6 +32,19 @@ final class KarabinerResolverTests: XCTestCase {
         XCTAssertEqual(KeyCombo(keyCode: 80, modifiers: []).display, "F19")
     }
 
+    /// Karabiner가 배포하는 simple_modifications.json의 206개 key_code 중 macOS keyCode가 있는
+    /// 키패드·JIS·PC 키가 표에 없었다. 표에 없으면 규칙이 조용히 빠지고, 있어도 KeyCodeNames에
+    /// 이름이 없으면 "Key(83)"으로 보인다 — 양쪽을 같이 검사한다.
+    func testKeypadAndJISKeysAreNamedOnBothSides() {
+        for (name, code, shown) in [("keypad_1", UInt16(83), "Num 1"), ("keypad_enter", 76, "Num ⌤"),
+                                    ("japanese_kana", 104, "かな"), ("lang2", 102, "英数"),
+                                    ("international3", 93, "¥"), ("print_screen", 105, "F13"),
+                                    ("insert", 114, "Help")] {
+            XCTAssertEqual(KarabinerKeyNames.keyCode(for: name), code, name)
+            XCTAssertEqual(KeyCombo(keyCode: code, modifiers: []).display, shown, name)
+        }
+    }
+
     /// Karabiner는 키를 등록하는 게 아니라 가로채는 것이라, 파서(설정) 뱃지가 아니라 전용
     /// 리매핑 뱃지를 달아야 한다. 문서·랜딩이 "여섯 번째 출처"라고 말하는 근거가 이것이다.
     func testEvidenceUsesDedicatedRemapSource() {

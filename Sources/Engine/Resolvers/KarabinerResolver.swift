@@ -126,6 +126,17 @@ public enum KarabinerKeyNames {
         "f16": 106, "f17": 64, "f18": 79, "f19": 80, "f20": 90,
         "home": 115, "end": 119, "page_up": 116, "page_down": 121, "delete_forward": 117,
         "left_arrow": 123, "right_arrow": 124, "up_arrow": 126, "down_arrow": 125,
+        "help": 114, "insert": 114,
+        // PC 키보드의 이 세 키는 macOS에서 F13–F15 keyCode로 들어온다.
+        "print_screen": 105, "scroll_lock": 107, "pause": 113,
+        "keypad_0": 82, "keypad_1": 83, "keypad_2": 84, "keypad_3": 85, "keypad_4": 86,
+        "keypad_5": 87, "keypad_6": 88, "keypad_7": 89, "keypad_8": 91, "keypad_9": 92,
+        "keypad_period": 65, "keypad_asterisk": 67, "keypad_plus": 69, "keypad_slash": 75,
+        "keypad_enter": 76, "keypad_hyphen": 78, "keypad_equal_sign": 81, "keypad_num_lock": 71,
+        "keypad_comma": 95,
+        // JIS·ISO: Karabiner의 lang1/lang2·international1/3은 かな/英数·_/¥의 HID 이름이다.
+        "japanese_eisuu": 102, "japanese_kana": 104, "lang1": 104, "lang2": 102,
+        "international1": 94, "international3": 93, "non_us_backslash": 10,
     ]
 
     /// 문자·숫자는 KeyCodeNames 표를 뒤집어 얻는다 — 한 곳만 유지하기 위해서다.

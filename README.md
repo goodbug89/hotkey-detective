@@ -138,7 +138,7 @@ Being honest about what this cannot do:
 ## Development
 
 ```bash
-swift test          # 119 tests
+swift test          # 120 tests
 Scripts/bundle.sh   # build/HotkeyDetective.app
 ```
 
