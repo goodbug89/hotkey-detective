@@ -1,6 +1,6 @@
 {
   "meta.title": "HotkeyDetective — Découvrez quelle app a pris votre raccourci clavier",
-  "meta.desc": "Un utilitaire gratuit pour la barre des menus de macOS qui identifie l’app propriétaire d’un raccourci clavier. Il réunit des indices issus de cinq sources indépendantes et montre son raisonnement, pour que vous jugiez vous-même au lieu de faire confiance. Notarisé, open source, 15 langues.",
+  "meta.desc": "Un utilitaire gratuit pour la barre des menus de macOS qui identifie l’app propriétaire d’un raccourci clavier. Il réunit des indices issus de six sources indépendantes et montre son raisonnement, pour que vous jugiez vous-même au lieu de faire confiance. Notarisé, open source, 15 langues.",
   "og.desc": "macOS n’offre aucun moyen de savoir quelle app détient un raccourci. Celui-ci le fait — et montre ses preuves.",
   "nav.how": "Fonctionnement",
   "nav.inventory": "Inventaire",
@@ -29,6 +29,10 @@
   "src.config.h": "Configuration d’app",
   "src.config.p": "Analyse les fichiers de réglages des apps qu’il connaît, ce qui lui permet de nommer l’action exacte —\n           pas seulement l’app.",
   "src.config.s": "Élevé — moindre si l’app n’est pas lancée",
+  "src.remap.pill": "Remappage",
+  "src.remap.h": "Remappage de touches",
+  "src.remap.p": "Lit les règles de Karabiner-Elements. Une touche remappée est interceptée au niveau du pilote et\n           n’atteint jamais les autres apps — un endroit qu’aucune autre source ne peut voir.",
+  "src.remap.s": "Élevé — moindre si son service n’est pas lancé",
   "src.scan.pill": "Scan",
   "src.scan.h": "Analyse des réglages",
   "src.scan.p": "Reconnaît deux formats courants de stockage de raccourcis dans les réglages de n’importe quelle app,\n           afin que les apps inconnues ne deviennent pas invisibles d’office.",

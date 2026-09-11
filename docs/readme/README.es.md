@@ -52,6 +52,7 @@ No existe una única fuente fiable sobre «quién es el dueño de este atajo», 
 | --- | --- | --- |
 | **Atajos del sistema** | La propia tabla de macOS asigna esta combinación | Segura |
 | **Configuración de app** | El archivo de ajustes de una app conocida asigna esta combinación | Alta (baja si la app no está abierta) |
+| **Remapeo de teclas** | Karabiner-Elements intercepta esta combinación antes de que ninguna app la vea | Alta (baja si su servicio no está activo) |
 | **Escaneo de configuración** | Los ajustes de una app coinciden con un formato de almacenamiento conocido | Media |
 | **Reacción** | Una app abrió una ventana o pasó al frente justo tras la pulsación | Alta |
 | **Sonda de atajo** | Algún proceso mantiene un registro de atajo Carbon | Solo observación |

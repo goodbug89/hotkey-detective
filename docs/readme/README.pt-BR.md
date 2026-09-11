@@ -52,6 +52,7 @@ Não existe uma fonte única sobre «quem é o dono deste atalho», então o app
 | --- | --- | --- |
 | **Atalhos do sistema** | A própria tabela do macOS vincula esta combinação | Certa |
 | **Configuração do app** | O arquivo de ajustes de um app conhecido vincula esta combinação | Alta (baixa se o app não estiver aberto) |
+| **Remapeamento de teclas** | O Karabiner-Elements intercepta esta combinação antes que qualquer app a veja | Alta (baixa se o serviço dele não estiver ativo) |
 | **Varredura de configuração** | Os ajustes de um app batem com um formato de armazenamento conhecido | Média |
 | **Reação** | Um app abriu uma janela ou veio para a frente logo após a tecla | Alta |
 | **Sonda de atalho** | Algum processo mantém um registro de atalho Carbon | Apenas observação |

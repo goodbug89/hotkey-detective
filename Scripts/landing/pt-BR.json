@@ -1,6 +1,6 @@
 {
   "meta.title": "HotkeyDetective — Descubra qual app ficou com seu atalho de teclado",
-  "meta.desc": "Um utilitário gratuito para a barra de menus do macOS que identifica qual app é dono de um atalho de teclado. Ele reúne evidências de cinco fontes independentes e mostra o raciocínio, para você julgar em vez de confiar. Notarizado, código aberto, 15 idiomas.",
+  "meta.desc": "Um utilitário gratuito para a barra de menus do macOS que identifica qual app é dono de um atalho de teclado. Ele reúne evidências de seis fontes independentes e mostra o raciocínio, para você julgar em vez de confiar. Notarizado, código aberto, 15 idiomas.",
   "og.desc": "O macOS não oferece jeito de perguntar de quem é um atalho. Este oferece — e mostra as evidências.",
   "nav.how": "Como funciona",
   "nav.inventory": "Inventário",
@@ -29,6 +29,10 @@
   "src.config.h": "Configuração do app",
   "src.config.p": "Analisa os arquivos de ajustes dos apps que conhece, então aponta a ação exata — não só o app.",
   "src.config.s": "Alto — menor quando o app não está aberto",
+  "src.remap.pill": "Remapeamento",
+  "src.remap.h": "Remapeamento de teclas",
+  "src.remap.p": "Lê as regras do Karabiner-Elements. Uma tecla remapeada é interceptada no nível do driver e nunca\n           chega a outros apps — um lugar que nenhuma outra fonte consegue ver.",
+  "src.remap.s": "Alto — menor quando o serviço dele não está ativo",
   "src.scan.pill": "Varredura",
   "src.scan.h": "Varredura de ajustes",
   "src.scan.p": "Reconhece dois formatos comuns de armazenamento de atalhos nos ajustes de qualquer app, para que apps\n           desconhecidos não fiquem invisíveis por padrão.",

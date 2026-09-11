@@ -1,6 +1,6 @@
 {
   "meta.title": "HotkeyDetective — Klavye kısayolunuzu hangi uygulamanın kaptığını bulun",
-  "meta.desc": "Bir klavye kısayolunun hangi uygulamaya ait olduğunu belirleyen, macOS menü çubuğu için ücretsiz bir araç. Beş bağımsız kaynaktan kanıt toplar ve gerekçesini gösterir; böylece güvenmek yerine kendiniz karar verirsiniz. Noter onaylı, açık kaynak, 15 dil.",
+  "meta.desc": "Bir klavye kısayolunun hangi uygulamaya ait olduğunu belirleyen, macOS menü çubuğu için ücretsiz bir araç. Altı bağımsız kaynaktan kanıt toplar ve gerekçesini gösterir; böylece güvenmek yerine kendiniz karar verirsiniz. Noter onaylı, açık kaynak, 15 dil.",
   "og.desc": "macOS bir kısayolun kime ait olduğunu sormanın yolunu sunmaz. Bu araç sunar — üstelik kanıtlarıyla.",
   "nav.how": "Nasıl çalışır",
   "nav.inventory": "Tüm kısayollar",
@@ -29,6 +29,10 @@
   "src.config.h": "Uygulama ayarları",
   "src.config.p": "Tanıdığı uygulamaların ayar dosyalarını çözümler; böylece yalnızca uygulamayı değil, tam olarak hangi\n           eylem olduğunu söyler.",
   "src.config.s": "Yüksek — uygulama çalışmıyorsa daha düşük",
+  "src.remap.pill": "Yeniden eşleme",
+  "src.remap.h": "Tuş yeniden eşleme",
+  "src.remap.p": "Karabiner-Elements kurallarını okur. Yeniden eşlenen bir tuş sürücü düzeyinde yakalanır ve diğer\n           uygulamalara asla ulaşmaz — başka hiçbir kaynağın göremediği bir yer.",
+  "src.remap.s": "Yüksek — hizmeti çalışmıyorsa daha düşük",
   "src.scan.pill": "Tarama",
   "src.scan.h": "Ayar taraması",
   "src.scan.p": "Herhangi bir uygulamanın ayarlarında yaygın iki kısayol saklama biçimini tanır; tanımadığı uygulamalar\n           kendiliğinden görünmez hale gelmesin diye.",

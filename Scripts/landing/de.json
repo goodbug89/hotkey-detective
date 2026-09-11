@@ -1,6 +1,6 @@
 {
   "meta.title": "HotkeyDetective — Finde heraus, welche App deinen Kurzbefehl belegt",
-  "meta.desc": "Ein kostenloses Menüleisten-Werkzeug für macOS, das zeigt, welche App einen Tastaturkurzbefehl belegt. Es sammelt Belege aus fünf unabhängigen Quellen und legt seine Begründung offen, damit du selbst urteilen kannst, statt vertrauen zu müssen. Notarisiert, quelloffen, 15 Sprachen.",
+  "meta.desc": "Ein kostenloses Menüleisten-Werkzeug für macOS, das zeigt, welche App einen Tastaturkurzbefehl belegt. Es sammelt Belege aus sechs unabhängigen Quellen und legt seine Begründung offen, damit du selbst urteilen kannst, statt vertrauen zu müssen. Notarisiert, quelloffen, 15 Sprachen.",
   "og.desc": "macOS bietet keine Möglichkeit zu fragen, welche App einen Kurzbefehl belegt. Dieses Werkzeug schon — mitsamt Belegen.",
   "nav.how": "So funktioniert es",
   "nav.inventory": "Übersicht",
@@ -29,6 +29,10 @@
   "src.config.h": "App-Konfiguration",
   "src.config.p": "Wertet die Einstellungsdateien bekannter Apps aus und benennt so die genaue Aktion —\n           nicht bloß die App.",
   "src.config.s": "Hoch — geringer, wenn die App nicht läuft",
+  "src.remap.pill": "Remap",
+  "src.remap.h": "Tasten-Remap",
+  "src.remap.p": "Liest die Regeln von Karabiner-Elements. Eine umbelegte Taste wird auf Treiberebene abgefangen\n           und erreicht andere Apps nie — ein Ort, den keine andere Quelle sehen kann.",
+  "src.remap.s": "Hoch — geringer, wenn sein Dienst nicht läuft",
   "src.scan.pill": "Scan",
   "src.scan.h": "Konfigurations-Scan",
   "src.scan.p": "Erkennt zwei verbreitete Speicherformate für Kurzbefehle in den Einstellungen beliebiger Apps,\n           damit unbekannte Apps nicht automatisch unsichtbar bleiben.",

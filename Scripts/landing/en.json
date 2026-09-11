@@ -1,6 +1,6 @@
 {
   "meta.title": "HotkeyDetective — Find out which app stole your keyboard shortcut",
-  "meta.desc": "A free menu-bar utility for macOS that identifies which app owns a keyboard shortcut. It gathers evidence from five independent sources and shows you the reasoning, so you can judge the answer instead of trusting it. Notarized, open source, 15 languages.",
+  "meta.desc": "A free menu-bar utility for macOS that identifies which app owns a keyboard shortcut. It gathers evidence from six independent sources and shows you the reasoning, so you can judge the answer instead of trusting it. Notarized, open source, 15 languages.",
   "og.desc": "macOS gives you no way to ask which app owns a shortcut. This does — and it shows its evidence.",
   "nav.how": "How it works",
   "nav.inventory": "Inventory",
@@ -29,6 +29,10 @@
   "src.config.h": "App config",
   "src.config.p": "Parses the settings files of apps it knows, so it can name the exact action —\n           not just the app.",
   "src.config.s": "High — lower when the app isn’t running",
+  "src.remap.pill": "Remap",
+  "src.remap.h": "Key remap",
+  "src.remap.p": "Reads Karabiner-Elements rules. A remapped key is intercepted at the driver level and never\n           reaches other apps — a place no other source can see.",
+  "src.remap.s": "High — lower when its service isn’t running",
   "src.scan.pill": "Scan",
   "src.scan.h": "Config scan",
   "src.scan.p": "Recognizes two common shortcut-storage formats in any app’s settings, so unfamiliar\n           apps are not automatically invisible.",

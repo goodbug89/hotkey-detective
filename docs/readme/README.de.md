@@ -52,6 +52,7 @@ Es gibt keine einzelne verlässliche Quelle dafür, wem ein Kurzbefehl gehört. 
 | --- | --- | --- |
 | **Systemkurzbefehle** | Die Tabelle von macOS selbst belegt diese Kombination | Sicher |
 | **App-Konfiguration** | Die Einstellungsdatei einer bekannten App belegt diese Kombination | Hoch (niedrig, wenn die App nicht läuft) |
+| **Tasten-Remap** | Karabiner-Elements fängt diese Kombination ab, bevor irgendeine App sie sieht | Hoch (niedrig, wenn sein Dienst nicht läuft) |
 | **Konfigurations-Scan** | Die Einstellungen einer App entsprechen einem bekannten Speicherformat | Mittel |
 | **Reaktion** | Direkt nach dem Tastendruck öffnete eine App ein Fenster oder kam in den Vordergrund | Hoch |
 | **Hotkey-Test** | Ein Prozess hält eine Carbon-Hotkey-Registrierung | Nur Beobachtung |

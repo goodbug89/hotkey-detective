@@ -54,6 +54,7 @@ collects independent signals and weighs them:
 | --- | --- | --- |
 | **System shortcuts** | macOS's own table says this combination is bound | Certain |
 | **App config** | A known app's settings file binds this combination | High (Low when the app isn't running) |
+| **Key remap** | Karabiner-Elements intercepts this combination before any app sees it | High (Low when its service isn't running) |
 | **Config scan** | An app's settings match a known shortcut-storage format | Medium |
 | **Reaction** | An app opened a window or came to the front right after the keypress | High |
 | **Hotkey probe** | Some process holds a Carbon hotkey registration | Observation only |
@@ -137,7 +138,7 @@ Being honest about what this cannot do:
 ## Development
 
 ```bash
-swift test          # 94 tests
+swift test          # 117 tests
 Scripts/bundle.sh   # build/HotkeyDetective.app
 ```
 

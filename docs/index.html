@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>HotkeyDetective — Find out which app stole your keyboard shortcut</title>
-<meta name="description" content="A free menu-bar utility for macOS that identifies which app owns a keyboard shortcut. It gathers evidence from five independent sources and shows you the reasoning, so you can judge the answer instead of trusting it. Notarized, open source, 15 languages.">
+<meta name="description" content="A free menu-bar utility for macOS that identifies which app owns a keyboard shortcut. It gathers evidence from six independent sources and shows you the reasoning, so you can judge the answer instead of trusting it. Notarized, open source, 15 languages.">
 <meta property="og:title" content="HotkeyDetective — Find out which app stole your keyboard shortcut">
 <meta property="og:description" content="macOS gives you no way to ask which app owns a shortcut. This does — and it shows its evidence.">
 <meta property="og:type" content="website">
@@ -272,6 +272,12 @@
         <p>Parses the settings files of apps it knows, so it can name the exact action —
            not just the app.</p>
         <span class="strength"><span class="dots"><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span>High — lower when the app isn’t running</span>
+      </div>
+      <div class="src-card">
+        <div class="src-head"><span class="pill pill-strong">Remap</span><h3>Key remap</h3></div>
+        <p>Reads Karabiner-Elements rules. A remapped key is intercepted at the driver level and never
+           reaches other apps — a place no other source can see.</p>
+        <span class="strength"><span class="dots"><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span>High — lower when its service isn’t running</span>
       </div>
 
       <div class="src-card">

@@ -1,6 +1,6 @@
 {
   "meta.title": "HotkeyDetective — Scopri quale app ti ha preso la scorciatoia",
-  "meta.desc": "Un’utility gratuita per la barra dei menu di macOS che individua quale app possiede una scorciatoia da tastiera. Raccoglie prove da cinque fonti indipendenti e mostra il ragionamento, così giudichi tu invece di fidarti. Autenticata, open source, 15 lingue.",
+  "meta.desc": "Un’utility gratuita per la barra dei menu di macOS che individua quale app possiede una scorciatoia da tastiera. Raccoglie prove da sei fonti indipendenti e mostra il ragionamento, così giudichi tu invece di fidarti. Autenticata, open source, 15 lingue.",
   "og.desc": "macOS non offre alcun modo per chiedere a chi appartenga una scorciatoia. Questo sì — e mostra le prove.",
   "nav.how": "Come funziona",
   "nav.inventory": "Elenco",
@@ -29,6 +29,10 @@
   "src.config.h": "Configurazione dell’app",
   "src.config.p": "Analizza i file di impostazioni delle app che conosce, così indica l’azione esatta e non solo l’app.",
   "src.config.s": "Alto — minore se l’app non è in esecuzione",
+  "src.remap.pill": "Rimappatura",
+  "src.remap.h": "Rimappatura tasti",
+  "src.remap.p": "Legge le regole di Karabiner-Elements. Un tasto rimappato viene intercettato a livello di driver e\n           non raggiunge mai le altre app: un punto che nessun’altra fonte può vedere.",
+  "src.remap.s": "Alto — minore se il suo servizio non è in esecuzione",
   "src.scan.pill": "Scansione",
   "src.scan.h": "Scansione impostazioni",
   "src.scan.p": "Riconosce due formati diffusi di archiviazione delle scorciatoie nelle impostazioni di qualsiasi app,\n           perché le app sconosciute non restino invisibili d’ufficio.",

@@ -52,6 +52,7 @@ HotkeyDetective kanıt toplar, bir karar verir ve gerekçesini de gösterir:
 | --- | --- | --- |
 | **Sistem kısayolları** | macOS'un kendi tablosu bu kombinasyonu atamış | Kesin |
 | **Uygulama ayarları** | Bilinen bir uygulamanın ayar dosyası bu kombinasyonu atamış | Yüksek (uygulama kapalıysa düşük) |
+| **Tuş yeniden eşleme** | Karabiner-Elements bu kombinasyonu herhangi bir uygulama görmeden önce yakalar | Yüksek (hizmeti çalışmıyorsa düşük) |
 | **Ayar taraması** | Bir uygulamanın ayarları bilinen bir saklama biçimine uyuyor | Orta |
 | **Tepki** | Tuşa basıldıktan hemen sonra bir uygulama pencere açtı ya da öne geldi | Yüksek |
 | **Kısayol sondası** | Bir işlem Carbon kısayol kaydını elinde tutuyor | Yalnızca gözlem |

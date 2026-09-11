@@ -1,6 +1,6 @@
 {
   "meta.title": "HotkeyDetective — Tìm ra ứng dụng nào đã chiếm phím tắt của bạn",
-  "meta.desc": "Tiện ích miễn phí trên thanh menu macOS, cho biết ứng dụng nào đang giữ một phím tắt. Nó thu thập bằng chứng từ năm nguồn độc lập và trình bày cả lập luận, để bạn tự phán đoán thay vì phải tin. Đã công chứng, mã nguồn mở, 15 ngôn ngữ.",
+  "meta.desc": "Tiện ích miễn phí trên thanh menu macOS, cho biết ứng dụng nào đang giữ một phím tắt. Nó thu thập bằng chứng từ sáu nguồn độc lập và trình bày cả lập luận, để bạn tự phán đoán thay vì phải tin. Đã công chứng, mã nguồn mở, 15 ngôn ngữ.",
   "og.desc": "macOS không cho bạn cách nào để hỏi phím tắt thuộc về ứng dụng nào. Công cụ này thì có — kèm bằng chứng.",
   "nav.how": "Cách hoạt động",
   "nav.inventory": "Toàn bộ phím tắt",
@@ -29,6 +29,10 @@
   "src.config.h": "Cấu hình ứng dụng",
   "src.config.p": "Phân tích tệp cài đặt của những ứng dụng nó biết, nhờ vậy chỉ ra đúng hành động chứ không chỉ tên ứng dụng.",
   "src.config.s": "Cao — thấp hơn khi ứng dụng không chạy",
+  "src.remap.pill": "Ánh xạ lại",
+  "src.remap.h": "Ánh xạ lại phím",
+  "src.remap.p": "Đọc các quy tắc của Karabiner-Elements. Phím được ánh xạ lại bị chặn ngay ở tầng trình điều khiển\n           và không bao giờ đến được ứng dụng khác — nơi không nguồn nào khác nhìn thấy.",
+  "src.remap.s": "Cao — thấp hơn khi dịch vụ của nó không chạy",
   "src.scan.pill": "Quét",
   "src.scan.h": "Quét cấu hình",
   "src.scan.p": "Nhận ra hai định dạng lưu phím tắt phổ biến trong cài đặt của bất kỳ ứng dụng nào, để những ứng dụng\n           lạ không mặc nhiên trở nên vô hình.",

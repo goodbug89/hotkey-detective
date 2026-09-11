@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>HotkeyDetective — 找出是哪個 App 搶走了你的快速鍵</title>
-<meta name="description" content="一款免費的 macOS 選單列工具，用來查明哪個 App 佔用了某個鍵盤快速鍵。它從五個獨立來源蒐集證據，並把推理過程一併呈現，你可以自行判斷，而不必選擇相信。已公證、開源、支援 15 種語言。">
+<meta name="description" content="一款免費的 macOS 選單列工具，用來查明哪個 App 佔用了某個鍵盤快速鍵。它從六個獨立來源蒐集證據，並把推理過程一併呈現，你可以自行判斷，而不必選擇相信。已公證、開源、支援 15 種語言。">
 <meta property="og:title" content="HotkeyDetective — 找出是哪個 App 搶走了你的快速鍵">
 <meta property="og:description" content="macOS 沒有提供任何途徑去詢問快速鍵歸誰所有。這個工具可以，而且會給出證據。">
 <meta property="og:type" content="website">
@@ -270,6 +270,12 @@
         <div class="src-head"><span class="pill pill-strong">設定</span><h3>App 設定</h3></div>
         <p>解析已知 App 的設定檔，因此能指出具體是哪個動作，而不只是哪個 App。</p>
         <span class="strength"><span class="dots"><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span>高 —— App 未執行時降低</span>
+      </div>
+      <div class="src-card">
+        <div class="src-head"><span class="pill pill-strong">重新對應</span><h3>按鍵重新對應</h3></div>
+        <p>讀取 Karabiner-Elements 的規則。被重新對應的按鍵在驅動層就被攔截，永遠到不了其他 App ——
+           這是其他來源都看不到的位置。</p>
+        <span class="strength"><span class="dots"><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span>高 —— 服務未執行時降低</span>
       </div>
 
       <div class="src-card">

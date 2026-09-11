@@ -52,6 +52,7 @@ Không có nguồn duy nhất nào cho biết «ai sở hữu phím tắt này»
 | --- | --- | --- |
 | **Phím tắt hệ thống** | Bảng của chính macOS gán tổ hợp này | Chắc chắn |
 | **Cấu hình ứng dụng** | Tệp cài đặt của một ứng dụng đã biết gán tổ hợp này | Cao (thấp nếu ứng dụng chưa chạy) |
+| **Ánh xạ lại phím** | Karabiner-Elements chặn tổ hợp này trước khi bất kỳ ứng dụng nào nhìn thấy | Cao (thấp nếu dịch vụ của nó không chạy) |
 | **Quét cấu hình** | Cài đặt của ứng dụng khớp với một định dạng lưu trữ đã biết | Trung bình |
 | **Phản hồi** | Ngay sau khi nhấn phím, một ứng dụng mở cửa sổ hoặc chuyển lên trước | Cao |
 | **Dò phím nóng** | Một tiến trình đang giữ đăng ký phím nóng Carbon | Chỉ là quan sát |

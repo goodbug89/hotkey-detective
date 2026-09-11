@@ -52,6 +52,7 @@ Il n'existe aucune source unique indiquant « à qui appartient ce raccourci ».
 | --- | --- | --- |
 | **Raccourcis système** | La table de macOS elle-même associe cette combinaison | Certaine |
 | **Config d'app** | Le fichier de réglages d'une app connue associe cette combinaison | Élevée (faible si l'app n'est pas lancée) |
+| **Remappage de touches** | Karabiner-Elements intercepte cette combinaison avant qu'aucune app ne la voie | Élevée (faible si son service n'est pas lancé) |
 | **Analyse de config** | Les réglages d'une app correspondent à un format de stockage connu | Moyenne |
 | **Réaction** | Une app a ouvert une fenêtre ou est passée au premier plan juste après la frappe | Élevée |
 | **Sonde de raccourci** | Un processus détient un enregistrement de raccourci Carbon | Observation seule |

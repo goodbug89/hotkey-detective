@@ -1,6 +1,6 @@
 {
   "meta.title": "HotkeyDetective — Descubre qué app se quedó con tu atajo de teclado",
-  "meta.desc": "Una utilidad gratuita para la barra de menús de macOS que identifica qué app posee un atajo de teclado. Reúne pruebas de cinco fuentes independientes y muestra su razonamiento, para que juzgues tú en vez de confiar. Notarizada, código abierto, 15 idiomas.",
+  "meta.desc": "Una utilidad gratuita para la barra de menús de macOS que identifica qué app posee un atajo de teclado. Reúne pruebas de seis fuentes independientes y muestra su razonamiento, para que juzgues tú en vez de confiar. Notarizada, código abierto, 15 idiomas.",
   "og.desc": "macOS no ofrece forma de preguntar qué app posee un atajo. Esta sí — y enseña sus pruebas.",
   "nav.how": "Cómo funciona",
   "nav.inventory": "Inventario",
@@ -29,6 +29,10 @@
   "src.config.h": "Configuración de la app",
   "src.config.p": "Analiza los archivos de ajustes de las apps que conoce, así que nombra la acción exacta,\n           no solo la app.",
   "src.config.s": "Alto — menor si la app no está abierta",
+  "src.remap.pill": "Remapeo",
+  "src.remap.h": "Remapeo de teclas",
+  "src.remap.p": "Lee las reglas de Karabiner-Elements. Una tecla remapeada se intercepta a nivel de controlador y\n           nunca llega a otras apps: un lugar que ninguna otra fuente puede ver.",
+  "src.remap.s": "Alto — menor si su servicio no está activo",
   "src.scan.pill": "Escaneo",
   "src.scan.h": "Escaneo de ajustes",
   "src.scan.p": "Reconoce dos formatos habituales de almacenamiento de atajos en los ajustes de cualquier app,\n           para que las apps desconocidas no queden invisibles de entrada.",

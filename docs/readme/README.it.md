@@ -52,6 +52,7 @@ Non esiste un'unica fonte attendibile su «chi possiede questa scorciatoia», qu
 | --- | --- | --- |
 | **Scorciatoie di sistema** | La tabella di macOS stessa assegna questa combinazione | Certa |
 | **Configurazione app** | Il file di impostazioni di un'app nota assegna questa combinazione | Alta (bassa se l'app non è in esecuzione) |
+| **Rimappatura tasti** | Karabiner-Elements intercetta questa combinazione prima che qualsiasi app la veda | Alta (bassa se il suo servizio non è in esecuzione) |
 | **Scansione configurazioni** | Le impostazioni di un'app corrispondono a un formato di salvataggio noto | Media |
 | **Reazione** | Un'app ha aperto una finestra o è passata in primo piano subito dopo la pressione | Alta |
 | **Sonda scorciatoie** | Un processo detiene una registrazione di tasto rapido Carbon | Solo osservazione |
