@@ -23,6 +23,23 @@ final class KarabinerResolverTests: XCTestCase {
                                              action: "Change right_command+hjkl to arrow keys"))
     }
 
+    /// caps_lock → f19처럼 F16–F20을 "하이퍼 키"로 쓰는 설정이 흔하다. 표에 없으면 그 규칙이
+    /// 조용히 빠진다 — 실제로 f20 규칙을 넣고 렌더했더니 인벤토리에 안 나와서 발견했다.
+    func testExtendedFunctionKeysAreNamed() {
+        XCTAssertEqual(KarabinerKeyNames.keyCode(for: "f16"), 106)
+        XCTAssertEqual(KarabinerKeyNames.keyCode(for: "f19"), 80)
+        XCTAssertEqual(KarabinerKeyNames.keyCode(for: "f20"), 90)
+        XCTAssertEqual(KeyCombo(keyCode: 80, modifiers: []).display, "F19")
+    }
+
+    /// Karabiner는 키를 등록하는 게 아니라 가로채는 것이라, 파서(설정) 뱃지가 아니라 전용
+    /// 리매핑 뱃지를 달아야 한다. 문서·랜딩이 "여섯 번째 출처"라고 말하는 근거가 이것이다.
+    func testEvidenceUsesDedicatedRemapSource() {
+        let sources = Set(resolver().allPairs().map(\.1.source))
+        XCTAssertFalse(sources.isEmpty)
+        XCTAssertEqual(sources, [.keyRemap(appName: "Karabiner-Elements")])
+    }
+
     /// `modifiers.optional: ["any"]`만 있고 mandatory가 없는 항목(caps_lock, spacebar 예제)은
     /// 맨 키 조합이다. mandatory에 `any`가 있으면 표현할 수 없어 뺀다.
     func testBareKeyManipulatorsAndAnyModifier() {

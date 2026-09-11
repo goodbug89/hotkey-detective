@@ -1,5 +1,6 @@
 "badge.system" = "システム";
 "badge.parser" = "設定";
+"badge.remap" = "リマップ";
 "badge.scan" = "スキャン";
 "badge.reaction" = "反応";
 "badge.probe" = "プローブ";

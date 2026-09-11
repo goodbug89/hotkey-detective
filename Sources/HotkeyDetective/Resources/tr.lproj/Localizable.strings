@@ -1,5 +1,6 @@
 "badge.system" = "Sistem";
 "badge.parser" = "Ayar";
+"badge.remap" = "Yeniden eşleme";
 "badge.scan" = "Tarama";
 "badge.reaction" = "Tepki";
 "badge.probe" = "Sonda";

@@ -1,5 +1,6 @@
 "badge.system" = "ระบบ";
 "badge.parser" = "ตั้งค่า";
+"badge.remap" = "แมปใหม่";
 "badge.scan" = "สแกน";
 "badge.reaction" = "ปฏิกิริยา";
 "badge.probe" = "ตรวจ";

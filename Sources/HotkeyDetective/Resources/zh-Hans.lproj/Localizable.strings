@@ -1,5 +1,6 @@
 "badge.system" = "系统";
 "badge.parser" = "配置";
+"badge.remap" = "重映射";
 "badge.scan" = "扫描";
 "badge.reaction" = "反应";
 "badge.probe" = "探测";

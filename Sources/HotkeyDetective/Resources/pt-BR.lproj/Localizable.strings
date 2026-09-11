@@ -1,5 +1,6 @@
 "badge.system" = "Sistema";
 "badge.parser" = "Config";
+"badge.remap" = "Remapeamento";
 "badge.scan" = "Varredura";
 "badge.reaction" = "Reação";
 "badge.probe" = "Sonda";

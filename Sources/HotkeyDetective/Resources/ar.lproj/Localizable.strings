@@ -1,5 +1,6 @@
 "badge.system" = "النظام";
 "badge.parser" = "الإعدادات";
+"badge.remap" = "إعادة تعيين";
 "badge.scan" = "فحص";
 "badge.reaction" = "استجابة";
 "badge.probe" = "اختبار";

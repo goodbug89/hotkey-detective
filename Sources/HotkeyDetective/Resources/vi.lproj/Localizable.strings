@@ -1,5 +1,6 @@
 "badge.system" = "Hệ thống";
 "badge.parser" = "Cấu hình";
+"badge.remap" = "Ánh xạ lại";
 "badge.scan" = "Quét";
 "badge.reaction" = "Phản hồi";
 "badge.probe" = "Dò";

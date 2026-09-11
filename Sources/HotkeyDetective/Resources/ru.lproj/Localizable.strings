@@ -1,5 +1,6 @@
 "badge.system" = "Система";
 "badge.parser" = "Настройки";
+"badge.remap" = "Переназначение";
 "badge.scan" = "Скан";
 "badge.reaction" = "Реакция";
 "badge.probe" = "Зонд";

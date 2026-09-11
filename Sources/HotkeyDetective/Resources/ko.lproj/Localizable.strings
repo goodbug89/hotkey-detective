@@ -1,6 +1,7 @@
 /* Source badges */
 "badge.system" = "시스템";
 "badge.parser" = "설정";
+"badge.remap" = "리매핑";
 "badge.scan" = "스캔";
 "badge.reaction" = "반응";
 "badge.probe" = "탐침";

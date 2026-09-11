@@ -1,6 +1,7 @@
 /* Source badges */
 "badge.system" = "System";
 "badge.parser" = "Config";
+"badge.remap" = "Remap";
 "badge.scan" = "Scan";
 "badge.reaction" = "Reaction";
 "badge.probe" = "Probe";

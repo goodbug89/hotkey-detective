@@ -68,6 +68,7 @@ extension EvidenceSource {
         switch self {
         case .systemHotkeys: return L.t("badge.system")
         case .knownAppParser: return L.t("badge.parser")
+        case .keyRemap: return L.t("badge.remap")
         case .heuristicScan: return L.t("badge.scan")
         case .reaction: return L.t("badge.reaction")
         case .carbonProbe: return L.t("badge.probe")
@@ -77,7 +78,7 @@ extension EvidenceSource {
     /// 강한 근거(시스템·파서)는 강조색, 약하거나 관찰인 것은 중립색.
     var badgeTint: Color {
         switch self {
-        case .systemHotkeys, .knownAppParser: return .accentColor
+        case .systemHotkeys, .knownAppParser, .keyRemap: return .accentColor
         case .heuristicScan, .reaction, .carbonProbe: return .secondary
         }
     }

@@ -39,7 +39,7 @@ public struct KarabinerResolver: Resolver, Enumerable {
         }
         let active = isActive()
         return Self.hits(in: profile).map { hit in
-            (hit.combo, Evidence(source: .knownAppParser(appName: Self.name),
+            (hit.combo, Evidence(source: .keyRemap(appName: Self.name),
                 owner: .app(bundleID: Self.bundleID, name: Self.name, action: hit.action),
                 confidence: active ? .high : .low,
                 reason: .remap(app: Self.name, rule: hit.action,
@@ -122,6 +122,8 @@ public enum KarabinerKeyNames {
         "period": 47, "slash": 44, "caps_lock": 57,
         "f1": 122, "f2": 120, "f3": 99, "f4": 118, "f5": 96, "f6": 97, "f7": 98, "f8": 100,
         "f9": 101, "f10": 109, "f11": 103, "f12": 111, "f13": 105, "f14": 107, "f15": 113,
+        // F16–F20: Apple 확장 키보드에 있고, caps_lock → f19 같은 "하이퍼 키" 설정의 단골이다.
+        "f16": 106, "f17": 64, "f18": 79, "f19": 80, "f20": 90,
         "home": 115, "end": 119, "page_up": 116, "page_down": 121, "delete_forward": 117,
         "left_arrow": 123, "right_arrow": 124, "up_arrow": 126, "down_arrow": 125,
     ]

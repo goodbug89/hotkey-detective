@@ -1,5 +1,6 @@
 "badge.system" = "系統";
 "badge.parser" = "設定";
+"badge.remap" = "重新對應";
 "badge.scan" = "掃描";
 "badge.reaction" = "反應";
 "badge.probe" = "探測";

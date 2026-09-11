@@ -62,6 +62,9 @@ public struct Evidence: Hashable, Codable {
 public enum EvidenceSource: Hashable, Codable {
     case systemHotkeys
     case knownAppParser(appName: String)
+    /// 키를 등록하는 게 아니라 드라이버 단계에서 가로채 바꾸는 앱(Karabiner-Elements).
+    /// 설정 파일을 읽는 점은 파서와 같지만, 뜻이 정반대라 뱃지를 따로 둔다.
+    case keyRemap(appName: String)
     case heuristicScan
     case reaction
     case carbonProbe
@@ -71,6 +74,7 @@ public enum EvidenceSource: Hashable, Codable {
         switch self {
         case .systemHotkeys: return (0, "")
         case .knownAppParser(let app): return (1, app)
+        case .keyRemap(let app): return (1, app)
         case .heuristicScan: return (2, "")
         case .reaction: return (3, "")
         case .carbonProbe: return (4, "")
