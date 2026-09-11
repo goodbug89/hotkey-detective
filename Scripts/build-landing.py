@@ -105,9 +105,16 @@ def write_sitemap():
     # 오늘 날짜를 쓰면 생성할 때마다 sitemap이 바뀌어, "생성물이 원본과 같은가"를
     # CI에서 diff로 검사할 수 없다. 원본(Scripts/landing)의 마지막 커밋 날짜를 쓰면
     # 같은 저장소 상태에서는 항상 같은 결과가 나온다.
+    #
+    # 단, 원본에 아직 커밋되지 않은 수정이 있으면 오늘 날짜를 쓴다. 커밋 전에 빌드하면
+    # 이전 커밋 날짜가 박히고, 커밋 뒤 CI가 다시 빌드하면 새 커밋 날짜가 나와 diff가
+    # 어긋났다 — 원본을 고친 날과 커밋한 날이 같은 보통의 경우에는 오늘이 곧 커밋 날짜다.
     try:
-        day = subprocess.run(["git", "log", "-1", "--format=%cs", "--", str(SRC)],
-                             capture_output=True, text=True, cwd=ROOT, check=True).stdout.strip()
+        dirty = subprocess.run(["git", "status", "--porcelain", "--", str(SRC)],
+                               capture_output=True, text=True, cwd=ROOT, check=True).stdout.strip()
+        day = "" if dirty else subprocess.run(
+            ["git", "log", "-1", "--format=%cs", "--", str(SRC)],
+            capture_output=True, text=True, cwd=ROOT, check=True).stdout.strip()
     except Exception:
         day = ""
     if not day:
